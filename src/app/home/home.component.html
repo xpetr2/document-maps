@@ -1,0 +1,16 @@
+<!--<mat-form-field appearance="fill">
+  <mat-label>JSON</mat-label>
+  <textarea matInput placeholder="Enter JSON" formControlName="json"></textarea>
+</mat-form-field>-->
+
+<div class="graph-wrapper">
+  <app-graph
+    *ngIf="graphData"
+    [data]="graphData"
+    [minNormValue]="linkMin"
+    [maxNormValue]="linkMax"
+    (nodeClicked)="handleNodeClick($event)"
+    width="1200"
+    height="600"
+  ></app-graph>
+</div>
