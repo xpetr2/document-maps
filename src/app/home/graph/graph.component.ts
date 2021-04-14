@@ -1,7 +1,7 @@
 import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
 import * as d3 from 'd3';
 import {GraphData} from '../home.component';
-import {SimulationLinkDatum, SimulationNodeDatum} from 'd3';
+import {SimulationLinkDatum, SimulationNodeDatum, ZoomTransform} from 'd3';
 
 @Component({
   selector: 'app-graph',
@@ -21,6 +21,7 @@ export class GraphComponent implements OnInit {
   private g: any;
   private simulation: any;
   private zoom: any;
+  nodes: any;
 
   constructor() { }
 
@@ -36,10 +37,11 @@ export class GraphComponent implements OnInit {
         // (link.value - this.minNormValue) / (this.maxNormValue - this.minNormValue)
       .force('charge', d3.forceManyBody()
         .strength(-1))
-      .force('center', d3.forceCenter(this.width / 2, this.height / 2));
+      .force('center', d3.forceCenter(0, 0));
 
     this.initSvg();
     this.drawGraph();
+    // this.centerCamera(0, 0, 1);
   }
 
   initSvg(): void{
@@ -57,45 +59,63 @@ export class GraphComponent implements OnInit {
         this.g.attr('transform', transform);
       })
       .extent([[0, 0], [this.width, this.height]])
-      .scaleExtent([0.25, 8]);
+      .scaleExtent([1, 16]);
 
     this.svg.call(this.zoom);
   }
 
   drawGraph(): void{
-    const link = this.g.append('g')
+    /*const link = this.g.append('g')
       .attr('stroke', '#999')
       .attr('stroke-opacity', 0.6)
       .selectAll('line')
       .data(this.data.links)
       .join('line')
-      .attr('stroke-width', d => Math.sqrt(d.value / 10));
+      .attr('stroke-width', d => Math.sqrt(d.value / 10));*/
 
-    const node = this.g.append('g')
+    this.nodes = this.g.append('g')
       .attr('stroke', '#fff')
-      .attr('stroke-width', 0.25)
+      .attr('stroke-width', 0.2)
       .selectAll('circle')
       .data(this.data.nodes)
       .join('circle')
-      .attr('r', 2)
-      .attr('fill', '#ff0000')
+      .attr('r', 1.5)
+      .attr('fill', '#673ab7')
+      .attr('id', c => `node_${c.id}`)
       .on('click', (e) => {
-        this.nodeClicked.emit(e);
+        this.nodeClicked.emit({click: e, nodes: this.nodes, d3});
       });
 
-    node.append('title')
+    this.nodes.append('title')
       .text(d => d.id);
 
+    // center for debugging
+    /*this.g.append('circle')
+      .attr('cx', 0)
+      .attr('cy', 0)
+      .attr('r', 1)
+      .attr('fill', '#000000');*/
+
     this.simulation.on('tick', () => {
-      link
+      /*link
         .attr('x1', d => d.source.x)
         .attr('y1', d => d.source.y)
         .attr('x2', d => d.target.x)
-        .attr('y2', d => d.target.y);
+        .attr('y2', d => d.target.y);*/
 
-      node
+      this.nodes
         .attr('cx', d => d.x)
         .attr('cy', d => d.y);
     });
+  }
+
+  // Broken
+  centerCamera(x: number, y: number, k: number = 1): void {
+    this.g.transition()
+      .duration(250)
+      .call(this.zoom.translateTo, x, y);
+    this.g.transition()
+      .duration(250)
+      .call(this.zoom.scaleTo, k);
   }
 }

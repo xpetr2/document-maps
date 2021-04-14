@@ -1,0 +1,10 @@
+.sidenav-wrapper{
+  width: 400px;
+  padding: 1em;
+}
+
+.document-card {
+  max-height: 200px;
+  overflow: auto;
+  padding-bottom: 1em;
+}

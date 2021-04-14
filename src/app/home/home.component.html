@@ -3,14 +3,21 @@
   <textarea matInput placeholder="Enter JSON" formControlName="json"></textarea>
 </mat-form-field>-->
 
-<div class="graph-wrapper">
-  <app-graph
-    *ngIf="graphData"
-    [data]="graphData"
-    [minNormValue]="linkMin"
-    [maxNormValue]="linkMax"
-    (nodeClicked)="handleNodeClick($event)"
-    width="1200"
-    height="600"
-  ></app-graph>
-</div>
+<mat-drawer-container>
+  <mat-drawer #drawer mode="side" position="end">
+    <app-sidenav [selectedDocuments]="selectedDocuments" (sidebarClose)="drawer.close()"></app-sidenav>
+  </mat-drawer>
+  <mat-drawer-content>
+    <div class="graph-wrapper">
+      <app-graph
+        *ngIf="graphData"
+        [data]="graphData"
+        [minNormValue]="linkMin"
+        [maxNormValue]="linkMax"
+        (nodeClicked)="handleNodeClick($event)"
+        width="1200"
+        height="600"
+      ></app-graph>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>

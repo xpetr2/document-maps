@@ -80,4 +80,9 @@ export class QueryService {
     textSimilarity /= softCosineMeasureNorm(textID1, textID2);
     return textSimilarity;
   }
+
+  getDocumentText(textID: string, query: SearchQuery): string{
+    const text = query.texts[textID].map(word => this.getWord(word, query));
+    return text.join(' ');
+  }
 }
