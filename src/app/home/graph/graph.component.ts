@@ -1,6 +1,6 @@
 import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
 import * as d3 from 'd3';
-import {GraphData} from '../home.component';
+import {GraphData, GraphNode} from '../home.component';
 import {SimulationLinkDatum, SimulationNodeDatum, ZoomTransform} from 'd3';
 
 @Component({
@@ -16,7 +16,12 @@ export class GraphComponent implements OnInit {
   @Input() minNormValue: number;
   @Input() maxNormValue: number;
   @Input() distanceModifier = 1;
+  @Input() minZoom: number;
+  @Input() maxZoom: number;
+  @Input() startZoom: number;
   @Output() nodeClicked = new EventEmitter<any>();
+  @Output() emptyClicked = new EventEmitter<any>();
+  @Output() zoomed = new EventEmitter<any>();
   private svg: any;
   private g: any;
   private simulation: any;
@@ -31,22 +36,21 @@ export class GraphComponent implements OnInit {
 
   initSimulation(): void{
     this.simulation = d3.forceSimulation(this.data.nodes);
-    // @ts-ignore
-    this.simulation.force('link', d3.forceLink(this.data.links).id(d => d.id)
+    this.simulation.force('link', d3.forceLink(this.data.links).id((d: GraphNode) => d.id)
         .distance(link => (this.distanceModifier / link.value - this.distanceModifier)))
-        // (link.value - this.minNormValue) / (this.maxNormValue - this.minNormValue)
       .force('charge', d3.forceManyBody()
         .strength(-1))
       .force('center', d3.forceCenter(0, 0));
 
     this.initSvg();
     this.drawGraph();
-    this.centerCamera(0, 0, 4);
+    this.centerCamera(0, 0, this.startZoom);
   }
 
   initSvg(): void{
     this.svg = d3.select('figure#graph')
       .append('svg')
+      .attr('id', 'svg_wrapper')
       .attr('width', '100%')
       .attr('height', '100%')
       .attr('preserveAspectRatio', 'xMinYMin meet')
@@ -55,68 +59,69 @@ export class GraphComponent implements OnInit {
     this.g = this.svg.append('g');
 
     this.zoom = d3.zoom()
-      .on('zoom', ({transform}) => {
-        this.g.attr('transform', transform);
+      .on('zoom', (e) => {
+        if (e?.sourceEvent?.type === 'wheel' || e?.sourceEvent?.type === 'dblclick'){
+          this.zoomed.emit(e);
+        }
+        this.g.attr('transform', e.transform);
       })
 
-      .scaleExtent([1, 16]);
+      .scaleExtent([this.minZoom, this.maxZoom]);
 
     this.svg.call(this.zoom);
+
+    this.svg.on('click', (e) => {
+      if (e.target.id === this.svg.attr('id')){
+        this.emptyClicked.emit({click: e, d3});
+      }
+    });
   }
 
   drawGraph(): void{
-    /*const link = this.g.append('g')
-      .attr('stroke', '#999')
-      .attr('stroke-opacity', 0.6)
-      .selectAll('line')
-      .data(this.data.links)
-      .join('line')
-      .attr('stroke-width', d => Math.sqrt(d.value / 10));*/
-
     this.nodes = this.g.append('g')
-      .attr('stroke', '#fff')
-      .attr('stroke-width', 0.2)
-      .selectAll('circle')
+      .selectAll('.node-group')
       .data(this.data.nodes)
-      .join('circle')
-      .attr('r', 1.5)
+      .enter().append('g')
+      .attr('class', 'node-group');
+
+    this.nodes.append('circle')
+      .attr('r', 1)
       .attr('fill', c => c.group === 1 ? '#ffd740' : '#673ab7')
       .attr('id', c => `node_${c.group}_${c.id}`)
+      .attr('z-index', '1')
       .on('click', (e) => {
         this.nodeClicked.emit({click: e, nodes: this.nodes, d3});
       });
 
-    this.nodes.append('title')
-      .text(d => d.id);
+    this.nodes.append('text')
+      .attr('dx', 1.25)
+      .attr('dy', '.35em')
+      .attr('font-size', '0.075em')
+      .attr('class', 'clickable-through node-label')
+      .attr('z-index', '2')
+      .text(c => c.id);
 
-    // center for debugging
-    /*this.g.append('circle')
-      .attr('cx', 0)
-      .attr('cy', 0)
-      .attr('r', 1)
-      .attr('fill', '#000000');*/
+    this.nodes.select('node-label').raise();
+
+    this.nodes.append('div')
+      .attr('class', 'top-matches');
 
     this.simulation.on('tick', () => {
-      /*link
-        .attr('x1', d => d.source.x)
-        .attr('y1', d => d.source.y)
-        .attr('x2', d => d.target.x)
-        .attr('y2', d => d.target.y);*/
-
-      this.nodes
-        .attr('cx', d => d.x)
-        .attr('cy', d => d.y);
+      this.nodes.attr('transform', d => `translate(${d.x}, ${d.y})`);
     });
   }
 
-  // Broken
   centerCamera(x: number, y: number, k: number = 1): void {
-    const width = this.svg.style('width').replace('px', '');
-    const height = this.svg.style('height').replace('px', '');
-    console.log(x - (+width / 2), y - (+height / 2));
-    this.svg.call(this.zoom.scaleBy, k);
+    // this.g.node().getBBox()
+    this.svg.call(this.zoom.scaleTo, k);
     this.svg.transition()
       .duration(250)
       .call(this.zoom.translateTo, x, y);
+  }
+
+  setZoom(value: number): void{
+    this.svg.transition()
+      .duration(250)
+      .call(this.zoom.scaleTo, value);
   }
 }

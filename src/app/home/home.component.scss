@@ -15,3 +15,78 @@ app-sidenav{
   display: flex;
   height: 100%;
 }
+
+.map-controls{
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  padding: 2em;
+  z-index: 1;
+
+  .center-control, .zoom-controls{
+    background: #fff;
+    border-radius: 6px;
+    box-shadow: rgba(0, 0, 0, 0.1) 2px 2px 8px;
+    overflow: hidden;
+  }
+
+  .center-control{
+    margin-bottom: 1em;
+  }
+
+  .zoom-controls{
+    display: flex;
+    flex-direction: column;
+
+    mat-slider{
+      width: 40px;
+      padding: 0;
+      height: 128px;
+
+      ::ng-deep .mat-slider-wrapper{
+        top: 0;
+        bottom: 0;
+        left: 19px;
+      }
+    }
+  }
+}
+
+.error-legend{
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 2em;
+  z-index: 1;
+
+  >.inner {
+    position: relative;
+    background: #fff;
+    border-radius: 6px;
+    box-shadow: rgba(0, 0, 0, 0.1) 2px 2px 8px;
+    overflow: hidden;
+
+    .bar {
+      height: 128px;
+      width: 8px;
+      background: linear-gradient(to top, rgb(176, 55, 55) 0%, rgb(55, 176, 59) 50%, rgb(69, 55, 176) 100%);
+    }
+
+    .up {
+      position: absolute;
+      top: 0;
+    }
+    .middle {
+      position: absolute;
+      top: 50%;
+    }
+    .bottom {
+      position: absolute;
+      bottom: 0;
+    }
+  }
+}

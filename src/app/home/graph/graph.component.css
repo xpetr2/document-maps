@@ -12,3 +12,12 @@ figure{
 #graph > svg{
   height: 100%;
 }
+
+::ng-deep .clickable-through{
+  pointer-events: none;
+  user-select: none;
+}
+
+::ng-deep .node-label{
+  z-index: 2;
+}

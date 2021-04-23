@@ -4,6 +4,8 @@ import {QueryService, SearchQuery} from '../services/query.service';
 import {SimulationLinkDatum, SimulationNodeDatum} from 'd3';
 import {MatDrawer} from '@angular/material/sidenav';
 import {SelectedDocument} from './sidenav/sidenav.component';
+import {MatSliderChange} from '@angular/material/slider';
+import {GraphComponent} from './graph/graph.component';
 
 export interface GraphNode extends SimulationNodeDatum{
   id: string;
@@ -42,6 +44,11 @@ export class HomeComponent implements OnInit {
   linkMin = 1;
   linkMax = -1;
 
+  minZoom = 1;
+  maxZoom = 32;
+  currentZoom = 4;
+  defaultStepZoom = 0.25;
+
   selectedNodes: string[] = [];
   selectedDocuments: SelectedDocument[] = [];
 
@@ -49,6 +56,7 @@ export class HomeComponent implements OnInit {
   wordPairs: {};
 
   @ViewChild('drawer') sidebar: MatDrawer;
+  @ViewChild('graph') graph: GraphComponent;
 
   constructor(private queryService: QueryService) { }
 
@@ -155,7 +163,8 @@ export class HomeComponent implements OnInit {
   }
 
   handleNodeClick($event: any): void {
-    const id = ($event.click.target) ? ($event.click.target as any).computedName : undefined;
+    const re = /^node_\d+_(.*)$/;
+    const id = ($event.click.target) ? re.exec(($event.click.target as any).id)[1] : undefined;
     const oldSelection = this.selectedNodes.slice();
     this.sidebar.open();
     this.comparingWindowOpen = false;
@@ -204,6 +213,15 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  clearSelection(event: any): void{
+    const oldSelection = this.selectedNodes;
+    this.selectedNodes = [];
+    this.sidebar.close();
+    this.comparingWindowOpen = false;
+    this.redrawSelection(oldSelection, event.d3);
+    this.generateSelectedDocuments();
+  }
+
   calculateDeviation(sourceNode: any, targetNode: any, sourceID: string, targetID: string): number{
     const distance = Math.sqrt(
       (sourceNode.attr('cx') - targetNode.attr('cx')) * (sourceNode.attr('cx') - targetNode.attr('cx')) +
@@ -215,7 +233,7 @@ export class HomeComponent implements OnInit {
 
   normalizeDeviation(x: number): number{
     const stiffness = 0.1;
-    return Math.abs((1 + x / (1 + Math.abs(x * stiffness))) * 0.5 - 0.5) * 2 * stiffness;
+    return ((1 + x / (1 + Math.abs(x * stiffness))) - 1)  * stiffness;
   }
 
   colorGradient(color1: Color, color2: Color, gradient: number): Color {
@@ -242,8 +260,10 @@ export class HomeComponent implements OnInit {
       const sourceNode = d3.select(`[id^="node_"][id$="${selectedNode.replace('.', '\\.')}"]`);
       const deviation = this.calculateDeviation(sourceNode, targetNode, selectedNode, id);
       const correctColor = {r: 55, g: 176, b: 59};
-      const wrongColor = {r: 176, g: 55, b: 55};
-      targetNode.attr('fill', this.colorToHex(this.colorGradient(correctColor, wrongColor, deviation)));
+      const farColor = {r: 176, g: 55, b: 55};
+      const closeColor = {r: 69, g: 55, b: 176};
+      const color = this.colorToHex(this.colorGradient(correctColor, deviation < 0 ? closeColor : farColor, Math.abs(deviation)));
+      targetNode.attr('fill', color);
     }
   }
 
@@ -254,5 +274,27 @@ export class HomeComponent implements OnInit {
 
   handleCompareClick(): void{
     this.comparingWindowOpen = !this.comparingWindowOpen;
+  }
+
+  centerCamera(): void{
+    this.graph.centerCamera(0, 0, this.currentZoom);
+  }
+
+  increaseCamera(): void{
+    this.changeCamera(this.currentZoom + this.defaultStepZoom * 4);
+  }
+
+  decreaseCamera(): void{
+    this.changeCamera(this.currentZoom - this.defaultStepZoom * 4);
+  }
+
+  changeCamera(value: number): void{
+    value = Math.max(Math.min(value, this.maxZoom), this.minZoom);
+    this.currentZoom = value;
+    this.graph.setZoom(value);
+  }
+
+  handleZoomed(e: any): void{
+    this.currentZoom = e?.transform?.k ?? this.currentZoom;
   }
 }
