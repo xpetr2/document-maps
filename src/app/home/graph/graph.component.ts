@@ -47,8 +47,8 @@ export class GraphComponent implements OnInit {
   initSvg(): void{
     this.svg = d3.select('figure#graph')
       .append('svg')
-      /*.attr('width', this.width)
-      .attr('height', this.height);*/
+      .attr('width', '100%')
+      .attr('height', '100%')
       .attr('preserveAspectRatio', 'xMinYMin meet')
       .attr('viewBox', '0 0 960 500');
 

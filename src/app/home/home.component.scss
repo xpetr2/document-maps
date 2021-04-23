@@ -1,0 +1,17 @@
+.graph-wrapper{
+  width: 100%;
+  height: 100%;
+}
+
+.compare-sidenav{
+  transition: 0.5s width;
+  width: 401px;
+  &.comparing {
+    width: 60%;
+  }
+}
+
+app-sidenav{
+  display: flex;
+  height: 100%;
+}

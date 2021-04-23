@@ -31,7 +31,7 @@ export interface Color{
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.scss']
 })
 
 export class HomeComponent implements OnInit {
@@ -44,6 +44,9 @@ export class HomeComponent implements OnInit {
 
   selectedNodes: string[] = [];
   selectedDocuments: SelectedDocument[] = [];
+
+  comparingWindowOpen = false;
+  wordPairs: {};
 
   @ViewChild('drawer') sidebar: MatDrawer;
 
@@ -174,7 +177,7 @@ export class HomeComponent implements OnInit {
       const title = `Document ${id}`;
       const subtitle = `${id}`;
       const content = this.queryService.getDocumentText(id, this.searchQuery);
-      this.selectedDocuments.push({title, subtitle, content});
+      this.selectedDocuments.push({id, title, subtitle, content});
     }
   }
 
@@ -237,5 +240,9 @@ export class HomeComponent implements OnInit {
 
   clearDeviation(d3: any): void{
     d3.selectAll(`[id^="node_"]`).attr('fill', '#673ab7');
+  }
+
+  handleCompareClick(): void{
+    this.comparingWindowOpen = !this.comparingWindowOpen;
   }
 }

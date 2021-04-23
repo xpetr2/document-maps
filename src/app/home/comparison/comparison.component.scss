@@ -1,0 +1,25 @@
+.comparison-wrapper{
+  height: 100%;
+}
+.comparison-matches {
+  display: flex;
+  flex-direction: column;
+  height: 50%;
+  overflow: auto;
+  padding: 2em;
+  position: relative;
+
+  ::ng-deep {
+    app-comparison-entry {
+      border-radius: 5px;
+      padding: 0 1em;
+      margin-bottom: 1px;
+      &:nth-child(odd){
+        background-color: #fafafa;
+      }
+      &:nth-child(even){
+        background-color: #eeeeee;
+      }
+    }
+  }
+}

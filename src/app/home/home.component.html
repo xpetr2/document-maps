@@ -4,8 +4,13 @@
 </mat-form-field>-->
 
 <mat-drawer-container>
-  <mat-drawer #drawer mode="side" position="end">
-    <app-sidenav [selectedDocuments]="selectedDocuments" (sidebarClose)="drawer.close()"></app-sidenav>
+  <mat-drawer class="compare-sidenav" [ngClass]="{'comparing': comparingWindowOpen}" #drawer mode="side" position="end">
+    <app-sidenav [selectedDocuments]="selectedDocuments"
+                 [comparingWindowOpen]="comparingWindowOpen"
+                 [searchQuery]="searchQuery"
+                 (sidebarClose)="drawer.close()"
+                 (compareClick)="handleCompareClick()"
+    ></app-sidenav>
   </mat-drawer>
   <mat-drawer-content>
     <div class="graph-wrapper">

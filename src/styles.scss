@@ -1,17 +1,21 @@
 @import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
 @import '~material-icons/iconfont/material-icons.scss';
 
-
+*{
+  box-sizing: border-box;
+}
 body {
   margin: 0;
 }
 
-mat-sidenav-container, mat-sidenav-content, mat-sidenav {
+mat-drawer-container, mat-sidenav-container, mat-sidenav-content, mat-sidenav {
   height: 100%;
 }
 
-mat-sidenav-content{
+.app-wrapper{
   overflow: hidden !important;
+  width: 100%;
+  height: 100%;
 }
 
 main {
@@ -57,3 +61,22 @@ a:hover, a:active {
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #eeeeee;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #aaaaaa;
+  border-radius: 10px;
+  transition: background 0.2s;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #bbbbbb;
+}
