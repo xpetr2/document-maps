@@ -54,13 +54,13 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.searchQuery = (DocumentJson as any).default;
-    const keys = Object.entries(this.searchQuery.texts);
+    const keys = Object.entries(this.searchQuery.results);
     const ae = {};
-    for (let i = 0; i < 50; i++){
+    for (let i = 0; i < 5; i++){
       const [k, v] = keys[i];
       ae[k] = v;
     }
-    this.searchQuery.texts = ae;
+    this.searchQuery.results = ae;
     console.log(this.searchQuery);
 
     const nodes = this.createNodes(this.searchQuery);
@@ -72,7 +72,7 @@ export class HomeComponent implements OnInit {
 
   createNodes(query: SearchQuery): GraphNode[]{
     const nodes: GraphNode[] = [];
-    const entries = Object.entries(query.texts);
+    const entries = Object.entries(query.results);
     /*for (const [qID, res] of entries){
       const node = {id: qID, group: 1};
       nodes.push(node);
@@ -81,10 +81,15 @@ export class HomeComponent implements OnInit {
         nodes.push({id: dID, group: 1});
       }
     }*/
-    for (const [id, text] of entries){
+    for (const [id, docs] of entries){
       const node = {id, group: 1};
       nodes.push(node);
-      this.nodes[id] = node;
+      for (const d of docs) {
+        const doc = {id: d, group: 2};
+        nodes.push(doc);
+        this.nodes[d] = {node: doc, type: 'document'};
+      }
+      this.nodes[id] = {node, type: 'query'};
     }
     return nodes;
   }
@@ -124,7 +129,7 @@ export class HomeComponent implements OnInit {
 
   createLinks(query: SearchQuery): GraphLink[]{
     const links: GraphLink[] = [];
-    const documents = Object.keys(query.texts);
+    const documents = Object.keys(this.nodes);
     console.log(documents);
     const t0 = performance.now();
     let min = 1;
@@ -153,6 +158,7 @@ export class HomeComponent implements OnInit {
     const id = ($event.click.target) ? ($event.click.target as any).computedName : undefined;
     const oldSelection = this.selectedNodes.slice();
     this.sidebar.open();
+    this.comparingWindowOpen = false;
     if (id) {
       if (this.selectedNodes.length === 1 && this.selectedNodes[0] === id){
         this.selectedNodes = [];
@@ -166,6 +172,9 @@ export class HomeComponent implements OnInit {
       } else {
         this.selectedNodes = [id];
       }
+    }
+    if (this.selectedNodes.length === 0){
+      this.sidebar.close();
     }
     this.redrawSelection(oldSelection, $event.d3);
     this.generateSelectedDocuments();
@@ -188,10 +197,10 @@ export class HomeComponent implements OnInit {
       this.clearDeviation(d3);
     }
     for (const id of oldSelection){
-      d3.select(`#node_${id}`).attr('class', '');
+      d3.select(`[id^="node_"][id$="${id.replace('.', '\\.')}"]`).attr('class', '');
     }
     for (const id of this.selectedNodes){
-      d3.select(`#node_${id}`).attr('class', 'selected');
+      d3.select(`[id^="node_"][id$="${id.replace('.', '\\.')}"]`).attr('class', 'selected');
     }
   }
 
@@ -229,8 +238,8 @@ export class HomeComponent implements OnInit {
       if (id === selectedNode) {
         continue;
       }
-      const targetNode = d3.select(`#node_${id}`);
-      const sourceNode = d3.select(`#node_${selectedNode}`);
+      const targetNode = d3.select(`[id^="node_"][id$="${id.replace('.', '\\.')}"]`);
+      const sourceNode = d3.select(`[id^="node_"][id$="${selectedNode.replace('.', '\\.')}"]`);
       const deviation = this.calculateDeviation(sourceNode, targetNode, selectedNode, id);
       const correctColor = {r: 55, g: 176, b: 59};
       const wrongColor = {r: 176, g: 55, b: 55};
@@ -239,7 +248,8 @@ export class HomeComponent implements OnInit {
   }
 
   clearDeviation(d3: any): void{
-    d3.selectAll(`[id^="node_"]`).attr('fill', '#673ab7');
+    d3.selectAll(`[id^="node_2_"]`).attr('fill', '#673ab7');
+    d3.selectAll(`[id^="node_1_"]`).attr('fill', '#ffd740');
   }
 
   handleCompareClick(): void{

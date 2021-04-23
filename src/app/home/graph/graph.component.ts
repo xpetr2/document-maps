@@ -41,7 +41,7 @@ export class GraphComponent implements OnInit {
 
     this.initSvg();
     this.drawGraph();
-    // this.centerCamera(0, 0, 1);
+    this.centerCamera(0, 0, 4);
   }
 
   initSvg(): void{
@@ -58,7 +58,7 @@ export class GraphComponent implements OnInit {
       .on('zoom', ({transform}) => {
         this.g.attr('transform', transform);
       })
-      .extent([[0, 0], [this.width, this.height]])
+
       .scaleExtent([1, 16]);
 
     this.svg.call(this.zoom);
@@ -80,8 +80,8 @@ export class GraphComponent implements OnInit {
       .data(this.data.nodes)
       .join('circle')
       .attr('r', 1.5)
-      .attr('fill', '#673ab7')
-      .attr('id', c => `node_${c.id}`)
+      .attr('fill', c => c.group === 1 ? '#ffd740' : '#673ab7')
+      .attr('id', c => `node_${c.group}_${c.id}`)
       .on('click', (e) => {
         this.nodeClicked.emit({click: e, nodes: this.nodes, d3});
       });
@@ -111,11 +111,12 @@ export class GraphComponent implements OnInit {
 
   // Broken
   centerCamera(x: number, y: number, k: number = 1): void {
-    this.g.transition()
+    const width = this.svg.style('width').replace('px', '');
+    const height = this.svg.style('height').replace('px', '');
+    console.log(x - (+width / 2), y - (+height / 2));
+    this.svg.call(this.zoom.scaleBy, k);
+    this.svg.transition()
       .duration(250)
       .call(this.zoom.translateTo, x, y);
-    this.g.transition()
-      .duration(250)
-      .call(this.zoom.scaleTo, k);
   }
 }
