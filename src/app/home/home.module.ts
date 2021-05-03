@@ -8,9 +8,10 @@ import { GraphComponent } from './graph/graph.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { ComparisonComponent } from './comparison/comparison.component';
 import { ComparisonEntryComponent } from './comparison/comparison-entry/comparison-entry.component';
+import { SettingsComponent } from './settings/settings.component';
 
 @NgModule({
-  declarations: [HomeComponent, GraphComponent, SidenavComponent, ComparisonComponent, ComparisonEntryComponent],
+  declarations: [HomeComponent, GraphComponent, SidenavComponent, ComparisonComponent, ComparisonEntryComponent, SettingsComponent],
   imports: [
     CommonModule,
     MaterialModule,

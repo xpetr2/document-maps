@@ -1,8 +1,3 @@
-<!--<mat-form-field appearance="fill">
-  <mat-label>JSON</mat-label>
-  <textarea matInput placeholder="Enter JSON" formControlName="json"></textarea>
-</mat-form-field>-->
-
 <mat-drawer-container>
   <mat-drawer class="compare-sidenav" [ngClass]="{'comparing': comparingWindowOpen}" #drawer mode="side" position="end">
     <app-sidenav [selectedDocuments]="selectedDocuments"
@@ -17,6 +12,7 @@
       <app-graph
         #graph
         *ngIf="graphData"
+        [showLabels]="settings.showLabels"
         [data]="graphData"
         [minNormValue]="linkMin"
         [maxNormValue]="linkMax"
@@ -32,6 +28,14 @@
     </div>
   </mat-drawer-content>
 </mat-drawer-container>
+<div class="ui-top-left">
+  <div class="settings" [class.opened]="settingsOpen">
+    <button mat-icon-button aria-label="Open/close settings" (click)="settingsOpen = !settingsOpen">
+      <mat-icon>{{settingsOpen ? 'close' : 'settings'}}</mat-icon>
+    </button>
+    <app-settings *ngIf="settingsOpen" [(settings)]="settings"></app-settings>
+  </div>
+</div>
 <div class="map-controls">
   <div class="center-control">
     <button mat-icon-button aria-label="Center map" (click)="centerCamera()">

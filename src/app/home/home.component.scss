@@ -54,6 +54,30 @@ app-sidenav{
   }
 }
 
+.ui-top-left{
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 2em;
+  z-index: 1;
+
+  .settings{
+    background: #fff;
+    border-radius: 6px;
+    box-shadow: rgba(0, 0, 0, 0.1) 2px 2px 8px;
+    overflow: hidden;
+    transition: 0.1s;
+    display: flex;
+    flex-direction: column;
+
+    app-settings{
+      padding: 0.25em 1em 1em;
+    }
+  }
+}
+
 .error-legend{
   display: flex;
   flex-direction: column;

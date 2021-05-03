@@ -1,14 +1,15 @@
-import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
+import {Component, Input, OnInit, Output, EventEmitter, OnChanges, SimpleChanges} from '@angular/core';
 import * as d3 from 'd3';
 import {GraphData, GraphNode} from '../home.component';
 import {SimulationLinkDatum, SimulationNodeDatum, ZoomTransform} from 'd3';
+import {AppSettings} from '../settings/settings.component';
 
 @Component({
   selector: 'app-graph',
   templateUrl: './graph.component.html',
   styleUrls: ['./graph.component.css']
 })
-export class GraphComponent implements OnInit {
+export class GraphComponent implements OnInit, OnChanges {
 
   @Input() data: GraphData;
   @Input() width: number;
@@ -19,6 +20,7 @@ export class GraphComponent implements OnInit {
   @Input() minZoom: number;
   @Input() maxZoom: number;
   @Input() startZoom: number;
+  @Input() showLabels: boolean;
   @Output() nodeClicked = new EventEmitter<any>();
   @Output() emptyClicked = new EventEmitter<any>();
   @Output() zoomed = new EventEmitter<any>();
@@ -32,6 +34,13 @@ export class GraphComponent implements OnInit {
 
   ngOnInit(): void {
     this.initSimulation();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes?.showLabels?.previousValue !== undefined && changes?.showLabels?.currentValue !== changes?.showLabels?.previousValue){
+      const showLabels = changes?.showLabels?.currentValue;
+      this.redrawLabels(showLabels);
+    }
   }
 
   initSimulation(): void{
@@ -93,22 +102,40 @@ export class GraphComponent implements OnInit {
         this.nodeClicked.emit({click: e, nodes: this.nodes, d3});
       });
 
-    this.nodes.append('text')
-      .attr('dx', 1.25)
-      .attr('dy', '.35em')
-      .attr('font-size', '0.075em')
-      .attr('class', 'clickable-through node-label')
-      .attr('z-index', '2')
-      .text(c => c.id);
+    if (this.showLabels) {
+      this.nodes.append('text')
+        .attr('dx', 1.25)
+        .attr('dy', '.35em')
+        .attr('font-size', '0.075em')
+        .attr('class', 'clickable-through node-label')
+        .attr('z-index', '2')
+        .text(c => c.id);
 
-    this.nodes.select('node-label').raise();
+      this.nodes.select('node-label').raise();
+    }
 
-    this.nodes.append('div')
-      .attr('class', 'top-matches');
+    // this.nodes.append('div')
+    //   .attr('class', 'top-matches');
 
     this.simulation.on('tick', () => {
       this.nodes.attr('transform', d => `translate(${d.x}, ${d.y})`);
     });
+  }
+
+  redrawLabels(showLabels: boolean): void{
+    if (showLabels) {
+      this.nodes.append('text')
+        .attr('dx', 1.25)
+        .attr('dy', '.35em')
+        .attr('font-size', '0.075em')
+        .attr('class', 'clickable-through node-label')
+        .attr('z-index', '2')
+        .text(c => c.id);
+
+      this.nodes.select('node-label').raise();
+    } else {
+      this.nodes.selectAll('text').remove();
+    }
   }
 
   centerCamera(x: number, y: number, k: number = 1): void {

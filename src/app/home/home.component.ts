@@ -6,6 +6,7 @@ import {MatDrawer} from '@angular/material/sidenav';
 import {SelectedDocument} from './sidenav/sidenav.component';
 import {MatSliderChange} from '@angular/material/slider';
 import {GraphComponent} from './graph/graph.component';
+import {AppSettings} from './settings/settings.component';
 
 export interface GraphNode extends SimulationNodeDatum{
   id: string;
@@ -53,6 +54,10 @@ export class HomeComponent implements OnInit {
   selectedDocuments: SelectedDocument[] = [];
 
   comparingWindowOpen = false;
+  settingsOpen = false;
+  settings: AppSettings = {
+    showLabels: true
+  };
   wordPairs: {};
 
   @ViewChild('drawer') sidebar: MatDrawer;
@@ -81,14 +86,6 @@ export class HomeComponent implements OnInit {
   createNodes(query: SearchQuery): GraphNode[]{
     const nodes: GraphNode[] = [];
     const entries = Object.entries(query.results);
-    /*for (const [qID, res] of entries){
-      const node = {id: qID, group: 1};
-      nodes.push(node);
-      this.nodes[qID] = node;
-      for (const dID of res){
-        nodes.push({id: dID, group: 1});
-      }
-    }*/
     for (const [id, docs] of entries){
       const node = {id, group: 1};
       nodes.push(node);
@@ -101,39 +98,6 @@ export class HomeComponent implements OnInit {
     }
     return nodes;
   }
-
-  /*createLinks(query: SearchQuery): GraphLink[]{
-    const links: GraphLink[] = [];
-    const queryEntries = Object.entries(query.results);
-    for (const [qID, res] of queryEntries){
-      const iter = [qID, ...res];
-      for (let i = 0; i < iter.length; i++){
-        for (let j = (i + 1); j < iter.length; j++){
-          const scm = this.queryService.getSoftCosineMeasure(iter[i], iter[j], query);
-          links.push({source: iter[i], target: iter[j], value: scm});
-        }
-      }
-    }
-    let min = 10000;
-    let max = -10000;
-    for (let i = 0; i < queryEntries.length; i++){
-      for (let j = (i + 1); j < queryEntries.length; j++){
-        const [q1k, q1v] = queryEntries[i];
-        const [q2k, q2v] = queryEntries[j];
-        const scm = this.queryService.getSoftCosineMeasure(q1k, q2k, query);
-        if (scm < min) {
-          min = scm;
-        }
-        if (scm > max) {
-          max = scm;
-        }
-        links.push({source: q1k, target: q2k, value: scm});
-      }
-    }
-    this.linkMin = min;
-    this.linkMax = max;
-    return links;
-  }*/
 
   createLinks(query: SearchQuery): GraphLink[]{
     const links: GraphLink[] = [];
@@ -223,6 +187,7 @@ export class HomeComponent implements OnInit {
   }
 
   calculateDeviation(sourceNode: any, targetNode: any, sourceID: string, targetID: string): number{
+    // todo: calculate using  cosine distance
     const distance = Math.sqrt(
       (sourceNode.attr('cx') - targetNode.attr('cx')) * (sourceNode.attr('cx') - targetNode.attr('cx')) +
       (sourceNode.attr('cy') - targetNode.attr('cy')) * (sourceNode.attr('cy') - targetNode.attr('cy'))
