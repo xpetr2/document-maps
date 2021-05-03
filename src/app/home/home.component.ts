@@ -47,7 +47,7 @@ export class HomeComponent implements OnInit {
 
   minZoom = 1;
   maxZoom = 32;
-  currentZoom = 4;
+  currentZoom = this.pow2(2.5);
   defaultStepZoom = 0.25;
 
   selectedNodes: string[] = [];
@@ -246,11 +246,11 @@ export class HomeComponent implements OnInit {
   }
 
   increaseCamera(): void{
-    this.changeCamera(this.currentZoom + this.defaultStepZoom * 4);
+    this.changeCamera(this.pow2(this.log2(this.currentZoom) + this.defaultStepZoom));
   }
 
   decreaseCamera(): void{
-    this.changeCamera(this.currentZoom - this.defaultStepZoom * 4);
+    this.changeCamera(this.pow2(this.log2(this.currentZoom) - this.defaultStepZoom));
   }
 
   changeCamera(value: number): void{
@@ -259,7 +259,15 @@ export class HomeComponent implements OnInit {
     this.graph.setZoom(value);
   }
 
-  handleZoomed(e: any): void{
+  handleZoomed(e: any): void {
     this.currentZoom = e?.transform?.k ?? this.currentZoom;
+  }
+
+  log2(n: number): number{
+    return Math.log2(n);
+  }
+
+  pow2(n: number): number{
+    return Math.pow(2, n);
   }
 }

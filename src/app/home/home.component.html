@@ -46,7 +46,7 @@
     <button mat-icon-button aria-label="Increase zoom" (click)="increaseCamera()">
       <mat-icon>add_circle_outline</mat-icon>
     </button>
-    <mat-slider vertical [min]="minZoom" [max]="maxZoom" [step]="defaultStepZoom" [(value)]="currentZoom" (valueChange)="changeCamera($event)"></mat-slider>
+    <mat-slider vertical [min]="log2(minZoom)" [max]="log2(maxZoom)" [step]="defaultStepZoom" [value]="log2(currentZoom)" (valueChange)="changeCamera(pow2($event))"></mat-slider>
     <button mat-icon-button aria-label="Decrease zoom" (click)="decreaseCamera()">
       <mat-icon>remove_circle_outline</mat-icon>
     </button>
