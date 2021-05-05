@@ -33,7 +33,7 @@ export class DocumentContentComponent implements OnInit, OnChanges {
     if (this.highlightedWords) {
       for (const word of this.highlightedWords) {
         const escapedWord = this.escapeHtml.transform(word);
-        const re = new RegExp(`${escapeStringRegexp(escapedWord)}`, 'g');
+        const re = new RegExp(`\\b${escapeStringRegexp(escapedWord)}\\b`, 'g');
         const wordClass = this.hoveredWord && this.highlightedWords.includes(this.hoveredWord) && word !== this.hoveredWord ? 'lowlight' : 'highlight';
         escapedContent = escapedContent.replace(re, `<span class="${wordClass}">${escapedWord}</span>`);
       }
