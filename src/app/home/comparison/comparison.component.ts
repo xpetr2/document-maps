@@ -1,6 +1,18 @@
-import {Component, Input, OnChanges, OnInit, Query, SimpleChanges} from '@angular/core';
+import {Component, HostListener, Input, OnChanges, OnInit, Query, SimpleChanges, ViewChild, EventEmitter, Output} from '@angular/core';
 import {QueryService, SearchQuery} from '../../services/query.service';
 import {SelectedDocument} from '../sidenav/sidenav.component';
+
+export interface ExactMatch {
+  word: string;
+}
+
+export interface SoftMatch {
+  parent: string;
+  softWord: string;
+  strength: number;
+}
+
+export type WordSet = Map<string, ExactMatch | SoftMatch>;
 
 @Component({
   selector: 'app-comparison',
@@ -11,14 +23,17 @@ export class ComparisonComponent implements OnInit, OnChanges {
 
   @Input() searchQuery: SearchQuery;
   @Input() selectedDocuments: SelectedDocument[];
+  @Output() wordsChanged = new EventEmitter<WordSet>();
 
   wordPairs: {};
   sortedWordPairsExact: any[];
   sortedWordPairsSoft: any[];
+  selectedWords: WordSet = new Map<string, ExactMatch | SoftMatch>();
+  matchesScrollable = false;
 
-  constructor(private queryService: QueryService) {
-    this.queryService = queryService;
-  }
+  @ViewChild('matches') matches: HTMLElement;
+
+  constructor(private queryService: QueryService) {}
 
   ngOnInit(): void {
     if (this.selectedDocuments?.length === 2){
@@ -27,8 +42,11 @@ export class ComparisonComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.selectedDocuments && this.selectedDocuments?.length === 2){
-      this.generateWordPairs();
+    if (changes.selectedDocuments){
+      if (changes.selectedDocuments.currentValue.length === 2) {
+        this.generateWordPairs();
+      }
+      this.clearWordSelection();
     }
   }
 
@@ -46,7 +64,6 @@ export class ComparisonComponent implements OnInit, OnChanges {
     });
     items.sort((first, second) => second[1] - first[1]);
     this.sortedWordPairsExact = items;
-    console.log(this.sortedWordPairsExact);
   }
 
   generateSoftPairs(): void{
@@ -56,7 +73,23 @@ export class ComparisonComponent implements OnInit, OnChanges {
     });
     items.sort((first, second) => second[1] - first[1]);
     this.sortedWordPairsSoft = items;
-    console.log(this.sortedWordPairsSoft);
   }
 
+  checkOverflow(element: HTMLElement): void {
+    this.matchesScrollable = element.offsetHeight < element.scrollHeight;
+  }
+
+  handleWordSelection(event: { word: string, checked: boolean }): void {
+    if (event.checked){
+      this.selectedWords.set(event.word, {word: event.word});
+    } else {
+      this.selectedWords.delete(event.word);
+    }
+    this.wordsChanged.emit(this.selectedWords);
+  }
+
+  clearWordSelection(): void{
+    this.selectedWords.clear();
+    this.wordsChanged.emit(this.selectedWords);
+  }
 }

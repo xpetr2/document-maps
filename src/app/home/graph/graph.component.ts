@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, Output, EventEmitter, OnChanges, SimpleChanges} from '@angular/core';
+import {Component, Input, OnInit, Output, EventEmitter, OnChanges, SimpleChanges, ChangeDetectorRef} from '@angular/core';
 import * as d3 from 'd3';
 import {GraphData, GraphNode} from '../home.component';
 import {SimulationLinkDatum, SimulationNodeDatum, ZoomTransform} from 'd3';
@@ -7,15 +7,13 @@ import {AppSettings} from '../settings/settings.component';
 @Component({
   selector: 'app-graph',
   templateUrl: './graph.component.html',
-  styleUrls: ['./graph.component.css']
+  styleUrls: ['./graph.component.scss']
 })
 export class GraphComponent implements OnInit, OnChanges {
 
   @Input() data: GraphData;
   @Input() width: number;
   @Input() height: number;
-  @Input() minNormValue: number;
-  @Input() maxNormValue: number;
   @Input() distanceModifier = 1;
   @Input() minZoom: number;
   @Input() maxZoom: number;
@@ -30,7 +28,7 @@ export class GraphComponent implements OnInit, OnChanges {
   private zoom: any;
   nodes: any;
 
-  constructor() { }
+  constructor(private changeDetector: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.initSimulation();
@@ -40,6 +38,10 @@ export class GraphComponent implements OnInit, OnChanges {
     if (changes?.showLabels?.previousValue !== undefined && changes?.showLabels?.currentValue !== changes?.showLabels?.previousValue){
       const showLabels = changes?.showLabels?.currentValue;
       this.redrawLabels(showLabels);
+    }
+    if (changes?.width?.previousValue !== undefined && changes?.width.currentValue !== changes?.width.previousValue ||
+        changes?.height?.previousValue !== undefined && changes?.height.currentValue !== changes?.height.previousValue){
+        this.svg.attr('viewBox', `0 0 ${this.width} ${this.height}`);
     }
   }
 
@@ -63,7 +65,7 @@ export class GraphComponent implements OnInit, OnChanges {
       .attr('width', '100%')
       .attr('height', '100%')
       .attr('preserveAspectRatio', 'xMinYMin meet')
-      .attr('viewBox', '0 0 960 500');
+      .attr('viewBox', `0 0 ${this.width} ${this.height}`);
 
     this.g = this.svg.append('g');
 
@@ -150,5 +152,10 @@ export class GraphComponent implements OnInit, OnChanges {
     this.svg.transition()
       .duration(250)
       .call(this.zoom.scaleTo, value);
+  }
+
+  detectChanges(): void{
+    this.changeDetector.detectChanges();
+    this.changeDetector.markForCheck();
   }
 }

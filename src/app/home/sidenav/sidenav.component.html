@@ -7,18 +7,14 @@
       Compare<span class="material-icons">keyboard_arrow_right</span>
     </button>
   </div>
-  <mat-card class="document-card" *ngFor="let doc of selectedDocuments">
-    <mat-card-header>
-      <mat-card-title>{{doc.title}}</mat-card-title>
-      <mat-card-subtitle>{{doc.subtitle}}</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content>
-      <p>{{doc.content}}</p>
-    </mat-card-content>
-  </mat-card>
+  <app-document *ngFor="let doc of selectedDocuments"
+                [document]="doc"
+                [highlightedWords]="highlightedWords"
+  ></app-document>
 </div>
 <div class="sidenav-comparison" *ngIf="comparingWindowOpen">
   <app-comparison [searchQuery]="searchQuery"
                   [selectedDocuments]="selectedDocuments"
+                  (wordsChanged)="handleWordsChanged($event)"
   ></app-comparison>
 </div>

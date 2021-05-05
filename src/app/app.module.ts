@@ -7,6 +7,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ExtendedModule, FlexModule} from '@angular/flex-layout';
 import {RouterModule} from '@angular/router';
 import {AppRouter} from './app.routes';
+import {AngularResizedEventModule} from 'angular-resize-event';
 
 
 @NgModule({

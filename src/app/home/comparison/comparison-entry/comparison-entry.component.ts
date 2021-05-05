@@ -1,4 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
+import {MatCheckboxChange} from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-comparison-entry',
@@ -9,6 +10,7 @@ export class ComparisonEntryComponent implements OnInit {
 
   @Input() word: string;
   @Input() similarity: number;
+  @Output() selectedChange = new EventEmitter<{ word: string; checked: boolean }>();
   constructor() { }
 
   ngOnInit(): void {
@@ -16,5 +18,9 @@ export class ComparisonEntryComponent implements OnInit {
 
   getBarWidth(): number{
     return this.similarity * 400;
+  }
+
+  handleChange(event: MatCheckboxChange): void{
+    this.selectedChange.emit({ word: this.word, checked: event.checked });
   }
 }

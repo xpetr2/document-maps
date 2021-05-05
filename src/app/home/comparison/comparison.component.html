@@ -1,8 +1,11 @@
 <div class="comparison-wrapper">
-  <div class="comparison-matches">
-    <ng-container *ngFor="let pair of sortedWordPairsExact">
-      <app-comparison-entry [word]="pair[0]" [similarity]="pair[1]"></app-comparison-entry>
-    </ng-container>
+  <div class="comparison-matches-wrapper">
+    <div #matches class="comparison-matches" (resized)="checkOverflow(matches)">
+      <ng-container *ngFor="let pair of sortedWordPairsExact">
+        <app-comparison-entry [word]="pair[0]" [similarity]="pair[1]" (selectedChange)="handleWordSelection($event)"></app-comparison-entry>
+      </ng-container>
+    </div>
+    <div *ngIf="matchesScrollable" class="matches-fade"></div>
   </div>
   <div class="comparison-aggregates">
 

@@ -3,7 +3,7 @@ import * as DocumentJson from '../document.json';
 import {QueryService, SearchQuery} from '../services/query.service';
 import {SimulationLinkDatum, SimulationNodeDatum} from 'd3';
 import {MatDrawer} from '@angular/material/sidenav';
-import {SelectedDocument} from './sidenav/sidenav.component';
+import {SelectedDocument, SidenavComponent} from './sidenav/sidenav.component';
 import {MatSliderChange} from '@angular/material/slider';
 import {GraphComponent} from './graph/graph.component';
 import {AppSettings} from './settings/settings.component';
@@ -60,7 +60,8 @@ export class HomeComponent implements OnInit {
   };
   wordPairs: {};
 
-  @ViewChild('drawer') sidebar: MatDrawer;
+  @ViewChild('drawer') matDrawer: MatDrawer;
+  @ViewChild('sidenav') sidenav: SidenavComponent;
   @ViewChild('graph') graph: GraphComponent;
 
   constructor(private queryService: QueryService) { }
@@ -130,7 +131,7 @@ export class HomeComponent implements OnInit {
     const re = /^node_\d+_(.*)$/;
     const id = ($event.click.target) ? re.exec(($event.click.target as any).id)[1] : undefined;
     const oldSelection = this.selectedNodes.slice();
-    this.sidebar.open();
+    this.matDrawer.open();
     this.comparingWindowOpen = false;
     if (id) {
       if (this.selectedNodes.length === 1 && this.selectedNodes[0] === id){
@@ -147,10 +148,11 @@ export class HomeComponent implements OnInit {
       }
     }
     if (this.selectedNodes.length === 0){
-      this.sidebar.close();
+      this.matDrawer.close();
     }
     this.redrawSelection(oldSelection, $event.d3);
     this.generateSelectedDocuments();
+    this.sidenav.clearHighlightedWords();
   }
 
   generateSelectedDocuments(): void{
@@ -180,10 +182,11 @@ export class HomeComponent implements OnInit {
   clearSelection(event: any): void{
     const oldSelection = this.selectedNodes;
     this.selectedNodes = [];
-    this.sidebar.close();
+    this.matDrawer.close();
     this.comparingWindowOpen = false;
     this.redrawSelection(oldSelection, event.d3);
     this.generateSelectedDocuments();
+    this.sidenav.clearHighlightedWords();
   }
 
   calculateDeviation(sourceNode: any, targetNode: any, sourceID: string, targetID: string): number{
@@ -261,6 +264,15 @@ export class HomeComponent implements OnInit {
 
   handleZoomed(e: any): void {
     this.currentZoom = e?.transform?.k ?? this.currentZoom;
+  }
+
+  handleDrawerClose(event: any): void{
+    this.matDrawer.close();
+    this.sidenav.clearHighlightedWords();
+  }
+
+  handleGraphResize(event: any): void{
+    this.graph.detectChanges();
   }
 
   log2(n: number): number{

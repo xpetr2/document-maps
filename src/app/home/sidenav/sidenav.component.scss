@@ -10,11 +10,19 @@
   flex-shrink: 0;
 }
 
-.document-card {
-  overflow: auto;
+app-document {
   padding-bottom: 1em;
-  .mat-card-content{
-    line-height: 1.6;
+  ::ng-deep {
+    .mat-card{
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    .mat-card-content {
+      overflow: auto;
+      max-height: 100%;
+      padding-right: 0.5em;
+    }
   }
 }
 
