@@ -1,5 +1,4 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {WordSet} from '../../comparison/comparison.component';
 import {SelectedDocument} from '../sidenav.component';
 
 @Component({
@@ -11,6 +10,7 @@ export class DocumentComponent implements OnInit {
 
   @Input() document: SelectedDocument;
   @Input() highlightedWords: string[];
+  @Input() hoveredWord: string;
 
   constructor() { }
 

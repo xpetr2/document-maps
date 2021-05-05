@@ -23,6 +23,7 @@ export class SidenavComponent implements OnInit {
 
   compareWindow = false;
   highlightedWords: string[];
+  hoveredWord: string;
 
   constructor() { }
 
@@ -45,5 +46,9 @@ export class SidenavComponent implements OnInit {
 
   clearHighlightedWords(): void{
     this.highlightedWords = [];
+  }
+
+  handleWordHovered(word: string): void{
+    this.hoveredWord = word;
   }
 }

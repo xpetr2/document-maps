@@ -24,12 +24,14 @@ export class ComparisonComponent implements OnInit, OnChanges {
   @Input() searchQuery: SearchQuery;
   @Input() selectedDocuments: SelectedDocument[];
   @Output() wordsChanged = new EventEmitter<WordSet>();
+  @Output() wordHovered = new EventEmitter<string>();
 
   wordPairs: {};
   sortedWordPairsExact: any[];
   sortedWordPairsSoft: any[];
   selectedWords: WordSet = new Map<string, ExactMatch | SoftMatch>();
   matchesScrollable = false;
+  hoveredWord: string;
 
   @ViewChild('matches') matches: HTMLElement;
 
@@ -91,5 +93,17 @@ export class ComparisonComponent implements OnInit, OnChanges {
   clearWordSelection(): void{
     this.selectedWords.clear();
     this.wordsChanged.emit(this.selectedWords);
+  }
+
+  handleEntryHover(word: string, enter: boolean): void{
+    const prevWord = this.hoveredWord;
+    if (enter){
+      this.hoveredWord = word;
+    } else if (this.hoveredWord === word){
+      this.hoveredWord = undefined;
+    }
+    if (prevWord !== this.hoveredWord){
+      this.wordHovered.emit(this.hoveredWord);
+    }
   }
 }

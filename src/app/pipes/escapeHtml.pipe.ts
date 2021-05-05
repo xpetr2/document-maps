@@ -1,7 +1,7 @@
-import {Pipe} from '@angular/core';
+import {Pipe, PipeTransform} from '@angular/core';
 
 @Pipe({name: 'escapeHtml'})
-export class EscapeHtmlPipe {
+export class EscapeHtmlPipe implements PipeTransform {
   constructor(){}
 
   transform(text: string): string {

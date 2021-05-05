@@ -17,8 +17,9 @@ export class GraphComponent implements OnInit, OnChanges {
   @Input() distanceModifier = 1;
   @Input() minZoom: number;
   @Input() maxZoom: number;
-  @Input() startZoom: number;
+  @Input() defaultZoom: number;
   @Input() showLabels: boolean;
+  @Input() graphPadding: number;
   @Output() nodeClicked = new EventEmitter<any>();
   @Output() emptyClicked = new EventEmitter<any>();
   @Output() zoomed = new EventEmitter<any>();
@@ -55,7 +56,10 @@ export class GraphComponent implements OnInit, OnChanges {
 
     this.initSvg();
     this.drawGraph();
-    this.centerCamera(0, 0, this.startZoom);
+    this.centerCamera(0, 0, this.defaultZoom, 0);
+    setTimeout(() => {
+      this.setZoom(this.defaultZoom * this.calculateCoverZoom(), 1000);
+    }, 0);
   }
 
   initSvg(): void{
@@ -140,17 +144,27 @@ export class GraphComponent implements OnInit, OnChanges {
     }
   }
 
-  centerCamera(x: number, y: number, k: number = 1): void {
-    // this.g.node().getBBox()
-    this.svg.call(this.zoom.scaleTo, k);
-    this.svg.transition()
-      .duration(250)
-      .call(this.zoom.translateTo, x, y);
+  calculateCoverZoom(): number {
+    const transform = this.g.node().getBoundingClientRect();
+    const widthMult = (this.width - this.graphPadding) / transform.width;
+    const heightMult = (this.height - this.graphPadding) / transform.height;
+    return ((widthMult < heightMult) ? widthMult : heightMult);
   }
 
-  setZoom(value: number): void{
+  centerCamera(x: number, y: number, k: number, duration = 250): void {
+    const transform = this.g.node().getBoundingClientRect();
+    console.log(transform);
+    const computedX = x;
+    const computedY = y;
+    this.svg.call(this.zoom.scaleTo, k);
     this.svg.transition()
-      .duration(250)
+      .duration(duration)
+      .call(this.zoom.translateTo, computedX, computedY);
+  }
+
+  setZoom(value: number, duration = 250): void{
+    this.svg.transition()
+      .duration(duration)
       .call(this.zoom.scaleTo, value);
   }
 

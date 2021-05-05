@@ -16,7 +16,7 @@ export class DocumentContentComponent implements OnInit, OnChanges {
 
   convertedContent: string;
 
-  constructor(private escapeHtml: EscapeHtmlPipe) { }
+  constructor(public escapeHtml: EscapeHtmlPipe) { }
 
   ngOnInit(): void {
     this.convertedContent = this.getFormattedContent();
@@ -34,7 +34,8 @@ export class DocumentContentComponent implements OnInit, OnChanges {
       for (const word of this.highlightedWords) {
         const escapedWord = this.escapeHtml.transform(word);
         const re = new RegExp(`${escapeStringRegexp(escapedWord)}`, 'g');
-        escapedContent = escapedContent.replace(re, `<span class="highlight">${escapedWord}</span>`);
+        const wordClass = this.hoveredWord && this.highlightedWords.includes(this.hoveredWord) && word !== this.hoveredWord ? 'lowlight' : 'highlight';
+        escapedContent = escapedContent.replace(re, `<span class="${wordClass}">${escapedWord}</span>`);
       }
     }
     return escapedContent;

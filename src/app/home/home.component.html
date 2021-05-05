@@ -4,7 +4,7 @@
                  [selectedDocuments]="selectedDocuments"
                  [comparingWindowOpen]="comparingWindowOpen"
                  [searchQuery]="searchQuery"
-                 (sidebarClose)="handleDrawerClose($event)"
+                 (sidebarClose)="handleDrawerClose()"
                  (compareClick)="handleCompareClick()"
     ></app-sidenav>
   </mat-drawer>
@@ -19,11 +19,12 @@
         [data]="graphData"
         [minZoom]="minZoom"
         [maxZoom]="maxZoom"
-        [startZoom]="currentZoom"
+        [defaultZoom]="currentZoom"
+        [graphPadding]="64"
         (nodeClicked)="handleNodeClick($event)"
         (emptyClicked)="clearSelection($event)"
         (zoomed)="handleZoomed($event)"
-        (resized)="handleGraphResize($event)"
+        (resized)="handleGraphResize()"
       ></app-graph>
     </div>
   </mat-drawer-content>

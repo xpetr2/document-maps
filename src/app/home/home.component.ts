@@ -1,10 +1,9 @@
-import {Component, HostListener, OnInit, ViewChild} from '@angular/core';
+import {Component,  OnInit, ViewChild} from '@angular/core';
 import * as DocumentJson from '../document.json';
 import {QueryService, SearchQuery} from '../services/query.service';
 import {SimulationLinkDatum, SimulationNodeDatum} from 'd3';
 import {MatDrawer} from '@angular/material/sidenav';
 import {SelectedDocument, SidenavComponent} from './sidenav/sidenav.component';
-import {MatSliderChange} from '@angular/material/slider';
 import {GraphComponent} from './graph/graph.component';
 import {AppSettings} from './settings/settings.component';
 
@@ -266,12 +265,12 @@ export class HomeComponent implements OnInit {
     this.currentZoom = e?.transform?.k ?? this.currentZoom;
   }
 
-  handleDrawerClose(event: any): void{
+  handleDrawerClose(): void{
     this.matDrawer.close();
     this.sidenav.clearHighlightedWords();
   }
 
-  handleGraphResize(event: any): void{
+  handleGraphResize(): void{
     this.graph.detectChanges();
   }
 

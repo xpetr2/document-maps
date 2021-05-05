@@ -10,11 +10,13 @@
   <app-document *ngFor="let doc of selectedDocuments"
                 [document]="doc"
                 [highlightedWords]="highlightedWords"
+                [hoveredWord]="hoveredWord"
   ></app-document>
 </div>
 <div class="sidenav-comparison" *ngIf="comparingWindowOpen">
   <app-comparison [searchQuery]="searchQuery"
                   [selectedDocuments]="selectedDocuments"
                   (wordsChanged)="handleWordsChanged($event)"
+                  (wordHovered)="handleWordHovered($event)"
   ></app-comparison>
 </div>
