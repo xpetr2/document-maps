@@ -25,7 +25,7 @@ export class SidenavComponent implements OnInit {
   highlightedExactMatches: string[] = [];
   highlightedSoftMatches: string[] = [];
   highlightedWordSet: WordSet = new Map<string, Set<string>>();
-  highlightedWordWeights = new Map<string, number>();
+  highlightedWordSimilarities = new Map<string, number>();
   hoveredWord: string;
 
   constructor(private queryService: QueryService) { }
@@ -49,7 +49,7 @@ export class SidenavComponent implements OnInit {
       for (const value of set) {
         const match = `${key}\0${value}`;
         const weight = this.queryService.getSimilarityWord(key, value, this.searchQuery);
-        this.highlightedWordWeights.set(match, weight);
+        this.highlightedWordSimilarities.set(match, weight);
       }
     }
   }
@@ -68,7 +68,7 @@ export class SidenavComponent implements OnInit {
     this.highlightedExactMatches = [];
     this.highlightedSoftMatches = [];
     this.highlightedWordSet = new Map<string, Set<string>>();
-    this.highlightedWordWeights = new Map<string, number>();
+    this.highlightedWordSimilarities = new Map<string, number>();
   }
 
   handleWordHovered(word: string): void{
