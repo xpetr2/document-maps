@@ -41,6 +41,12 @@ export class QueryService {
     return query.word_similarities[w1][w2];
   }
 
+  getSimilarityWord(word1: string, word2: string, query: SearchQuery): number{
+    const w1 = this.getWordId(word1, query);
+    const w2 = this.getWordId(word2, query);
+    return this.getSimilarity(w1, w2, query);
+  }
+
   innerProduct(t1, t2, query: SearchQuery): number{
     const entries1 = Object.entries(query.texts_bow[t1]);
     const entries2 = Object.entries(query.texts_bow[t2]);

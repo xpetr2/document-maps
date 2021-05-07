@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
-import {SearchQuery} from '../../services/query.service';
+import {QueryService, SearchQuery} from '../../services/query.service';
 import {WordSet} from '../comparison/comparison.component';
 
 export interface SelectedDocument{
@@ -22,11 +22,13 @@ export class SidenavComponent implements OnInit {
   @Output() compareClick = new EventEmitter<any>();
 
   compareWindow = false;
-  highlightedExactMatches: string[];
-  highlightedSoftMatches: string[];
+  highlightedExactMatches: string[] = [];
+  highlightedSoftMatches: string[] = [];
+  highlightedWordSet: WordSet = new Map<string, Set<string>>();
+  highlightedWordWeights = new Map<string, number>();
   hoveredWord: string;
 
-  constructor() { }
+  constructor(private queryService: QueryService) { }
 
   ngOnInit(): void {
   }
@@ -41,16 +43,32 @@ export class SidenavComponent implements OnInit {
     this.clearHighlightedWords();
   }
 
+  generateWordSimilarities(wordSet: WordSet): void{
+    const wordSetEntries = wordSet.entries();
+    for (const [key, set] of wordSetEntries){
+      for (const value of set) {
+        const match = `${key}\0${value}`;
+        const weight = this.queryService.getSimilarityWord(key, value, this.searchQuery);
+        this.highlightedWordWeights.set(match, weight);
+      }
+    }
+  }
+
   handleWordsChanged(wordSet: WordSet): void{
     this.highlightedExactMatches = Array.from(wordSet.keys());
     const softMatches = Array.from(wordSet.values())
       .reduce((a, c) => a.concat([...c]), [])
       .filter(a => !this.highlightedExactMatches.includes(a));
     this.highlightedSoftMatches = Array.from(new Set(softMatches));
+    this.highlightedWordSet = wordSet;
+    this.generateWordSimilarities(wordSet);
   }
 
   clearHighlightedWords(): void{
     this.highlightedExactMatches = [];
+    this.highlightedSoftMatches = [];
+    this.highlightedWordSet = new Map<string, Set<string>>();
+    this.highlightedWordWeights = new Map<string, number>();
   }
 
   handleWordHovered(word: string): void{

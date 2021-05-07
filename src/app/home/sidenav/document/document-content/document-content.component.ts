@@ -1,7 +1,8 @@
 import {ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {EscapeHtmlPipe} from '../../../../pipes/escape-html.pipe';
 import escapeStringRegexp from 'escape-string-regexp';
-import {QueryService} from '../../../../services/query.service';
+import {QueryService, SearchQuery} from '../../../../services/query.service';
+import {WordSet} from '../../../comparison/comparison.component';
 
 @Component({
   selector: 'app-document-content',
@@ -14,6 +15,8 @@ export class DocumentContentComponent implements OnInit, OnChanges {
   @Input() content: string;
   @Input() highlightedExactMatches: string[];
   @Input() highlightedSoftMatches: string[];
+  @Input() highlightedWordSet: WordSet;
+  @Input() highlightedWordSimilarities: Map<string, number>;
   @Input() hoveredWord: string;
 
   convertedContent: string;
@@ -39,8 +42,16 @@ export class DocumentContentComponent implements OnInit, OnChanges {
         const escapedWord = this.escapeHtml.transform(word);
         const re = new RegExp(`(?<=^|\\s)${escapeStringRegexp(escapedWord)}(?=$|\\s)`, 'g');
         const wordClass = this.hoveredWord && this.highlightedExactMatches.includes(this.hoveredWord) && word !== this.hoveredWord ? 'lowlight' : 'highlight';
-        const weight = 0.6211659;
-        content = content.replace(re, `<span class="${wordClass} ${className} weight-${Math.floor(weight * 20)}">${escapedWord}</span>`);
+        let weight = 1;
+        if (!this.highlightedWordSet.has(word)){
+          console.log(this.highlightedWordSimilarities);
+          for (const [key, set] of this.highlightedWordSet.entries()){
+            if (set.has(word)){
+              weight = this.highlightedWordSimilarities?.get(`${key}\0${word}`) ?? 1;
+            }
+          }
+        }
+        content = content.replace(re, `<span class="${wordClass} ${className} weight-${Math.floor(weight * 10)}">${escapedWord}</span>`);
       }
     }
     return content;

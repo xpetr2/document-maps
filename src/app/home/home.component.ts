@@ -190,10 +190,13 @@ export class HomeComponent implements OnInit {
 
   calculateDeviation(sourceNode: any, targetNode: any, sourceID: string, targetID: string): number{
     // todo: calculate using  cosine distance
-    const distance = Math.sqrt(
-      (sourceNode.attr('cx') - targetNode.attr('cx')) * (sourceNode.attr('cx') - targetNode.attr('cx')) +
-      (sourceNode.attr('cy') - targetNode.attr('cy')) * (sourceNode.attr('cy') - targetNode.attr('cy'))
-    );
+    const sPos = (sourceNode.attr('transform') as string).match(/translate\(([^,]+), ([^,)]+)\)/);
+    const tPos = (targetNode.attr('transform') as string).match(/translate\(([^,]+), ([^,)]+)\)/);
+    const sX = parseFloat(sPos[1]);
+    const sY = parseFloat(sPos[2]);
+    const tX = parseFloat(tPos[1]);
+    const tY = parseFloat(tPos[2]);
+    const distance = Math.sqrt( (sX - tX) * (sX - tX) + (sY - tY) * (sY - tY) );
     const supposedDistance = (1 / this.queryService.getSoftCosineMeasure(sourceID, targetID, this.searchQuery)) - 1;
     return this.normalizeDeviation(supposedDistance - distance);
   }
@@ -223,14 +226,14 @@ export class HomeComponent implements OnInit {
       if (id === selectedNode) {
         continue;
       }
-      const targetNode = d3.select(`[id^="node_"][id$="${id.replace('.', '\\.')}"]`);
-      const sourceNode = d3.select(`[id^="node_"][id$="${selectedNode.replace('.', '\\.')}"]`);
+      const targetNode = d3.select(`[id="wrapper_${id.replace('.', '\\.')}"]`);
+      const sourceNode = d3.select(`[id="wrapper_${selectedNode.replace('.', '\\.')}"]`);
       const deviation = this.calculateDeviation(sourceNode, targetNode, selectedNode, id);
       const correctColor = {r: 55, g: 176, b: 59};
       const farColor = {r: 176, g: 55, b: 55};
       const closeColor = {r: 69, g: 55, b: 176};
       const color = this.colorToHex(this.colorGradient(correctColor, deviation < 0 ? closeColor : farColor, Math.abs(deviation)));
-      targetNode.attr('fill', color);
+      targetNode.select('circle').attr('fill', color);
     }
   }
 

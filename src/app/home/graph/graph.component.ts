@@ -97,6 +97,7 @@ export class GraphComponent implements OnInit, OnChanges {
       .selectAll('.node-group')
       .data(this.data.nodes)
       .enter().append('g')
+      .attr('id', c => `wrapper_${c.id}`)
       .attr('class', 'node-group');
 
     this.nodes.append('circle')
