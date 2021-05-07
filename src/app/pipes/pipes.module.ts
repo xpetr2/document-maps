@@ -1,17 +1,24 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { EscapeHtmlPipe } from './escapeHtml.pipe';
+import { EscapeHtmlPipe } from './escape-html.pipe';
+import {PairSplitFirstPipe, PairSplitSecondPipe} from './pair-split.pipe';
 
 
 @NgModule({
   declarations: [
-    EscapeHtmlPipe
+    EscapeHtmlPipe,
+    PairSplitFirstPipe,
+    PairSplitSecondPipe
   ],
   exports: [
-    EscapeHtmlPipe
+    EscapeHtmlPipe,
+    PairSplitFirstPipe,
+    PairSplitSecondPipe
   ],
   providers: [
-    EscapeHtmlPipe
+    EscapeHtmlPipe,
+    PairSplitFirstPipe,
+    PairSplitSecondPipe
   ],
   imports: [
     CommonModule

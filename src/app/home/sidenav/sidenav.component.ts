@@ -22,7 +22,8 @@ export class SidenavComponent implements OnInit {
   @Output() compareClick = new EventEmitter<any>();
 
   compareWindow = false;
-  highlightedWords: string[];
+  highlightedExactMatches: string[];
+  highlightedSoftMatches: string[];
   hoveredWord: string;
 
   constructor() { }
@@ -41,11 +42,15 @@ export class SidenavComponent implements OnInit {
   }
 
   handleWordsChanged(wordSet: WordSet): void{
-    this.highlightedWords = Array.from(wordSet.keys());
+    this.highlightedExactMatches = Array.from(wordSet.keys());
+    const softMatches = Array.from(wordSet.values())
+      .reduce((a, c) => a.concat([...c]), [])
+      .filter(a => !this.highlightedExactMatches.includes(a));
+    this.highlightedSoftMatches = Array.from(new Set(softMatches));
   }
 
   clearHighlightedWords(): void{
-    this.highlightedWords = [];
+    this.highlightedExactMatches = [];
   }
 
   handleWordHovered(word: string): void{

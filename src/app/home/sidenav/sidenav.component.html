@@ -9,7 +9,8 @@
   </div>
   <app-document *ngFor="let doc of selectedDocuments"
                 [document]="doc"
-                [highlightedWords]="highlightedWords"
+                [highlightedExactMatches]="highlightedExactMatches"
+                [highlightedSoftMatches]="highlightedSoftMatches"
                 [hoveredWord]="hoveredWord"
   ></app-document>
 </div>

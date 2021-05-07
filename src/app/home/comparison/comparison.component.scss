@@ -2,15 +2,27 @@
   height: 100%;
 }
 .comparison-matches-wrapper{
+  display: flex;
   height: 50%;
   position: relative;
   overflow: hidden;
+  padding-top: 1em;
+  padding-right: 1em;
+  .matches-exact, .matches-soft{
+    width: 50%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    h2{
+      margin: 0 1em 0.5em 1em;
+    }
+  }
   .comparison-matches {
     display: flex;
     flex-direction: column;
     height: 100%;
     overflow: auto;
-    padding: 2em;
+    padding: 0 1em;
     position: relative;
 
     ::ng-deep {
@@ -24,6 +36,13 @@
         &:nth-child(even){
           background-color: #eeeeee;
         }
+
+        .mat-checkbox-layout .mat-checkbox-label{
+          overflow: hidden;
+          text-overflow: ellipsis;
+          width: 100px;
+          line-height: 1.4;
+        }
       }
     }
   }
@@ -31,10 +50,10 @@
   .matches-fade{
     position: absolute;
     bottom: 0;
-    left: 2em;
+    left: 1em;
     right: 2em;
     height: 1px;
     background: #fff;
-    box-shadow: 0 -4px 8px 12px #fff;
+    box-shadow: 0 -4px 15px 12px #fff;
   }
 }

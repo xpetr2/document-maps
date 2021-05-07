@@ -12,7 +12,15 @@ export interface SoftMatch {
   strength: number;
 }
 
-export type WordSet = Map<string, ExactMatch | SoftMatch>;
+export enum EntryType {
+  Exact, Soft
+}
+
+export enum EntryHoverEvent{
+  Enter, Leave
+}
+
+export type WordSet = Map<string, Set<string>>;
 
 @Component({
   selector: 'app-comparison',
@@ -29,11 +37,12 @@ export class ComparisonComponent implements OnInit, OnChanges {
   wordPairs: {};
   sortedWordPairsExact: any[];
   sortedWordPairsSoft: any[];
-  selectedWords: WordSet = new Map<string, ExactMatch | SoftMatch>();
-  matchesScrollable = false;
+  selectedWords: WordSet = new Map<string, Set<string>>();
+  scrollable: {[key: string]: boolean} = {};
   hoveredWord: string;
 
-  @ViewChild('matches') matches: HTMLElement;
+  entryType = EntryType;
+  entryHoverEvent = EntryHoverEvent;
 
   constructor(private queryService: QueryService) {}
 
@@ -78,14 +87,25 @@ export class ComparisonComponent implements OnInit, OnChanges {
   }
 
   checkOverflow(element: HTMLElement): void {
-    this.matchesScrollable = element.offsetHeight < element.scrollHeight;
+    this.scrollable[element.id] = element.offsetHeight < element.scrollHeight
+      && !(element.scrollHeight - element.scrollTop - element.clientHeight < 1);
   }
 
-  handleWordSelection(event: { word: string, checked: boolean }): void {
+  handleWordSelection(event: { word: string, checked: boolean, softMatch: string }): void {
+    const entry = this.selectedWords.get(event.word);
+    const matchWord = event.softMatch ?? event.word;
     if (event.checked){
-      this.selectedWords.set(event.word, {word: event.word});
+      if (this.selectedWords.has(event.word)){
+        entry?.add(matchWord);
+      } else {
+        this.selectedWords.set(event.word, new Set<string>([matchWord]));
+      }
     } else {
-      this.selectedWords.delete(event.word);
+      if (entry?.size > 1){
+        entry.delete(matchWord);
+      } else {
+        this.selectedWords.delete(event.word);
+      }
     }
     this.wordsChanged.emit(this.selectedWords);
   }
@@ -95,9 +115,9 @@ export class ComparisonComponent implements OnInit, OnChanges {
     this.wordsChanged.emit(this.selectedWords);
   }
 
-  handleEntryHover(word: string, enter: boolean): void{
+  handleEntryHover(word: string, event: EntryHoverEvent, entryType: EntryType): void{
     const prevWord = this.hoveredWord;
-    if (enter){
+    if (event === EntryHoverEvent.Enter){
       this.hoveredWord = word;
     } else if (this.hoveredWord === word){
       this.hoveredWord = undefined;

@@ -10,17 +10,17 @@ export class ComparisonEntryComponent implements OnInit {
 
   @Input() word: string;
   @Input() similarity: number;
-  @Output() selectedChange = new EventEmitter<{ word: string; checked: boolean }>();
+  @Input() softMatch: string;
+  @Output() selectedChange = new EventEmitter<{ word: string; checked: boolean; softMatch: string }>();
   constructor() { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   getBarWidth(): number{
     return this.similarity * 400;
   }
 
   handleChange(event: MatCheckboxChange): void{
-    this.selectedChange.emit({ word: this.word, checked: event.checked });
+    this.selectedChange.emit({ word: this.word, checked: event.checked, softMatch: this.softMatch});
   }
 }

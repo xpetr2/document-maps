@@ -1,3 +1,7 @@
+$highlight: #fed740;
+$soft-highlight: #f44336;
+$lowlight: #dadada;
+
 p{
   $hovered-word: attr(data-hovered);
   font-style: italic;
@@ -5,12 +9,19 @@ p{
   line-height: 1.65;
 
   ::ng-deep .highlight{
-    background-color: #ffd740;
-    box-shadow: -2px 0px 2px 0px #ffd740, 2px 0px 2px 0px #ffd740;
+    background-color: $highlight;
+    box-shadow: -2px 0px 2px 0px $highlight, 2px 0px 2px 0px $highlight;
   }
 
   ::ng-deep .lowlight{
-    background-color: #ababab;
-    box-shadow: -2px 0px 2px 0px #ababab, 2px 0px 2px 0px #ababab;
+    background-color: $lowlight;
+    box-shadow: -2px 0px 2px 0px $lowlight, 2px 0px 2px 0px $lowlight;
+  }
+
+  @for $i from 1 through 20 {
+    ::ng-deep .highlight.soft-match.weight-#{$i}{
+      background-color: rgba($soft-highlight, $i / 20);
+      box-shadow: -2px 0px 2px 0px rgba($soft-highlight, $i / 20), 2px 0px 2px 0px rgba($soft-highlight, $i / 20);
+    }
   }
 }

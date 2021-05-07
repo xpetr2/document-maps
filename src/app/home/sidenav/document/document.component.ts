@@ -9,7 +9,8 @@ import {SelectedDocument} from '../sidenav.component';
 export class DocumentComponent implements OnInit {
 
   @Input() document: SelectedDocument;
-  @Input() highlightedWords: string[];
+  @Input() highlightedExactMatches: string[];
+  @Input() highlightedSoftMatches: string[];
   @Input() hoveredWord: string;
 
   constructor() { }
