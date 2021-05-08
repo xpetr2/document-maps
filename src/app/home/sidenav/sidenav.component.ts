@@ -1,5 +1,5 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
-import {QueryService, SearchQuery} from '../../services/query.service';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {SearchQuery} from '../../services/query.service';
 import {WordSet} from '../comparison/comparison.component';
 
 export interface SelectedDocument{
@@ -22,13 +22,12 @@ export class SidenavComponent implements OnInit {
   @Output() compareClick = new EventEmitter<any>();
 
   compareWindow = false;
-  highlightedExactMatches: string[] = [];
-  highlightedSoftMatches: string[] = [];
+  highlightedExactMatches = new Set<string>();
+  highlightedSoftMatches = new Set<string>();
   highlightedWordSet: WordSet = new Map<string, Set<string>>();
-  highlightedWordSimilarities = new Map<string, number>();
   hoveredWord: string;
 
-  constructor(private queryService: QueryService) { }
+  constructor() { }
 
   ngOnInit(): void {
   }
@@ -43,32 +42,19 @@ export class SidenavComponent implements OnInit {
     this.clearHighlightedWords();
   }
 
-  generateWordSimilarities(wordSet: WordSet): void{
-    const wordSetEntries = wordSet.entries();
-    for (const [key, set] of wordSetEntries){
-      for (const value of set) {
-        const match = `${key}\0${value}`;
-        const weight = this.queryService.getSimilarityWord(key, value, this.searchQuery);
-        this.highlightedWordSimilarities.set(match, weight);
-      }
-    }
-  }
-
   handleWordsChanged(wordSet: WordSet): void{
-    this.highlightedExactMatches = Array.from(wordSet.keys());
+    this.highlightedExactMatches = new Set<string>(wordSet.keys());
     const softMatches = Array.from(wordSet.values())
       .reduce((a, c) => a.concat([...c]), [])
-      .filter(a => !this.highlightedExactMatches.includes(a));
-    this.highlightedSoftMatches = Array.from(new Set(softMatches));
+      .filter(a => !this.highlightedExactMatches.has(a));
+    this.highlightedSoftMatches = new Set(softMatches);
     this.highlightedWordSet = wordSet;
-    this.generateWordSimilarities(wordSet);
   }
 
   clearHighlightedWords(): void{
-    this.highlightedExactMatches = [];
-    this.highlightedSoftMatches = [];
+    this.highlightedExactMatches = new Set<string>();
+    this.highlightedSoftMatches = new Set<string>();
     this.highlightedWordSet = new Map<string, Set<string>>();
-    this.highlightedWordSimilarities = new Map<string, number>();
   }
 
   handleWordHovered(word: string): void{

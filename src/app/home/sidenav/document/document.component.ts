@@ -11,10 +11,9 @@ import {SearchQuery} from '../../../services/query.service';
 export class DocumentComponent implements OnInit {
 
   @Input() document: SelectedDocument;
-  @Input() highlightedExactMatches: string[];
-  @Input() highlightedSoftMatches: string[];
+  @Input() highlightedExactMatches: Set<string>;
+  @Input() highlightedSoftMatches: Set<string>;
   @Input() highlightedWordSet: WordSet;
-  @Input() highlightedWordSimilarities: Map<string, number>;
   @Input() hoveredWord: string;
   @Input() searchQuery: SearchQuery;
 

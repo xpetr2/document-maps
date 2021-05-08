@@ -1,7 +1,6 @@
 import {ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {EscapeHtmlPipe} from '../../../../pipes/escape-html.pipe';
 import escapeStringRegexp from 'escape-string-regexp';
-import {QueryService, SearchQuery} from '../../../../services/query.service';
 import {WordSet} from '../../../comparison/comparison.component';
 
 @Component({
@@ -13,17 +12,15 @@ import {WordSet} from '../../../comparison/comparison.component';
 export class DocumentContentComponent implements OnInit, OnChanges {
 
   @Input() content: string;
-  @Input() highlightedExactMatches: string[];
-  @Input() highlightedSoftMatches: string[];
+  @Input() highlightedExactMatches: Set<string>;
+  @Input() highlightedSoftMatches: Set<string>;
   @Input() highlightedWordSet: WordSet;
-  @Input() highlightedWordSimilarities: Map<string, number>;
   @Input() hoveredWord: string;
 
   convertedContent: string;
 
   constructor(
-    public escapeHtml: EscapeHtmlPipe,
-    private queryService: QueryService
+    public escapeHtml: EscapeHtmlPipe
   ) { }
 
   ngOnInit(): void {
@@ -36,31 +33,44 @@ export class DocumentContentComponent implements OnInit, OnChanges {
     }
   }
 
-  formatWords(content: string, wordList: string[], className: string): string{
-    if (wordList) {
-      for (const word of wordList) {
-        const escapedWord = this.escapeHtml.transform(word);
-        const re = new RegExp(`(?<=^|\\s)${escapeStringRegexp(escapedWord)}(?=$|\\s)`, 'g');
-        const wordClass = this.hoveredWord && this.highlightedExactMatches.includes(this.hoveredWord) && word !== this.hoveredWord ? 'lowlight' : 'highlight';
-        let weight = 1;
-        if (!this.highlightedWordSet.has(word)){
-          console.log(this.highlightedWordSimilarities);
-          for (const [key, set] of this.highlightedWordSet.entries()){
-            if (set.has(word)){
-              weight = this.highlightedWordSimilarities?.get(`${key}\0${word}`) ?? 1;
-            }
-          }
+  getReversedWordSet(): Map<string, Set<string>>{
+    const entries = this.highlightedWordSet.entries();
+    const out = new Map<string, Set<string>>();
+    for (const [parent, set] of entries){
+      for (const match of set){
+        if (out.has(match)){
+          out.get(match).add(parent);
+        } else {
+          out.set(match, new Set<string>([parent]));
         }
-        content = content.replace(re, `<span class="${wordClass} ${className} weight-${Math.floor(weight * 10)}">${escapedWord}</span>`);
       }
     }
-    return content;
+    return out;
+  }
+
+  isWordLowlighted(word: string, hoveredWord: string, words: Set<string>, reversedWordMap: WordSet): boolean{
+    if (!hoveredWord){
+      return false;
+    }
+    if (hoveredWord.includes('\0')){
+      const split = hoveredWord.split('\0');
+      return (words.has(split[0]) || words.has(split[1])) && !(word === split[0] || word === split[1]);
+    }
+    return words.has(hoveredWord) && !(hoveredWord === word || reversedWordMap.get(word)?.has(hoveredWord));
   }
 
   getFormattedContent(): string{
-    const escapedContent = this.escapeHtml.transform(this.content);
-    const exactMatched = this.formatWords(escapedContent, this.highlightedExactMatches, 'exact-match');
-    return this.formatWords(exactMatched, this.highlightedSoftMatches, 'soft-match');
+    const allWords = new Set([...this.highlightedSoftMatches, ...this.highlightedExactMatches]);
+    let content = this.escapeHtml.transform(this.content);
+    const reversedWordSet = this.getReversedWordSet();
+    for (const word of allWords){
+      const escapedWord = this.escapeHtml.transform(word);
+      const re = new RegExp(`(?<=^|\\s)${escapeStringRegexp(escapedWord)}(?=$|\\s)`, 'g');
+      const wordType = this.highlightedExactMatches.has(word) ? (this.highlightedSoftMatches.has(word) ? 'both' : 'exact') : 'soft';
+      const isHovered = this.isWordLowlighted(word, this.hoveredWord, allWords, reversedWordSet);
+      content = content.replace(re, `<span class="${isHovered ? 'lowlight' : 'highlight'} ${wordType}">${escapedWord}</span>`);
+    }
+    return content;
   }
 
 }
