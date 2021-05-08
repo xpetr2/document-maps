@@ -23,42 +23,45 @@
         [graphPadding]="64"
         (nodeClicked)="handleNodeClick($event)"
         (emptyClicked)="clearSelection($event)"
+        (nodeHovered)="handleNodeHovered($event)"
         (zoomed)="handleZoomed($event)"
         (resized)="handleGraphResize()"
       ></app-graph>
     </div>
   </mat-drawer-content>
 </mat-drawer-container>
-<div class="ui-top-left">
-  <div class="settings" [class.opened]="settingsOpen">
-    <button mat-icon-button aria-label="Open/close settings" (click)="settingsOpen = !settingsOpen">
-      <mat-icon>{{settingsOpen ? 'close' : 'settings'}}</mat-icon>
-    </button>
-    <app-settings *ngIf="settingsOpen" [(settings)]="settings"></app-settings>
+<div class="ui-wrapper">
+  <div class="settings-wrapper">
+    <div class="settings" [class.opened]="settingsOpen">
+      <button mat-icon-button aria-label="Open/close settings" (click)="settingsOpen = !settingsOpen">
+        <mat-icon>{{settingsOpen ? 'close' : 'settings'}}</mat-icon>
+      </button>
+      <app-settings *ngIf="settingsOpen" [(settings)]="settings"></app-settings>
+    </div>
   </div>
-</div>
-<div class="map-controls">
-  <div class="center-control">
-    <button mat-icon-button aria-label="Center map" (click)="centerCamera()">
-      <mat-icon>adjust</mat-icon>
-    </button>
+  <div class="error-legend" *ngIf="selectedNodes.length === 1">
+    <div class="inner">
+      <div class="bar"></div>
+      <div class="up">Too far</div>
+      <div class="middle">Perfect</div>
+      <div class="bottom">Too close</div>
+      <div *ngIf="errorIndicatorOffset" class="indicator" [ngStyle]="{'top': errorIndicatorOffset + 'px'}"></div>
+    </div>
   </div>
-  <div class="zoom-controls">
-    <button mat-icon-button aria-label="Increase zoom" (click)="increaseCamera()">
-      <mat-icon>add_circle_outline</mat-icon>
-    </button>
-    <mat-slider vertical [min]="log2(minZoom)" [max]="log2(maxZoom)" [step]="defaultStepZoom" [value]="log2(currentZoom)" (valueChange)="changeCamera(pow2($event))"></mat-slider>
-    <button mat-icon-button aria-label="Decrease zoom" (click)="decreaseCamera()">
-      <mat-icon>remove_circle_outline</mat-icon>
-    </button>
-  </div>
-</div>
-<div class="error-legend" *ngIf="false">
-  <div class="inner">
-    <div class="bar"></div>
-    <div class="up">Too close</div>
-    <div class="middle">Perfect</div>
-    <div class="bottom">Too far</div>
-    <div class="indicator"><mat-icon svgIcon="chevron_left"></mat-icon></div>
+  <div class="map-controls">
+    <div class="center-control">
+      <button mat-icon-button aria-label="Center map" (click)="centerCamera()">
+        <mat-icon>adjust</mat-icon>
+      </button>
+    </div>
+    <div class="zoom-controls">
+      <button mat-icon-button aria-label="Increase zoom" (click)="increaseCamera()">
+        <mat-icon>add_circle_outline</mat-icon>
+      </button>
+      <mat-slider vertical [min]="log2(minZoom)" [max]="log2(maxZoom)" [step]="defaultStepZoom" [value]="log2(currentZoom)" (valueChange)="changeCamera(pow2($event))"></mat-slider>
+      <button mat-icon-button aria-label="Decrease zoom" (click)="decreaseCamera()">
+        <mat-icon>remove_circle_outline</mat-icon>
+      </button>
+    </div>
   </div>
 </div>

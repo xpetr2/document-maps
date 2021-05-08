@@ -1,4 +1,4 @@
-import {Component,  OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import * as DocumentJson from '../document.json';
 import {QueryService, SearchQuery} from '../services/query.service';
 import {SimulationLinkDatum, SimulationNodeDatum} from 'd3';
@@ -27,7 +27,6 @@ export interface Color{
   r: number;
   g: number;
   b: number;
-  a?: number;
 }
 
 @Component({
@@ -51,6 +50,9 @@ export class HomeComponent implements OnInit {
 
   selectedNodes: string[] = [];
   selectedDocuments: SelectedDocument[] = [];
+  hoveredNode: string;
+
+  errorIndicatorOffset = 0;
 
   comparingWindowOpen = false;
   settingsOpen = false;
@@ -102,8 +104,6 @@ export class HomeComponent implements OnInit {
   createLinks(query: SearchQuery): GraphLink[]{
     const links: GraphLink[] = [];
     const documents = Object.keys(this.nodes);
-    console.log(documents);
-    const t0 = performance.now();
     let min = 1;
     let max = 0;
     for (let i = 0; i < documents.length; i++) {
@@ -122,20 +122,19 @@ export class HomeComponent implements OnInit {
     }
     this.linkMin = min;
     this.linkMax = max;
-    console.log(performance.now() - t0 + ' ms');
     return links;
   }
 
-  handleNodeClick($event: any): void {
+  handleNodeClick(e: any): void {
     const re = /^node_\d+_(.*)$/;
-    const id = ($event.click.target) ? re.exec(($event.click.target as any).id)[1] : undefined;
+    const id = (e.click.target) ? re.exec((e.click.target as any).id)[1] : undefined;
     const oldSelection = this.selectedNodes.slice();
     this.matDrawer.open();
     this.comparingWindowOpen = false;
     if (id) {
       if (this.selectedNodes.length === 1 && this.selectedNodes[0] === id){
         this.selectedNodes = [];
-      } else if ($event.click.ctrlKey) {
+      } else if (e.click.ctrlKey) {
         const nodeInArray = this.selectedNodes.indexOf(id);
         if (nodeInArray >= 0){
           this.selectedNodes.splice(nodeInArray, 1);
@@ -149,9 +148,25 @@ export class HomeComponent implements OnInit {
     if (this.selectedNodes.length === 0){
       this.matDrawer.close();
     }
-    this.redrawSelection(oldSelection, $event.d3);
+    this.redrawSelection(oldSelection, e.d3);
     this.generateSelectedDocuments();
     this.sidenav.clearHighlightedWords();
+  }
+
+  handleNodeHovered(event: {nodeId: string, d3: any}): void{
+    if (!event.nodeId || !this.selectedNodes || this.selectedNodes?.length !== 1){
+      this.errorIndicatorOffset = undefined;
+      return;
+    }
+    const re = /^node_\d+_(.*)$/;
+    const id = (event.nodeId) ? re.exec(event.nodeId)[1] : undefined;
+    const selectedNode = this.selectedNodes[0];
+
+    const targetNode = event.d3.select(`[id="wrapper_${id.replace('.', '\\.')}"]`);
+    const sourceNode = event.d3.select(`[id="wrapper_${selectedNode.replace('.', '\\.')}"]`);
+
+    const deviation = this.calculateDeviation(sourceNode, targetNode, selectedNode, id);
+    this.errorIndicatorOffset = ((deviation + 1) / 2) * 128;
   }
 
   generateSelectedDocuments(): void{
@@ -189,15 +204,16 @@ export class HomeComponent implements OnInit {
   }
 
   calculateDeviation(sourceNode: any, targetNode: any, sourceID: string, targetID: string): number{
-    // todo: calculate using  cosine distance
     const sPos = (sourceNode.attr('transform') as string).match(/translate\(([^,]+), ([^,)]+)\)/);
     const tPos = (targetNode.attr('transform') as string).match(/translate\(([^,]+), ([^,)]+)\)/);
     const sX = parseFloat(sPos[1]);
     const sY = parseFloat(sPos[2]);
     const tX = parseFloat(tPos[1]);
     const tY = parseFloat(tPos[2]);
+
     const distance = Math.sqrt( (sX - tX) * (sX - tX) + (sY - tY) * (sY - tY) );
     const supposedDistance = (1 / this.queryService.getSoftCosineMeasure(sourceID, targetID, this.searchQuery)) - 1;
+
     return this.normalizeDeviation(supposedDistance - distance);
   }
 
@@ -206,11 +222,42 @@ export class HomeComponent implements OnInit {
     return ((1 + x / (1 + Math.abs(x * stiffness))) - 1)  * stiffness;
   }
 
-  colorGradient(color1: Color, color2: Color, gradient: number): Color {
-    const r = color1.r + gradient * (color2.r - color1.r);
-    const g = color1.g + gradient * (color2.g - color1.g);
-    const b = color1.b + gradient * (color2.b - color1.b);
+  colorMix(color1: Color, color2: Color, gradient: number): Color {
+    const r = color1.r * (1 - gradient) + color2.r * (gradient);
+    const g = color1.g * (1 - gradient) + color2.g * (gradient);
+    const b = color1.b * (1 - gradient) + color2.b * (gradient);
     return {r, g, b};
+  }
+
+  inverseSrgbCompanding(color: Color): Color {
+    let r = color.r / 255;
+    let g = color.g / 255;
+    let b = color.b / 255;
+
+    r = (r > 0.04045) ? Math.pow((r + 0.055) / 1.055, 2.4) : r / 12.92;
+    g = (g > 0.04045) ? Math.pow((g + 0.055) / 1.055, 2.4) : g / 12.92;
+    b = (b > 0.04045) ? Math.pow((b + 0.055) / 1.055, 2.4) : b / 12.92;
+
+    return {r: r * 255, g: g * 255, b: b * 255};
+  }
+
+  srgbCompanding(color: Color): Color {
+    let r = color.r / 255;
+    let g = color.g / 255;
+    let b = color.b / 255;
+
+    r = (r > 0.0031308) ? 1.055 * Math.pow(r, 1 / 2.4) - 0.055 : r * 12.92;
+    g = (g > 0.0031308) ? 1.055 * Math.pow(g, 1 / 2.4) - 0.055 : g * 12.92;
+    b = (b > 0.0031308) ? 1.055 * Math.pow(b, 1 / 2.4) - 0.055 : b * 12.92;
+
+    return {r: r * 255, g: g * 255, b: b * 255};
+  }
+
+  colorSrgbGradient(color1: Color, color2: Color, gradient: number): Color {
+    const c1 = this.inverseSrgbCompanding(color1);
+    const c2 = this.inverseSrgbCompanding(color2);
+
+    return this.srgbCompanding(this.colorMix(c1, c2, gradient));
   }
 
   colorToHex(color: Color): string{
@@ -232,7 +279,7 @@ export class HomeComponent implements OnInit {
       const correctColor = {r: 55, g: 176, b: 59};
       const farColor = {r: 176, g: 55, b: 55};
       const closeColor = {r: 69, g: 55, b: 176};
-      const color = this.colorToHex(this.colorGradient(correctColor, deviation < 0 ? closeColor : farColor, Math.abs(deviation)));
+      const color = this.colorToHex(this.colorSrgbGradient(correctColor, deviation < 0 ? closeColor : farColor, Math.abs(deviation)));
       targetNode.select('circle').attr('fill', color);
     }
   }

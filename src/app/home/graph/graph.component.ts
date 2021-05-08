@@ -22,12 +22,14 @@ export class GraphComponent implements OnInit, OnChanges {
   @Input() graphPadding: number;
   @Output() nodeClicked = new EventEmitter<any>();
   @Output() emptyClicked = new EventEmitter<any>();
+  @Output() nodeHovered = new EventEmitter<{nodeId: string, d3: any}>();
   @Output() zoomed = new EventEmitter<any>();
   private svg: any;
   private g: any;
   private simulation: any;
   private zoom: any;
   nodes: any;
+  hoveredNode: string;
 
   constructor(private changeDetector: ChangeDetectorRef) { }
 
@@ -107,6 +109,14 @@ export class GraphComponent implements OnInit, OnChanges {
       .attr('z-index', '1')
       .on('click', (e) => {
         this.nodeClicked.emit({click: e, nodes: this.nodes, d3});
+      })
+      .on('mouseenter', (e) => {
+        this.hoveredNode = e?.target?.id;
+        this.nodeHovered.emit({nodeId: this.hoveredNode, d3});
+      })
+      .on('mouseleave', (e) => {
+        this.hoveredNode = undefined;
+        this.nodeHovered.emit({nodeId: this.hoveredNode, d3});
       });
 
     if (this.showLabels) {
@@ -154,7 +164,6 @@ export class GraphComponent implements OnInit, OnChanges {
 
   centerCamera(x: number, y: number, k: number, duration = 250): void {
     const transform = this.g.node().getBoundingClientRect();
-    console.log(transform);
     const computedX = x;
     const computedY = y;
     this.svg.call(this.zoom.scaleTo, k);
