@@ -1,5 +1,4 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import * as DocumentJson from '../document.json';
 import {QueryService, SearchQuery} from '../services/query.service';
 import {SimulationLinkDatum, SimulationNodeDatum} from 'd3';
 import {MatDrawer} from '@angular/material/sidenav';
@@ -68,20 +67,15 @@ export class HomeComponent implements OnInit {
   constructor(private queryService: QueryService) { }
 
   ngOnInit(): void {
-    this.searchQuery = (DocumentJson as any).default;
-    const keys = Object.entries(this.searchQuery.results);
-    const ae = {};
-    for (let i = 0; i < 5; i++){
-      const [k, v] = keys[i];
-      ae[k] = v;
-    }
-    this.searchQuery.results = ae;
-    console.log(this.searchQuery);
+    this.queryService.currentQuery.subscribe(query => {
+      this.searchQuery = query;
+      this.initGraphData();
+    });
+  }
 
+  initGraphData(): void{
     const nodes = this.createNodes(this.searchQuery);
-    console.log(nodes);
     const links = this.createLinks(this.searchQuery);
-    console.log(links);
     this.graphData = {nodes, links};
   }
 

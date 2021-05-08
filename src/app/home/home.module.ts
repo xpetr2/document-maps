@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HomeComponent } from './home.component';
 import {MaterialModule} from '../material.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {HomeRouter} from './home.routes';
+import { HomeRoutes } from './home.routes';
 import { GraphComponent } from './graph/graph.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { ComparisonComponent } from './comparison/comparison.component';
@@ -32,7 +32,7 @@ import {PipesModule} from '../pipes/pipes.module';
     ReactiveFormsModule,
     AngularResizedEventModule,
     PipesModule,
-    HomeRouter
+    HomeRoutes
   ]
 })
 export class HomeModule { }
