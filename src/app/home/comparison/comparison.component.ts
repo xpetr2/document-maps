@@ -20,7 +20,7 @@ export enum EntryHoverEvent{
   Enter, Leave
 }
 
-export type WordSet = Map<string, Set<string>>;
+export type WordMap = Map<string, Set<string>>;
 
 @Component({
   selector: 'app-comparison',
@@ -31,13 +31,13 @@ export class ComparisonComponent implements OnInit, OnChanges {
 
   @Input() searchQuery: SearchQuery;
   @Input() selectedDocuments: SelectedDocument[];
-  @Output() wordsChanged = new EventEmitter<WordSet>();
+  @Output() wordsChanged = new EventEmitter<WordMap>();
   @Output() wordHovered = new EventEmitter<string>();
 
   wordPairs: {};
   sortedWordPairsExact: any[];
   sortedWordPairsSoft: any[];
-  selectedWords: WordSet = new Map<string, Set<string>>();
+  selectedWords: WordMap = new Map<string, Set<string>>();
   scrollable: {[key: string]: boolean} = {};
   hoveredWord: string;
 

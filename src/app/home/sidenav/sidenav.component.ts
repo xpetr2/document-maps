@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {SearchQuery} from '../../services/query.service';
-import {WordSet} from '../comparison/comparison.component';
+import {WordMap} from '../comparison/comparison.component';
 
 export interface SelectedDocument{
   id: string;
@@ -24,7 +24,7 @@ export class SidenavComponent implements OnInit {
   compareWindow = false;
   highlightedExactMatches = new Set<string>();
   highlightedSoftMatches = new Set<string>();
-  highlightedWordSet: WordSet = new Map<string, Set<string>>();
+  highlightedWordMap: WordMap = new Map<string, Set<string>>();
   hoveredWord: string;
 
   constructor() { }
@@ -42,19 +42,19 @@ export class SidenavComponent implements OnInit {
     this.clearHighlightedWords();
   }
 
-  handleWordsChanged(wordSet: WordSet): void{
-    this.highlightedExactMatches = new Set<string>(wordSet.keys());
-    const softMatches = Array.from(wordSet.values())
+  handleWordsChanged(wordMap: WordMap): void{
+    this.highlightedExactMatches = new Set<string>(wordMap.keys());
+    const softMatches = Array.from(wordMap.values())
       .reduce((a, c) => a.concat([...c]), [])
       .filter(a => !this.highlightedExactMatches.has(a));
     this.highlightedSoftMatches = new Set(softMatches);
-    this.highlightedWordSet = wordSet;
+    this.highlightedWordMap = wordMap;
   }
 
   clearHighlightedWords(): void{
     this.highlightedExactMatches = new Set<string>();
     this.highlightedSoftMatches = new Set<string>();
-    this.highlightedWordSet = new Map<string, Set<string>>();
+    this.highlightedWordMap = new Map<string, Set<string>>();
   }
 
   handleWordHovered(word: string): void{

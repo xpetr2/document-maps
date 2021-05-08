@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {EscapeHtmlPipe} from '../../../../pipes/escape-html.pipe';
 import escapeStringRegexp from 'escape-string-regexp';
-import {WordSet} from '../../../comparison/comparison.component';
+import {WordMap} from '../../../comparison/comparison.component';
 
 @Component({
   selector: 'app-document-content',
@@ -14,7 +14,7 @@ export class DocumentContentComponent implements OnInit, OnChanges {
   @Input() content: string;
   @Input() highlightedExactMatches: Set<string>;
   @Input() highlightedSoftMatches: Set<string>;
-  @Input() highlightedWordSet: WordSet;
+  @Input() highlightedWordMap: WordMap;
   @Input() hoveredWord: string;
 
   convertedContent: string;
@@ -33,8 +33,8 @@ export class DocumentContentComponent implements OnInit, OnChanges {
     }
   }
 
-  getReversedWordSet(): Map<string, Set<string>>{
-    const entries = this.highlightedWordSet.entries();
+  getReversedWordMap(): Map<string, Set<string>>{
+    const entries = this.highlightedWordMap.entries();
     const out = new Map<string, Set<string>>();
     for (const [parent, set] of entries){
       for (const match of set){
@@ -48,7 +48,7 @@ export class DocumentContentComponent implements OnInit, OnChanges {
     return out;
   }
 
-  isWordLowlighted(word: string, hoveredWord: string, words: Set<string>, reversedWordMap: WordSet): boolean{
+  isWordLowlighted(word: string, hoveredWord: string, words: Set<string>, reversedWordMap: WordMap): boolean{
     if (!hoveredWord){
       return false;
     }
@@ -62,12 +62,12 @@ export class DocumentContentComponent implements OnInit, OnChanges {
   getFormattedContent(): string{
     const allWords = new Set([...this.highlightedSoftMatches, ...this.highlightedExactMatches]);
     let content = this.escapeHtml.transform(this.content);
-    const reversedWordSet = this.getReversedWordSet();
+    const reversedWordMap = this.getReversedWordMap();
     for (const word of allWords){
       const escapedWord = this.escapeHtml.transform(word);
       const re = new RegExp(`(?<=^|\\s)${escapeStringRegexp(escapedWord)}(?=$|\\s)`, 'g');
       const wordType = this.highlightedExactMatches.has(word) ? (this.highlightedSoftMatches.has(word) ? 'both' : 'exact') : 'soft';
-      const isHovered = this.isWordLowlighted(word, this.hoveredWord, allWords, reversedWordSet);
+      const isHovered = this.isWordLowlighted(word, this.hoveredWord, allWords, reversedWordMap);
       content = content.replace(re, `<span class="${isHovered ? 'lowlight' : 'highlight'} ${wordType}">${escapedWord}</span>`);
     }
     return content;
