@@ -53,6 +53,14 @@ export class ComparisonComponent implements OnInit, OnChanges {
   generateWordPairs(): void{
     this.wordPairs =
       this.queryService.getNormalizedWordImportancePairs(this.selectedDocuments[0].id, this.selectedDocuments[1].id);
+
+    let cumulative = 0;
+    const esdf = Object.entries(this.wordPairs);
+    for (const [id, num] of esdf){
+      cumulative += num;
+    }
+    console.log(cumulative);
+
     this.generateExactPairs();
     this.generateSoftPairs();
   }

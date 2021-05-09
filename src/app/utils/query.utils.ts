@@ -108,6 +108,7 @@ export function getDocumentText(textID: string, query: SearchQuery): string{
 export function getNormalizedWordImportancePairs(text1: string, text2: string, query: SearchQuery): {[key: string]: number}{
   const bow1 = query.texts_bow[text1];
   const bow2 = query.texts_bow[text2];
+  console.log(JSON.stringify({bow1, bow2}));
   const wordPairs: {[key: string]: number} = {};
   const bowEntries1 = Object.entries(bow1);
   const bowEntries2 = Object.entries(bow2);
@@ -127,7 +128,7 @@ export function getNormalizedWordImportancePairs(text1: string, text2: string, q
       wordPairs[wordsKey] += importance;
     }
   }
-  const norm = this.getSoftCosineMeasure(text1, text2, query);
+  const norm = softCosineMeasureNorm(text1, text2, query);
   const normWordPairs: {[key: string]: number} = {};
   const wordPairsKeys = Object.keys(wordPairs);
   for (const id of wordPairsKeys){
