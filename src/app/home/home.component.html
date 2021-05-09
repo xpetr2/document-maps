@@ -1,4 +1,8 @@
-<mat-drawer-container>
+<div *ngIf="loading">
+  <mat-spinner></mat-spinner>
+  <mat-progress-bar></mat-progress-bar>
+</div>
+<mat-drawer-container *ngIf="!loading">
   <mat-drawer class="compare-sidenav" [ngClass]="{'comparing': comparingWindowOpen}" #drawer mode="side" position="end">
     <app-sidenav #sidenav
                  [selectedDocuments]="selectedDocuments"
@@ -20,6 +24,8 @@
         [minZoom]="minZoom"
         [maxZoom]="maxZoom"
         [defaultZoom]="currentZoom"
+        [distanceModifier]="settings.distanceModifier"
+        [clumpingModifier]="settings.clumpingModifier"
         [graphPadding]="64"
         (nodeClicked)="handleNodeClick($event)"
         (emptyClicked)="clearSelection($event)"

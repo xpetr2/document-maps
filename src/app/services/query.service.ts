@@ -201,4 +201,8 @@ export class QueryService {
     }
     return softMatches;
   }
+
+  calculateCosineDistance(weight: number, multiplier: number = 1, clumping: number = 1): number{
+    return Math.pow(1 - weight, clumping) * multiplier;
+  }
 }

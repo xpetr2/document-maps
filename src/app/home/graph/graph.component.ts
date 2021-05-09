@@ -1,8 +1,9 @@
 import {Component, Input, OnInit, Output, EventEmitter, OnChanges, SimpleChanges, ChangeDetectorRef} from '@angular/core';
 import * as d3 from 'd3';
-import {GraphData, GraphNode} from '../home.component';
+import {GraphData, GraphLink, GraphNode} from '../home.component';
 import {SimulationLinkDatum, SimulationNodeDatum, ZoomTransform} from 'd3';
 import {AppSettings} from '../settings/settings.component';
+import {QueryService} from '../../services/query.service';
 
 @Component({
   selector: 'app-graph',
@@ -15,23 +16,30 @@ export class GraphComponent implements OnInit, OnChanges {
   @Input() width: number;
   @Input() height: number;
   @Input() distanceModifier = 1;
+  @Input() clumpingModifier = 1;
   @Input() minZoom: number;
   @Input() maxZoom: number;
   @Input() defaultZoom: number;
   @Input() showLabels: boolean;
   @Input() graphPadding: number;
+
   @Output() nodeClicked = new EventEmitter<any>();
   @Output() emptyClicked = new EventEmitter<any>();
   @Output() nodeHovered = new EventEmitter<{nodeId: string, d3: any}>();
   @Output() zoomed = new EventEmitter<any>();
+
   private svg: any;
   private g: any;
   private simulation: any;
   private zoom: any;
+
   nodes: any;
   hoveredNode: string;
 
-  constructor(private changeDetector: ChangeDetectorRef) { }
+  constructor(
+    private queryService: QueryService,
+    private changeDetector: ChangeDetectorRef
+  ) { }
 
   ngOnInit(): void {
     this.initSimulation();
@@ -50,10 +58,20 @@ export class GraphComponent implements OnInit, OnChanges {
 
   initSimulation(): void{
     this.simulation = d3.forceSimulation(this.data.nodes);
-    this.simulation.force('link', d3.forceLink(this.data.links).id((d: GraphNode) => d.id)
-        .distance(link => (this.distanceModifier / link.value - this.distanceModifier)))
+    this.simulation.force('link', d3.forceLink(this.data.links)
+        .id((d: GraphNode) => d.id)
+        .distance(link => {
+          return this.queryService.calculateCosineDistance(link.value, this.distanceModifier, this.clumpingModifier);
+        })
+        .strength(1)
+        .iterations(10)
+    )
       .force('charge', d3.forceManyBody()
-        .strength(-1))
+        .strength(-10))
+      .force('collide', d3.forceCollide()
+        .strength(1)
+        .iterations(10)
+        .radius(1))
       .force('center', d3.forceCenter(0, 0));
 
     this.initSvg();

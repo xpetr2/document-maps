@@ -39,8 +39,6 @@ export class HomeComponent implements OnInit {
   searchQuery: SearchQuery;
   graphData: GraphData = undefined;
   nodes: any = {};
-  linkMin = 1;
-  linkMax = -1;
 
   minZoom = 1;
   maxZoom = 32;
@@ -56,9 +54,13 @@ export class HomeComponent implements OnInit {
   comparingWindowOpen = false;
   settingsOpen = false;
   settings: AppSettings = {
-    showLabels: true
+    showLabels: true,
+    distanceModifier: 40,
+    clumpingModifier: 5,
   };
   wordPairs: {};
+
+  loading = false;
 
   @ViewChild('drawer') matDrawer: MatDrawer;
   @ViewChild('sidenav') sidenav: SidenavComponent;
@@ -67,56 +69,67 @@ export class HomeComponent implements OnInit {
   constructor(private queryService: QueryService) { }
 
   ngOnInit(): void {
+    this.loading = true;
+    console.log('loading:', this.loading);
     this.queryService.currentQuery.subscribe(query => {
       this.searchQuery = query;
-      this.initGraphData();
+      this.initGraphData().then(data => {
+        this.graphData = data;
+        this.loading = false;
+        console.log('loading:', this.loading);
+      });
     });
   }
 
-  initGraphData(): void{
-    const nodes = this.createNodes(this.searchQuery);
-    const links = this.createLinks(this.searchQuery);
-    this.graphData = {nodes, links};
+  initGraphData(): Promise<GraphData>{
+    return new Promise<GraphData>((resolve => {
+      Promise.all([this.createNodes(), this.createLinks()]).then(values => {
+        const [nodes, links] = values;
+        resolve({nodes, links});
+      });
+    }));
   }
 
-  createNodes(query: SearchQuery): GraphNode[]{
-    const nodes: GraphNode[] = [];
-    const entries = Object.entries(query.results);
-    for (const [id, docs] of entries){
-      const node = {id, group: 1};
-      nodes.push(node);
-      for (const d of docs) {
-        const doc = {id: d, group: 2};
-        nodes.push(doc);
-        this.nodes[d] = {node: doc, type: 'document'};
+  createNodes(): Promise<GraphNode[]>{
+    const entries = Object.entries(this.searchQuery.results);
+    return new Promise<GraphNode[]>(resolve => {
+      console.log('nodes started');
+      const nodes: GraphNode[] = [];
+      let i = 0;
+      for (const [id, docs] of entries){
+        console.log(`${((i / entries.length) * 100).toFixed(2)}%`);
+        const node = {id, group: 1};
+        nodes.push(node);
+        for (const d of docs) {
+          const doc = {id: d, group: 2};
+          nodes.push(doc);
+          this.nodes[d] = {node: doc, type: 'document'};
+        }
+        this.nodes[id] = {node, type: 'query'};
+        i++;
       }
-      this.nodes[id] = {node, type: 'query'};
-    }
-    return nodes;
+      console.log('nodes done');
+      resolve(nodes);
+    });
   }
 
-  createLinks(query: SearchQuery): GraphLink[]{
-    const links: GraphLink[] = [];
+  createLinks(): Promise<GraphLink[]>{
     const documents = Object.keys(this.nodes);
-    let min = 1;
-    let max = 0;
-    for (let i = 0; i < documents.length; i++) {
-      for (let j = (i + 1); j < documents.length; j++) {
-        const key1 = documents[i];
-        const key2 = documents[j];
-        const scm = this.queryService.getSoftCosineMeasure(key1, key2, query);
-        if (scm < min) {
-          min = scm;
+    return new Promise<GraphLink[]>(resolve => {
+      console.log('links started');
+      const links: GraphLink[] = [];
+      for (let i = 0; i < documents.length; i++) {
+        console.log(`${((i / documents.length) * 100).toFixed(2)}%`);
+        for (let j = (i + 1); j < documents.length; j++) {
+          const key1 = documents[i];
+          const key2 = documents[j];
+          const scm = this.queryService.getSoftCosineMeasure(key1, key2);
+          links.push({source: key1, target: key2, value: scm});
         }
-        if (scm > max) {
-          max = scm;
-        }
-        links.push({source: key1, target: key2, value: scm});
       }
-    }
-    this.linkMin = min;
-    this.linkMax = max;
-    return links;
+      console.log('links done');
+      resolve(links);
+    });
   }
 
   handleNodeClick(e: any): void {
@@ -206,7 +219,9 @@ export class HomeComponent implements OnInit {
     const tY = parseFloat(tPos[2]);
 
     const distance = Math.sqrt( (sX - tX) * (sX - tX) + (sY - tY) * (sY - tY) );
-    const supposedDistance = (1 / this.queryService.getSoftCosineMeasure(sourceID, targetID, this.searchQuery)) - 1;
+    const weight = this.queryService.getSoftCosineMeasure(sourceID, targetID);
+    const supposedDistance =
+      this.queryService.calculateCosineDistance(weight, this.settings.distanceModifier, this.settings.clumpingModifier);
 
     return this.normalizeDeviation(supposedDistance - distance);
   }

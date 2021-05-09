@@ -77,6 +77,10 @@ app-sidenav{
       display: flex;
       flex-direction: column;
 
+      &.opened {
+        min-width: 170px;
+      }
+
       app-settings{
         padding: 0.25em 1em 1em;
       }

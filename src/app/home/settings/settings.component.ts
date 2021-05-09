@@ -2,6 +2,8 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 export interface AppSettings{
   showLabels: boolean;
+  distanceModifier: number;
+  clumpingModifier: number;
 }
 
 @Component({

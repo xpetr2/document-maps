@@ -1,3 +1,18 @@
 <div class="settings-menu-wrapper">
   <mat-checkbox [checked]="settings.showLabels" (change)="changeSetting('showLabels', $event.checked)">Show labels</mat-checkbox>
+  <div>
+    <mat-label><span>Distance modifier:</span><span>{{settings.distanceModifier}}</span></mat-label>
+    <mat-slider thumbLabel min="1" max="100" step="1"
+                [value]="settings.distanceModifier"
+                (input)="changeSetting('distanceModifier', $event.value)">
+    </mat-slider>
+  </div>
+
+  <div>
+    <mat-label><span>Clumping modifier:</span><span>{{settings.clumpingModifier}}</span></mat-label>
+    <mat-slider thumbLabel min="1" max="10" step="0.1"
+                [value]="settings.clumpingModifier"
+                (input)="changeSetting('clumpingModifier', $event.value)">
+    </mat-slider>
+  </div>
 </div>
