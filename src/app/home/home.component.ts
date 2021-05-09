@@ -262,6 +262,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   handleDrawerClose(): void{
     this.matDrawer.close();
     this.sidenav.clearHighlightedWords();
+    this.comparingWindowOpen = false;
   }
 
   handleGraphResize(): void{
