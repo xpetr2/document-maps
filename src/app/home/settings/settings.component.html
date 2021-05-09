@@ -1,5 +1,6 @@
 <div class="settings-menu-wrapper">
   <mat-checkbox [checked]="settings.showLabels" (change)="changeSetting('showLabels', $event.checked)">Show labels</mat-checkbox>
+  <mat-checkbox [checked]="settings.showDeviations" (change)="changeSetting('showDeviations', $event.checked)">Draw deviations</mat-checkbox>
   <div>
     <mat-label><span>Distance modifier:</span><span>{{settings.distanceModifier}}</span></mat-label>
     <mat-slider thumbLabel min="1" max="100" step="1"

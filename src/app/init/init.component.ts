@@ -1,8 +1,10 @@
-import {Component, OnInit, Output, ViewChild, EventEmitter} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {JsonValidateService} from '../services/json-validate.service';
-import {QueryService, SearchQuery} from '../services/query.service';
+import {QueryService} from '../services/query.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import * as exampleDocument from '../../assets/example.json';
 import {Router} from '@angular/router';
+import {SearchQuery} from '../utils/query.utils';
 
 @Component({
   selector: 'app-init',
@@ -116,6 +118,10 @@ export class InitComponent implements OnInit {
   setQuery(query: SearchQuery): void{
     this.queryService.setQuery(query);
     this.router.navigate(['/map']);
+  }
+
+  loadExample(): void{
+    this.setQuery((exampleDocument as any).default);
   }
 
 }

@@ -1,13 +1,8 @@
-<div *ngIf="loading">
-  <mat-spinner></mat-spinner>
-  <mat-progress-bar></mat-progress-bar>
-</div>
 <mat-drawer-container *ngIf="!loading">
   <mat-drawer class="compare-sidenav" [ngClass]="{'comparing': comparingWindowOpen}" #drawer mode="side" position="end">
     <app-sidenav #sidenav
                  [selectedDocuments]="selectedDocuments"
                  [comparingWindowOpen]="comparingWindowOpen"
-                 [searchQuery]="searchQuery"
                  (sidebarClose)="handleDrawerClose()"
                  (compareClick)="handleCompareClick()"
     ></app-sidenav>
@@ -36,7 +31,7 @@
     </div>
   </mat-drawer-content>
 </mat-drawer-container>
-<div class="ui-wrapper">
+<div class="ui-wrapper" *ngIf="!loading">
   <div class="settings-wrapper">
     <div class="settings" [class.opened]="settingsOpen">
       <button mat-icon-button aria-label="Open/close settings" (click)="settingsOpen = !settingsOpen">
@@ -45,7 +40,7 @@
       <app-settings *ngIf="settingsOpen" [(settings)]="settings"></app-settings>
     </div>
   </div>
-  <div class="error-legend" *ngIf="selectedNodes.length === 1">
+  <div class="error-legend" *ngIf="settings.showDeviations && selectedNodes.length === 1">
     <div class="inner">
       <div class="bar"></div>
       <div class="up">Too far</div>

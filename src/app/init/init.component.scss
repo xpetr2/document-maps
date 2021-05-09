@@ -2,7 +2,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #dadada;
+  background-image: url("../../../src/assets/background.jpg");
+  background-position: center center;
+  background-size: cover;
   width: 100%;
   height: 100%;
 
@@ -56,6 +58,19 @@
         }
       }
     }
+
+    .init-example{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+
+      .separator{
+        margin: 1em 0;
+      }
+    }
+
     .loading{
       display: flex;
       justify-content: center;

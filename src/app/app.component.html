@@ -1,5 +1,11 @@
 <div class="app-wrapper">
   <main>
     <router-outlet></router-outlet>
+    <div class="loading-wrapper" *ngIf="isLoading">
+      <div class="loading">
+        <div class="loading-phrase"><mat-spinner mode="indeterminate" diameter="25"></mat-spinner><span>{{loadingStage}} {{(loadingProgress / 100) | percent}}</span></div>
+        <mat-progress-bar mode="determinate" [value]="loadingProgress"></mat-progress-bar>
+      </div>
+    </div>
   </main>
 </div>

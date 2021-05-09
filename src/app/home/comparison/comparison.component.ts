@@ -1,20 +1,7 @@
-import {Component, HostListener, Input, OnChanges, OnInit, Query, SimpleChanges, ViewChild, EventEmitter, Output} from '@angular/core';
-import {QueryService, SearchQuery} from '../../services/query.service';
+import {Component, Input, OnChanges, OnInit, SimpleChanges, EventEmitter, Output} from '@angular/core';
+import {QueryService} from '../../services/query.service';
 import {SelectedDocument} from '../sidenav/sidenav.component';
-
-export interface ExactMatch {
-  word: string;
-}
-
-export interface SoftMatch {
-  parent: string;
-  softWord: string;
-  strength: number;
-}
-
-export enum EntryType {
-  Exact, Soft
-}
+import * as queryUtils from '../../utils/query.utils';
 
 export enum EntryHoverEvent{
   Enter, Leave
@@ -29,19 +16,18 @@ export type WordMap = Map<string, Set<string>>;
 })
 export class ComparisonComponent implements OnInit, OnChanges {
 
-  @Input() searchQuery: SearchQuery;
   @Input() selectedDocuments: SelectedDocument[];
   @Output() wordsChanged = new EventEmitter<WordMap>();
   @Output() wordHovered = new EventEmitter<string>();
 
-  wordPairs: {};
+  wordPairs: {[key: string]: number};
   sortedWordPairsExact: any[];
   sortedWordPairsSoft: any[];
   selectedWords: WordMap = new Map<string, Set<string>>();
   scrollable: {[key: string]: boolean} = {};
   hoveredWord: string;
+  documentSimilarities: number;
 
-  entryType = EntryType;
   entryHoverEvent = EntryHoverEvent;
 
   constructor(private queryService: QueryService) {}
@@ -49,6 +35,9 @@ export class ComparisonComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     if (this.selectedDocuments?.length === 2){
       this.generateWordPairs();
+      const id1 = this.selectedDocuments[0].id;
+      const id2 = this.selectedDocuments[1].id;
+      this.documentSimilarities = this.queryService.getSoftCosineMeasure(id1, id2);
     }
   }
 
@@ -63,13 +52,13 @@ export class ComparisonComponent implements OnInit, OnChanges {
 
   generateWordPairs(): void{
     this.wordPairs =
-      this.queryService.getNormalizedWordImportancePairs(this.selectedDocuments[0].id, this.selectedDocuments[1].id, this.searchQuery);
+      this.queryService.getNormalizedWordImportancePairs(this.selectedDocuments[0].id, this.selectedDocuments[1].id);
     this.generateExactPairs();
     this.generateSoftPairs();
   }
 
   generateExactPairs(): void{
-    const exactPairs = this.queryService.getMostImportantExactMatches(this.wordPairs);
+    const exactPairs = queryUtils.getMostImportantExactMatches(this.wordPairs);
     const items = Object.keys(exactPairs).map((key) => {
       return [key, exactPairs[key]];
     });
@@ -78,7 +67,7 @@ export class ComparisonComponent implements OnInit, OnChanges {
   }
 
   generateSoftPairs(): void{
-    const softPairs = this.queryService.getMostImportantSoftMatches(this.wordPairs);
+    const softPairs = queryUtils.getMostImportantSoftMatches(this.wordPairs);
     const items = Object.keys(softPairs).map((key) => {
       return [key, softPairs[key]];
     });
@@ -115,7 +104,7 @@ export class ComparisonComponent implements OnInit, OnChanges {
     this.wordsChanged.emit(this.selectedWords);
   }
 
-  handleEntryHover(word: string, event: EntryHoverEvent, entryType: EntryType): void{
+  handleEntryHover(word: string, event: EntryHoverEvent): void{
     const prevWord = this.hoveredWord;
     if (event === EntryHoverEvent.Enter){
       this.hoveredWord = word;

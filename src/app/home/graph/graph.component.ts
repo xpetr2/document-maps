@@ -1,16 +1,16 @@
-import {Component, Input, OnInit, Output, EventEmitter, OnChanges, SimpleChanges, ChangeDetectorRef} from '@angular/core';
+import {Component, Input, OnInit, Output, EventEmitter, OnChanges, SimpleChanges, ChangeDetectorRef, AfterViewInit} from '@angular/core';
 import * as d3 from 'd3';
-import {GraphData, GraphLink, GraphNode} from '../home.component';
-import {SimulationLinkDatum, SimulationNodeDatum, ZoomTransform} from 'd3';
-import {AppSettings} from '../settings/settings.component';
+import {SimulationNodeDatum} from 'd3';
 import {QueryService} from '../../services/query.service';
+import * as queryUtils from '../../utils/query.utils';
+import {GraphData, GraphLink, GraphNode} from '../../utils/query.utils';
 
 @Component({
   selector: 'app-graph',
   templateUrl: './graph.component.html',
   styleUrls: ['./graph.component.scss']
 })
-export class GraphComponent implements OnInit, OnChanges {
+export class GraphComponent implements OnInit, OnChanges, AfterViewInit {
 
   @Input() data: GraphData;
   @Input() width: number;
@@ -35,6 +35,7 @@ export class GraphComponent implements OnInit, OnChanges {
 
   nodes: any;
   hoveredNode: string;
+  linkForce: d3.ForceLink<SimulationNodeDatum, GraphLink>;
 
   constructor(
     private queryService: QueryService,
@@ -42,6 +43,10 @@ export class GraphComponent implements OnInit, OnChanges {
   ) { }
 
   ngOnInit(): void {
+
+  }
+
+  ngAfterViewInit(): void{
     this.initSimulation();
   }
 
@@ -50,6 +55,20 @@ export class GraphComponent implements OnInit, OnChanges {
       const showLabels = changes?.showLabels?.currentValue;
       this.redrawLabels(showLabels);
     }
+
+    const distanceModChanged = changes?.distanceModifier?.previousValue !== undefined &&
+      changes?.distanceModifier?.currentValue !== changes?.distanceModifier?.previousValue;
+
+    const clumpingModChanged = changes?.clumpingModifier?.previousValue !== undefined &&
+      changes?.clumpingModifier?.currentValue !== changes?.clumpingModifier?.previousValue;
+
+    if (distanceModChanged || clumpingModChanged){
+      console.log(this.distanceModifier, this.clumpingModifier);
+      this.simulation.force('link')
+        .distance(this.calculateLinkDistance.bind(this));
+      this.simulation.alpha(0.1).restart();
+    }
+
     if (changes?.width?.previousValue !== undefined && changes?.width.currentValue !== changes?.width.previousValue ||
         changes?.height?.previousValue !== undefined && changes?.height.currentValue !== changes?.height.previousValue){
         this.svg.attr('viewBox', `0 0 ${this.width} ${this.height}`);
@@ -58,21 +77,20 @@ export class GraphComponent implements OnInit, OnChanges {
 
   initSimulation(): void{
     this.simulation = d3.forceSimulation(this.data.nodes);
+
     this.simulation.force('link', d3.forceLink(this.data.links)
         .id((d: GraphNode) => d.id)
-        .distance(link => {
-          return this.queryService.calculateCosineDistance(link.value, this.distanceModifier, this.clumpingModifier);
-        })
+        .distance(this.calculateLinkDistance.bind(this))
         .strength(1)
-        .iterations(10)
-    )
+        .iterations(10))
       .force('charge', d3.forceManyBody()
         .strength(-10))
       .force('collide', d3.forceCollide()
         .strength(1)
         .iterations(10)
         .radius(1))
-      .force('center', d3.forceCenter(0, 0));
+      .force('center', d3.forceCenter(0, 0)
+        .strength(0));
 
     this.initSvg();
     this.drawGraph();
@@ -188,6 +206,10 @@ export class GraphComponent implements OnInit, OnChanges {
     this.svg.transition()
       .duration(duration)
       .call(this.zoom.translateTo, computedX, computedY);
+  }
+
+  calculateLinkDistance(link: GraphLink): number{
+    return queryUtils.calculateCosineDistance(link.value, this.distanceModifier, this.clumpingModifier);
   }
 
   setZoom(value: number, duration = 250): void{

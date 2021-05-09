@@ -1,26 +1,11 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {QueryService, SearchQuery} from '../services/query.service';
-import {SimulationLinkDatum, SimulationNodeDatum} from 'd3';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {QueryService} from '../services/query.service';
 import {MatDrawer} from '@angular/material/sidenav';
 import {SelectedDocument, SidenavComponent} from './sidenav/sidenav.component';
 import {GraphComponent} from './graph/graph.component';
 import {AppSettings} from './settings/settings.component';
-
-export interface GraphNode extends SimulationNodeDatum{
-  id: string;
-  group: number;
-}
-
-export interface GraphLink extends SimulationLinkDatum<GraphNode>{
-  source: string;
-  target: string;
-  value: number;
-}
-
-export interface GraphData{
-  nodes: GraphNode[];
-  links: GraphLink[];
-}
+import * as queryUtils from '../utils/query.utils';
+import {GraphData} from '../utils/query.utils';
 
 export interface Color{
   r: number;
@@ -34,9 +19,8 @@ export interface Color{
   styleUrls: ['./home.component.scss']
 })
 
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, AfterViewInit {
 
-  searchQuery: SearchQuery;
   graphData: GraphData = undefined;
   nodes: any = {};
 
@@ -51,84 +35,36 @@ export class HomeComponent implements OnInit {
 
   errorIndicatorOffset = 0;
 
+  loading = true;
+
   comparingWindowOpen = false;
   settingsOpen = false;
   settings: AppSettings = {
     showLabels: true,
+    showDeviations: true,
     distanceModifier: 40,
     clumpingModifier: 5,
   };
   wordPairs: {};
 
-  loading = false;
-
   @ViewChild('drawer') matDrawer: MatDrawer;
   @ViewChild('sidenav') sidenav: SidenavComponent;
   @ViewChild('graph') graph: GraphComponent;
 
-  constructor(private queryService: QueryService) { }
+  constructor(
+    private queryService: QueryService
+  ) {}
 
   ngOnInit(): void {
-    this.loading = true;
-    console.log('loading:', this.loading);
-    this.queryService.currentQuery.subscribe(query => {
-      this.searchQuery = query;
-      this.initGraphData().then(data => {
+
+  }
+
+  ngAfterViewInit(): void{
+    setTimeout(() => {
+      this.queryService.initGraphData().subscribe(data => {
         this.graphData = data;
         this.loading = false;
-        console.log('loading:', this.loading);
       });
-    });
-  }
-
-  initGraphData(): Promise<GraphData>{
-    return new Promise<GraphData>((resolve => {
-      Promise.all([this.createNodes(), this.createLinks()]).then(values => {
-        const [nodes, links] = values;
-        resolve({nodes, links});
-      });
-    }));
-  }
-
-  createNodes(): Promise<GraphNode[]>{
-    const entries = Object.entries(this.searchQuery.results);
-    return new Promise<GraphNode[]>(resolve => {
-      console.log('nodes started');
-      const nodes: GraphNode[] = [];
-      let i = 0;
-      for (const [id, docs] of entries){
-        console.log(`${((i / entries.length) * 100).toFixed(2)}%`);
-        const node = {id, group: 1};
-        nodes.push(node);
-        for (const d of docs) {
-          const doc = {id: d, group: 2};
-          nodes.push(doc);
-          this.nodes[d] = {node: doc, type: 'document'};
-        }
-        this.nodes[id] = {node, type: 'query'};
-        i++;
-      }
-      console.log('nodes done');
-      resolve(nodes);
-    });
-  }
-
-  createLinks(): Promise<GraphLink[]>{
-    const documents = Object.keys(this.nodes);
-    return new Promise<GraphLink[]>(resolve => {
-      console.log('links started');
-      const links: GraphLink[] = [];
-      for (let i = 0; i < documents.length; i++) {
-        console.log(`${((i / documents.length) * 100).toFixed(2)}%`);
-        for (let j = (i + 1); j < documents.length; j++) {
-          const key1 = documents[i];
-          const key2 = documents[j];
-          const scm = this.queryService.getSoftCosineMeasure(key1, key2);
-          links.push({source: key1, target: key2, value: scm});
-        }
-      }
-      console.log('links done');
-      resolve(links);
     });
   }
 
@@ -161,7 +97,7 @@ export class HomeComponent implements OnInit {
   }
 
   handleNodeHovered(event: {nodeId: string, d3: any}): void{
-    if (!event.nodeId || !this.selectedNodes || this.selectedNodes?.length !== 1){
+    if (!this.settings.showDeviations || !event.nodeId || !this.selectedNodes || this.selectedNodes?.length !== 1){
       this.errorIndicatorOffset = undefined;
       return;
     }
@@ -181,13 +117,13 @@ export class HomeComponent implements OnInit {
     for (const id of this.selectedNodes){
       const title = `Document ${id}`;
       const subtitle = `${id}`;
-      const content = this.queryService.getDocumentText(id, this.searchQuery);
+      const content = this.queryService.getDocumentText(id);
       this.selectedDocuments.push({id, title, subtitle, content});
     }
   }
 
   redrawSelection(oldSelection: string[], d3: any): void {
-    if (this.selectedNodes.length === 1){
+    if (this.settings.showDeviations && this.selectedNodes.length === 1){
       this.drawDeviation(this.selectedNodes[0], d3);
     } else {
       this.clearDeviation(d3);
@@ -221,7 +157,7 @@ export class HomeComponent implements OnInit {
     const distance = Math.sqrt( (sX - tX) * (sX - tX) + (sY - tY) * (sY - tY) );
     const weight = this.queryService.getSoftCosineMeasure(sourceID, targetID);
     const supposedDistance =
-      this.queryService.calculateCosineDistance(weight, this.settings.distanceModifier, this.settings.clumpingModifier);
+      queryUtils.calculateCosineDistance(weight, this.settings.distanceModifier, this.settings.clumpingModifier);
 
     return this.normalizeDeviation(supposedDistance - distance);
   }
@@ -277,14 +213,13 @@ export class HomeComponent implements OnInit {
   }
 
   drawDeviation(selectedNode: string, d3: any): void{
-    const entries = Object.entries(this.nodes);
-    for (const [id, ] of entries){
-      if (id === selectedNode) {
+    for (const node of this.graphData.nodes){
+      if (node.id === selectedNode) {
         continue;
       }
-      const targetNode = d3.select(`[id="wrapper_${id.replace('.', '\\.')}"]`);
+      const targetNode = d3.select(`[id="wrapper_${node.id.replace('.', '\\.')}"]`);
       const sourceNode = d3.select(`[id="wrapper_${selectedNode.replace('.', '\\.')}"]`);
-      const deviation = this.calculateDeviation(sourceNode, targetNode, selectedNode, id);
+      const deviation = this.calculateDeviation(sourceNode, targetNode, selectedNode, node.id);
       const correctColor = {r: 55, g: 176, b: 59};
       const farColor = {r: 176, g: 55, b: 55};
       const closeColor = {r: 69, g: 55, b: 176};

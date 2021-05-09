@@ -6,9 +6,10 @@
         <ng-container *ngFor="let pair of sortedWordPairsExact">
           <app-comparison-entry [word]="pair[0]"
                                 [similarity]="pair[1]"
+                                [documentSimilarity]="documentSimilarities"
                                 (selectedChange)="handleWordSelection($event)"
-                                (mouseover)="handleEntryHover(pair[0], entryHoverEvent.Enter, entryType.Exact)"
-                                (mouseleave)="handleEntryHover(pair[0], entryHoverEvent.Leave, entryType.Exact)"
+                                (mouseover)="handleEntryHover(pair[0], entryHoverEvent.Enter)"
+                                (mouseleave)="handleEntryHover(pair[0], entryHoverEvent.Leave)"
           ></app-comparison-entry>
         </ng-container>
         <div *ngIf="sortedWordPairsSoft.length === 0" class="comparison-matches-empty">No hard matches</div>
@@ -22,9 +23,10 @@
           <app-comparison-entry [word]="pair[0] | first"
                                 [softMatch]="pair[0] | second"
                                 [similarity]="pair[1]"
+                                [documentSimilarity]="documentSimilarities"
                                 (selectedChange)="handleWordSelection($event)"
-                                (mouseover)="handleEntryHover(pair[0], entryHoverEvent.Enter, entryType.Soft)"
-                                (mouseleave)="handleEntryHover(pair[0], entryHoverEvent.Leave, entryType.Soft)"
+                                (mouseover)="handleEntryHover(pair[0], entryHoverEvent.Enter)"
+                                (mouseleave)="handleEntryHover(pair[0], entryHoverEvent.Leave)"
           ></app-comparison-entry>
         </ng-container>
         <div *ngIf="sortedWordPairsSoft.length === 0" class="comparison-matches-empty">No soft matches</div>

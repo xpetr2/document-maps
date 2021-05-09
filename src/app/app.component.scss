@@ -1,0 +1,35 @@
+.loading-wrapper{
+  position: fixed;
+  z-index: 10;
+  background: #fff;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .loading{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    max-width: 600px;
+    width: 100%;
+    height: 100%;
+    position: relative;
+
+    .loading-phrase{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 1em;
+      width: 100%;
+      font-size: 1.65em;
+    }
+    mat-spinner{
+      margin-right: 0.5em;
+    }
+  }
+}

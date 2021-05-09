@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import Ajv, {JSONSchemaType} from 'ajv';
-import {SearchQuery} from './query.service';
+import {SearchQuery} from '../utils/query.utils';
 
 // @ts-ignore
 export const searchQuerySchema: JSONSchemaType<SearchQuery> = {

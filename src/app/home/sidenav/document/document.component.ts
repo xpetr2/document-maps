@@ -1,7 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {SelectedDocument} from '../sidenav.component';
 import {WordMap} from '../../comparison/comparison.component';
-import {SearchQuery} from '../../../services/query.service';
 
 @Component({
   selector: 'app-document',
@@ -15,7 +14,6 @@ export class DocumentComponent implements OnInit {
   @Input() highlightedSoftMatches: Set<string>;
   @Input() highlightedWordMap: WordMap;
   @Input() hoveredWord: string;
-  @Input() searchQuery: SearchQuery;
 
   constructor() { }
 

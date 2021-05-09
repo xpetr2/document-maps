@@ -6,6 +6,10 @@
       <button mat-raised-button color="primary" (click)="fileInput.click()"><mat-icon>file_upload</mat-icon><span>Insert file</span></button>
       <button mat-raised-button color="primary" (click)="insertingText = true"><mat-icon>wysiwyg</mat-icon><span>Insert as JSON text</span></button>
     </div>
+    <div *ngIf="!insertingText" class="init-example">
+      <div class="separator">OR</div>
+      <button mat-raised-button class="long-button" (click)="loadExample()"><mat-icon>description</mat-icon><span>Use the example file</span></button>
+    </div>
     <div *ngIf="insertingText" class="init-insert-text">
       <button mat-button aria-label="Back" class="navigate-back" (click)="insertingText = false">
         <mat-icon>arrow_back</mat-icon><span>Back</span>

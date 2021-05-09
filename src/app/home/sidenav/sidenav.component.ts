@@ -1,5 +1,4 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {SearchQuery} from '../../services/query.service';
 import {WordMap} from '../comparison/comparison.component';
 
 export interface SelectedDocument{
@@ -17,7 +16,6 @@ export interface SelectedDocument{
 export class SidenavComponent implements OnInit {
   @Input() selectedDocuments: SelectedDocument[] = [];
   @Input() comparingWindowOpen = false;
-  @Input() searchQuery: SearchQuery;
   @Output() sidebarClose = new EventEmitter<any>();
   @Output() compareClick = new EventEmitter<any>();
 

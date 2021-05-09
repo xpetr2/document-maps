@@ -1,3 +1,9 @@
+::ng-deep{
+  .mat-drawer-inner-container{
+    overflow-x: hidden;
+  }
+}
+
 .sidenav-wrapper{
   width: 400px;
   height: 100%;
@@ -5,7 +11,8 @@
   display: grid;
   position: relative;
   grid-template-columns: 1fr;
-  grid-template-rows: 40px repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-rows: 40px;
+  grid-auto-rows: minmax(200px, 1fr);
   grid-gap: 1em;
   flex-shrink: 0;
 }
