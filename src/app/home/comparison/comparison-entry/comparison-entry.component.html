@@ -1,9 +1,9 @@
 <div *ngIf="!softMatch" class="comparison-entry hard-match">
   <div class="word-wrapper"><mat-checkbox color="accent" (change)="handleChange($event)">{{word}}</mat-checkbox></div>
-  <div class="bar-wrapper"><div class="bar" [ngStyle]="{width: (getBarWidth()*100) + '%'}"></div></div>
+  <div class="bar-wrapper"><div class="bar" [ngStyle]="{width: getBarWidth() | percent:'.2'}"><span>{{getBarWidth() | percent:'.2'}}</span></div></div>
 </div>
 
 <div *ngIf="softMatch" class="comparison-entry soft-match">
   <div class="word-wrapper"><mat-checkbox color="warn" (change)="handleChange($event)"><div>{{word}}</div><div>{{softMatch}}</div></mat-checkbox></div>
-  <div class="bar-wrapper"><div class="bar" [ngStyle]="{width: (getBarWidth()*100) + '%'}"></div></div>
+  <div class="bar-wrapper"><div class="bar" [ngStyle]="{width: getBarWidth() | percent:'.2'}"><span>{{getBarWidth() | percent:'.2'}}</span></div></div>
 </div>

@@ -1,9 +1,9 @@
-<div class="sidenav-wrapper" [ngClass]="{'comparing': compareWindow}">
+<div class="sidenav-wrapper" [ngClass]="{'comparing': comparingWindowOpen}">
   <div class="sidenav-nav">
     <button mat-icon-button aria-label="Close sidenav" (click)="closeSidenav($event)">
       <mat-icon>close</mat-icon>
     </button>
-    <button mat-raised-button color="accent" class="compare-button" [disabled]="selectedDocuments.length !== 2" (click)="clickedCompare($event)">
+    <button *ngIf="!comparingWindowOpen" mat-raised-button color="accent" class="compare-button" [disabled]="selectedDocuments.length !== 2" (click)="clickedCompare($event)">
       Compare<span class="material-icons">keyboard_arrow_right</span>
     </button>
   </div>
@@ -13,6 +13,7 @@
                 [highlightedSoftMatches]="highlightedSoftMatches"
                 [highlightedWordMap]="highlightedWordMap"
                 [hoveredWord]="hoveredWord"
+                [style.comparing]="comparingWindowOpen"
   ></app-document>
 </div>
 <div class="sidenav-comparison" *ngIf="comparingWindowOpen">

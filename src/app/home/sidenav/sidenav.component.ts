@@ -19,7 +19,6 @@ export class SidenavComponent implements OnInit {
   @Output() sidebarClose = new EventEmitter<any>();
   @Output() compareClick = new EventEmitter<any>();
 
-  compareWindow = false;
   highlightedExactMatches = new Set<string>();
   highlightedSoftMatches = new Set<string>();
   highlightedWordMap: WordMap = new Map<string, Set<string>>();

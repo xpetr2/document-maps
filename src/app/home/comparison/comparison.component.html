@@ -1,40 +1,35 @@
 <div class="comparison-wrapper">
-  <div class="comparison-matches-wrapper">
-    <div class="matches-exact">
-      <h2>Exact matches</h2>
-      <div #exactMatches id="exactMatches" class="comparison-matches" (resized)="checkOverflow(exactMatches)" (scroll)="checkOverflow(exactMatches)">
-        <ng-container *ngFor="let pair of sortedWordPairsExact">
-          <app-comparison-entry [word]="pair[0]"
-                                [similarity]="pair[1]"
-                                [documentSimilarity]="documentSimilarities"
-                                (selectedChange)="handleWordSelection($event)"
-                                (mouseover)="handleEntryHover(pair[0], entryHoverEvent.Enter)"
-                                (mouseleave)="handleEntryHover(pair[0], entryHoverEvent.Leave)"
-          ></app-comparison-entry>
-        </ng-container>
-        <div *ngIf="sortedWordPairsSoft.length === 0" class="comparison-matches-empty">No hard matches</div>
-      </div>
-      <div *ngIf="scrollable[exactMatches.id]" class="matches-fade"></div>
+  <div class="matches-exact">
+    <h2>Exact matches</h2>
+    <div #exactMatches id="exactMatches" class="comparison-matches" (resized)="checkOverflow(exactMatches)" (scroll)="checkOverflow(exactMatches)">
+      <ng-container *ngFor="let pair of sortedWordPairsExact">
+        <app-comparison-entry [word]="pair[0]"
+                              [similarity]="pair[1]"
+                              [documentSimilarity]="documentSimilarities"
+                              (selectedChange)="handleWordSelection($event)"
+                              (mouseover)="handleEntryHover(pair[0], entryHoverEvent.Enter)"
+                              (mouseleave)="handleEntryHover(pair[0], entryHoverEvent.Leave)"
+        ></app-comparison-entry>
+      </ng-container>
+      <div *ngIf="sortedWordPairsSoft.length === 0" class="comparison-matches-empty">No hard matches</div>
     </div>
-    <div class="matches-soft">
-      <h2>Soft matches</h2>
-      <div #softMatches id="softMatches" class="comparison-matches" (resized)="checkOverflow(softMatches)" (scroll)="checkOverflow(softMatches)">
-        <ng-container *ngFor="let pair of sortedWordPairsSoft">
-          <app-comparison-entry [word]="pair[0] | first"
-                                [softMatch]="pair[0] | second"
-                                [similarity]="pair[1]"
-                                [documentSimilarity]="documentSimilarities"
-                                (selectedChange)="handleWordSelection($event)"
-                                (mouseover)="handleEntryHover(pair[0], entryHoverEvent.Enter)"
-                                (mouseleave)="handleEntryHover(pair[0], entryHoverEvent.Leave)"
-          ></app-comparison-entry>
-        </ng-container>
-        <div *ngIf="sortedWordPairsSoft.length === 0" class="comparison-matches-empty">No soft matches</div>
-      </div>
-      <div *ngIf="scrollable[softMatches.id]" class="matches-fade"></div>
-    </div>
+    <div *ngIf="scrollable[exactMatches.id]" class="matches-fade"></div>
   </div>
-  <div class="comparison-aggregates">
-
+  <div class="matches-soft">
+    <h2>Soft matches</h2>
+    <div #softMatches id="softMatches" class="comparison-matches" (resized)="checkOverflow(softMatches)" (scroll)="checkOverflow(softMatches)">
+      <ng-container *ngFor="let pair of sortedWordPairsSoft">
+        <app-comparison-entry [word]="pair[0] | first"
+                              [softMatch]="pair[0] | second"
+                              [similarity]="pair[1]"
+                              [documentSimilarity]="documentSimilarities"
+                              (selectedChange)="handleWordSelection($event)"
+                              (mouseover)="handleEntryHover(pair[0], entryHoverEvent.Enter)"
+                              (mouseleave)="handleEntryHover(pair[0], entryHoverEvent.Leave)"
+        ></app-comparison-entry>
+      </ng-container>
+      <div *ngIf="sortedWordPairsSoft.length === 0" class="comparison-matches-empty">No soft matches</div>
+    </div>
+    <div *ngIf="scrollable[softMatches.id]" class="matches-fade"></div>
   </div>
 </div>
