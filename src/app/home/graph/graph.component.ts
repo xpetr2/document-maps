@@ -155,7 +155,7 @@ export class GraphComponent implements OnChanges, AfterViewInit {
     this.simulation.force('link', d3.forceLink(this.data.links)
       .id((d: GraphNode) => d.id)
       .distance(this.calculateLinkDistance.bind(this))
-      .strength(1)
+      .strength(link => link.value)
       .iterations(10))
       .force('charge', d3.forceManyBody()
         .strength(-10))
