@@ -1,88 +1,162 @@
-import {Component, Input, OnInit, Output, EventEmitter, OnChanges, SimpleChanges, ChangeDetectorRef, AfterViewInit} from '@angular/core';
+import {Component, Input, Output, EventEmitter, OnChanges, SimpleChanges, ChangeDetectorRef, AfterViewInit} from '@angular/core';
 import * as d3 from 'd3';
-import {SimulationNodeDatum} from 'd3';
 import {QueryService} from '../../services/query.service';
 import * as queryUtils from '../../utils/query.utils';
 import {GraphData, GraphLink, GraphNode} from '../../utils/query.utils';
+import {valueChanged} from '../../utils/various.utils';
 
 @Component({
   selector: 'app-graph',
   templateUrl: './graph.component.html',
   styleUrls: ['./graph.component.scss']
 })
-export class GraphComponent implements OnInit, OnChanges, AfterViewInit {
+export class GraphComponent implements OnChanges, AfterViewInit {
 
+  /**
+   * Node and link data passed to D3
+   */
   @Input() data: GraphData;
+  /**
+   * Width of current window
+   */
   @Input() width: number;
+  /**
+   * Height of current window
+   */
   @Input() height: number;
+  /**
+   * The modifier, that linearly scales the distance between two nodes
+   */
   @Input() distanceModifier = 1;
+  /**
+   * The modifier, that exponentially scales the distance between two nodes
+   */
   @Input() clumpingModifier = 1;
+  /**
+   * Minimal allowed zoom
+   */
   @Input() minZoom: number;
+  /**
+   * Maximal allowed zoom
+   */
   @Input() maxZoom: number;
+  /**
+   * Starting zoom, when the component is first loaded
+   */
   @Input() defaultZoom: number;
+  /**
+   * Specifies, whether labels for individual nodes should be rendered
+   */
   @Input() showLabels: boolean;
+  /**
+   * On initialization, the camera attempts to keep the sides of the graph view empty by this amount
+   */
   @Input() graphPadding: number;
 
+  /**
+   * Emits every time the user clicks on a node
+   */
   @Output() nodeClicked = new EventEmitter<any>();
+  /**
+   * Emits every time the user clicks on nothing
+   */
   @Output() emptyClicked = new EventEmitter<any>();
+  /**
+   * Emits every time the user hovers over a node
+   */
   @Output() nodeHovered = new EventEmitter<{nodeId: string, d3: any}>();
+  /**
+   * Emits every time the user zooms the graph
+   */
   @Output() zoomed = new EventEmitter<any>();
 
+  /**
+   * The SVG component holding all graph components
+   * @private
+   */
   private svg: any;
+  /**
+   * The SVG Group component holding the individual nodes
+   * @private
+   */
   private g: any;
+  /**
+   * The running D3 simulation
+   * @private
+   */
   private simulation: any;
+  /**
+   * The zoom behaviour applied to the graph
+   * @private
+   */
   private zoom: any;
 
-  nodes: any;
-  hoveredNode: string;
-  linkForce: d3.ForceLink<SimulationNodeDatum, GraphLink>;
+  /**
+   * The SVG element that stores the groups of nodes directly
+   * @private
+   */
+  private nodes: any;
+  /**
+   * The ID of the currently hovered on node
+   * @private
+   */
+  private hoveredNode: string;
 
+  /**
+   * @param queryService    the QueryService holding the corpus information
+   * @param changeDetector  the ChangeDetectorRef responsible for updating the DOM
+   */
   constructor(
     private queryService: QueryService,
     private changeDetector: ChangeDetectorRef
   ) { }
-
-  ngOnInit(): void {
-
-  }
 
   ngAfterViewInit(): void{
     this.initSimulation();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes?.showLabels?.previousValue !== undefined && changes?.showLabels?.currentValue !== changes?.showLabels?.previousValue){
-      const showLabels = changes?.showLabels?.currentValue;
-      this.redrawLabels(showLabels);
+    if (valueChanged(changes?.showLabels)){
+      this.drawLabels();
     }
 
-    const distanceModChanged = changes?.distanceModifier?.previousValue !== undefined &&
-      changes?.distanceModifier?.currentValue !== changes?.distanceModifier?.previousValue;
-
-    const clumpingModChanged = changes?.clumpingModifier?.previousValue !== undefined &&
-      changes?.clumpingModifier?.currentValue !== changes?.clumpingModifier?.previousValue;
-
-    if (distanceModChanged || clumpingModChanged){
-      console.log(this.distanceModifier, this.clumpingModifier);
+    if (valueChanged(changes?.distanceModifier) || valueChanged(changes?.clumpingModifier)){
       this.simulation.force('link')
         .distance(this.calculateLinkDistance.bind(this));
       this.simulation.alpha(0.1).restart();
     }
 
-    if (changes?.width?.previousValue !== undefined && changes?.width.currentValue !== changes?.width.previousValue ||
-        changes?.height?.previousValue !== undefined && changes?.height.currentValue !== changes?.height.previousValue){
+    if (valueChanged(changes?.width) || valueChanged(changes?.height) ){
         this.svg.attr('viewBox', `0 0 ${this.width} ${this.height}`);
     }
   }
 
+  /**
+   * The initialization of the simulation
+   */
   initSimulation(): void{
     this.simulation = d3.forceSimulation(this.data.nodes);
 
+    this.initForces();
+    this.initSvg();
+    this.initEvents();
+    this.drawGraph();
+
+    this.centerCamera(0, 0, this.defaultZoom, 0);
+    setTimeout(() => {
+      this.setZoom(this.defaultZoom * this.calculateCoverZoom(), 1000);
+    }, 0);
+  }
+
+  /**
+   * Initialize the forces applied to nodes
+   */
+  initForces(): void{
     this.simulation.force('link', d3.forceLink(this.data.links)
-        .id((d: GraphNode) => d.id)
-        .distance(this.calculateLinkDistance.bind(this))
-        .strength(1)
-        .iterations(10))
+      .id((d: GraphNode) => d.id)
+      .distance(this.calculateLinkDistance.bind(this))
+      .strength(1)
+      .iterations(10))
       .force('charge', d3.forceManyBody()
         .strength(-10))
       .force('collide', d3.forceCollide()
@@ -91,15 +165,11 @@ export class GraphComponent implements OnInit, OnChanges, AfterViewInit {
         .radius(1))
       .force('center', d3.forceCenter(0, 0)
         .strength(0));
-
-    this.initSvg();
-    this.drawGraph();
-    this.centerCamera(0, 0, this.defaultZoom, 0);
-    setTimeout(() => {
-      this.setZoom(this.defaultZoom * this.calculateCoverZoom(), 1000);
-    }, 0);
   }
 
+  /**
+   * Initialize the main SVG component of the graph
+   */
   initSvg(): void{
     this.svg = d3.select('figure#graph')
       .append('svg')
@@ -110,7 +180,12 @@ export class GraphComponent implements OnInit, OnChanges, AfterViewInit {
       .attr('viewBox', `0 0 ${this.width} ${this.height}`);
 
     this.g = this.svg.append('g');
+  }
 
+  /**
+   * Initialize the behaviours and events of the graph
+   */
+  initEvents(): void{
     this.zoom = d3.zoom()
       .on('zoom', (e) => {
         if (e?.sourceEvent?.type === 'wheel' || e?.sourceEvent?.type === 'dblclick'){
@@ -130,7 +205,22 @@ export class GraphComponent implements OnInit, OnChanges, AfterViewInit {
     });
   }
 
+  /**
+   *  Draw the interactive part of the graph
+   */
   drawGraph(): void{
+    this.drawNodes();
+    this.drawLabels();
+
+    this.simulation.on('tick', () => {
+      this.nodes.attr('transform', d => `translate(${d.x}, ${d.y})`);
+    });
+  }
+
+  /**
+   * Draw the nodes on the graph and apply interaction events on them
+   */
+  drawNodes(): void{
     this.nodes = this.g.append('g')
       .selectAll('.node-group')
       .data(this.data.nodes)
@@ -140,7 +230,6 @@ export class GraphComponent implements OnInit, OnChanges, AfterViewInit {
 
     this.nodes.append('circle')
       .attr('r', 1)
-      .attr('fill', c => c.group === 1 ? '#ffd740' : '#673ab7')
       .attr('id', c => `node_${c.group}_${c.id}`)
       .attr('z-index', '1')
       .on('click', (e) => {
@@ -150,33 +239,17 @@ export class GraphComponent implements OnInit, OnChanges, AfterViewInit {
         this.hoveredNode = e?.target?.id;
         this.nodeHovered.emit({nodeId: this.hoveredNode, d3});
       })
-      .on('mouseleave', (e) => {
+      .on('mouseleave', () => {
         this.hoveredNode = undefined;
         this.nodeHovered.emit({nodeId: this.hoveredNode, d3});
       });
-
-    if (this.showLabels) {
-      this.nodes.append('text')
-        .attr('dx', 1.25)
-        .attr('dy', '.35em')
-        .attr('font-size', '0.075em')
-        .attr('class', 'clickable-through node-label')
-        .attr('z-index', '2')
-        .text(c => c.id);
-
-      this.nodes.select('node-label').raise();
-    }
-
-    // this.nodes.append('div')
-    //   .attr('class', 'top-matches');
-
-    this.simulation.on('tick', () => {
-      this.nodes.attr('transform', d => `translate(${d.x}, ${d.y})`);
-    });
   }
 
-  redrawLabels(showLabels: boolean): void{
-    if (showLabels) {
+  /**
+   * Draws the labels next to the nodes
+   */
+  drawLabels(): void{
+    if (this.showLabels) {
       this.nodes.append('text')
         .attr('dx', 1.25)
         .attr('dy', '.35em')
@@ -191,6 +264,9 @@ export class GraphComponent implements OnInit, OnChanges, AfterViewInit {
     }
   }
 
+  /**
+   * Calculates the required zoom value to contain all the nodes on screen
+   */
   calculateCoverZoom(): number {
     const transform = this.g.node().getBoundingClientRect();
     const widthMult = (this.width - this.graphPadding) / transform.width;
@@ -198,8 +274,14 @@ export class GraphComponent implements OnInit, OnChanges, AfterViewInit {
     return ((widthMult < heightMult) ? widthMult : heightMult);
   }
 
+  /**
+   * Center the camera to specified coordinates
+   * @param x         The x coordinate
+   * @param y         The y coordinate
+   * @param k         The zoom level
+   * @param duration  The duration the animation should take in milliseconds
+   */
   centerCamera(x: number, y: number, k: number, duration = 250): void {
-    const transform = this.g.node().getBoundingClientRect();
     const computedX = x;
     const computedY = y;
     this.svg.call(this.zoom.scaleTo, k);
@@ -208,16 +290,28 @@ export class GraphComponent implements OnInit, OnChanges, AfterViewInit {
       .call(this.zoom.translateTo, computedX, computedY);
   }
 
+  /**
+   * Calculate the distance of two nodes based on their similarity
+   * @param link  The link between two notes
+   */
   calculateLinkDistance(link: GraphLink): number{
     return queryUtils.calculateCosineDistance(link.value, this.distanceModifier, this.clumpingModifier);
   }
 
+  /**
+   * Set the zoom level to a value
+   * @param value     Value to set the zoom level to
+   * @param duration  The duration of the animation should take in milliseconds
+   */
   setZoom(value: number, duration = 250): void{
     this.svg.transition()
       .duration(duration)
       .call(this.zoom.scaleTo, value);
   }
 
+  /**
+   * Detects whether changes have happened and updates the DOM
+   */
   detectChanges(): void{
     this.changeDetector.detectChanges();
     this.changeDetector.markForCheck();

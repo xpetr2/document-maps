@@ -4,7 +4,7 @@
     <div #exactMatches id="exactMatches" class="comparison-matches" (resized)="checkOverflow(exactMatches)" (scroll)="checkOverflow(exactMatches)">
       <ng-container *ngFor="let pair of sortedWordPairsExact">
         <app-comparison-entry [word]="pair[0]"
-                              [similarity]="pair[1]"
+                              [weight]="pair[1]"
                               [documentSimilarity]="documentSimilarities"
                               (selectedChange)="handleWordSelection($event)"
                               (mouseover)="handleEntryHover(pair[0], entryHoverEvent.Enter)"
@@ -21,7 +21,7 @@
       <ng-container *ngFor="let pair of sortedWordPairsSoft">
         <app-comparison-entry [word]="pair[0] | first"
                               [softMatch]="pair[0] | second"
-                              [similarity]="pair[1]"
+                              [weight]="pair[1]"
                               [documentSimilarity]="documentSimilarities"
                               (selectedChange)="handleWordSelection($event)"
                               (mouseover)="handleEntryHover(pair[0], entryHoverEvent.Enter)"

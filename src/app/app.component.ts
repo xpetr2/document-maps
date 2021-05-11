@@ -1,6 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {LoadingService} from './services/loading.service';
 
+
+/**
+ * Main wrapper component of the application, handles only the loading between routes
+ */
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -9,10 +13,25 @@ import {LoadingService} from './services/loading.service';
 export class AppComponent implements OnInit{
   title = 'Document Maps';
 
+  /**
+   * Specifies if the page is loading
+   * @public
+   */
   isLoading = false;
+  /**
+   * Specifies the progress in percentage value of the current stage
+   * @public
+   */
   loadingProgress: number;
+  /**
+   * Specifies the current loading stage of the entire loading process
+   * @public
+   */
   loadingStage: string;
 
+  /**
+   * @param loadingService - The loading service, passing values of loading
+   */
   constructor(
     private loadingService: LoadingService
   ) {}

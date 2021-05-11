@@ -1,19 +1,13 @@
 /// <reference lib="webworker" />
 import * as queryUtils from '../utils/query.utils';
-import {GraphData} from '../utils/query.utils';
 import {flatMap} from 'rxjs/internal/operators';
 import {of} from 'rxjs';
 
-export interface ProgressReport{
-  stage: string;
-  value: number;
-  data?: GraphData;
-}
-
+/**
+ * The WebWorker responsible for doing the heavy lifting of generating nodes and links in the background without blocking the UI.
+ * It also sends out the progress state of generating nodes and links
+ */
 addEventListener('message', ({ data }) => {
-  /*const nodes = queryUtils.createNodes(data.query);
-  const links = queryUtils.createLinks(nodes, data.query);
-  postMessage({nodes, links});*/
   queryUtils.createNodes(data.query)
     .pipe(
       flatMap(nodes => {

@@ -2,12 +2,9 @@
   "name": "bakalarka",
   "version": "0.0.0",
   "scripts": {
-    "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e"
+    "compodoc": "npx compodoc -p tsconfig.doc.json"
   },
   "private": true,
   "dependencies": {
@@ -37,6 +34,7 @@
     "@angular-devkit/build-angular": "^0.1102.11",
     "@angular/cli": "^11.2.11",
     "@angular/compiler-cli": "^11.2.12",
+    "@compodoc/compodoc": "^1.1.11",
     "@types/d3": "^6.3.0",
     "@types/d3-force": "^2.1.1",
     "@types/jasmine": "^3.6.11",

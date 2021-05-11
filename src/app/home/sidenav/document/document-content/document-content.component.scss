@@ -1,6 +1,8 @@
-$highlight: #fed740;
-$soft-highlight: #f44336;
-$lowlight: #dadada;
+@import '../../../../../variables';
+
+$highlight: map-get($color, secondary);
+$soft-highlight: map-get($color, tertiary);
+$lowlight: map-get($color, lowlight);
 
 p{
   $hovered-word: attr(data-hovered);

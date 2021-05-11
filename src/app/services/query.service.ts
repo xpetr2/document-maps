@@ -2,20 +2,41 @@ import {Injectable} from '@angular/core';
 import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import {LoadingService} from './loading.service';
 import * as queryUtils from '../utils/query.utils';
-import {GraphData, SearchQuery} from '../utils/query.utils';
+import {GraphData, Corpus} from '../utils/query.utils';
 import {filter, map, tap} from 'rxjs/operators';
 
+/**
+ * The query service, responsible for querying on and operating with the corpus while also the corpus itself
+ */
 @Injectable({
   providedIn: 'root'
 })
 export class QueryService {
-  private querySource = new BehaviorSubject<SearchQuery>(undefined);
-  currentQuery = this.querySource.asObservable();
+  /**
+   * The subject storing the corpus itself
+   * @private
+   */
+  private corpusSource = new BehaviorSubject<Corpus>(undefined);
+  /**
+   * The observable generated from corpusSource
+   */
+  currentCorpus = this.corpusSource.asObservable();
 
+  /**
+   * The worker, eventually responsible for generating the initial GraphData
+   */
   readonly worker: Worker;
 
+  /**
+   * The stored data from passed from the worker
+   * @private
+   */
   private workerData = new Subject<any>();
 
+  /**
+   * A constructor, initializing the worker
+   * @param loadingService  The loading service, handling the progress reports
+   */
   constructor(private loadingService: LoadingService) {
     if (typeof Worker !== 'undefined'){
       this.worker = new Worker('../workers/graph-data.worker', { type: 'module' });
@@ -25,58 +46,127 @@ export class QueryService {
     }
   }
 
-  setQuery(query: SearchQuery): void{
-    this.querySource.next(query);
+  /**
+   * A setter for the corpus value
+   * @param corpus  The corpus to be set
+   */
+  setCorpus(corpus: Corpus): void{
+    this.corpusSource.next(corpus);
   }
 
-  private usedQuery(query: SearchQuery): SearchQuery{
-    if (!query && !this.querySource.getValue()){
+  /**
+   * A helper function, checking if the passed in corpus exists, otherwise defaulting to the global one
+   * @param corpus  The corpus to be checked
+   * @private
+   */
+  private usedCorpus(corpus: Corpus): Corpus{
+    if (!corpus && !this.corpusSource.getValue()){
       return undefined;
     }
-    return query ? query : this.querySource.getValue();
+    return corpus ? corpus : this.corpusSource.getValue();
   }
 
-  getWordId(word: string, query?: SearchQuery): string {
-    return queryUtils.getWordId(word, this.usedQuery(query));
+  /**
+   * Returns the ID of a given word
+   * @param word    The word to retrieve the id of
+   * @param corpus  Optional corpus, defaults to the global one
+   */
+  getWordId(word: string, corpus?: Corpus): string {
+    return queryUtils.getWordId(word, this.usedCorpus(corpus));
   }
 
-  getWord(wordID: string, query?: SearchQuery): string {
-   return queryUtils.getWord(wordID, this.usedQuery(query));
+  /**
+   * Returns the word from dictionary of a given id
+   * @param id      The id to retrieve the word of
+   * @param corpus  Optional corpus, defaults to the global one
+   */
+  getWord(id: string, corpus?: Corpus): string {
+   return queryUtils.getWord(id, this.usedCorpus(corpus));
   }
 
-  getSimilarity(w1: string, w2: string, query?: SearchQuery): number {
-    return queryUtils.getSimilarity(w1, w2, this.usedQuery(query));
+  /**
+   * Returns the cosine similarity of two word ids
+   * @param id1     The first id to compare
+   * @param id2     The second id to compare
+   * @param corpus  Optional corpus, defaults to the global one
+   */
+  getSimilarity(id1: string, id2: string, corpus?: Corpus): number {
+    return queryUtils.getSimilarity(id1, id2, this.usedCorpus(corpus));
   }
 
-  getSimilarityWord(word1: string, word2: string, query?: SearchQuery): number{
-    return queryUtils.getSimilarityWord(word1, word2, this.usedQuery(query));
+  /**
+   * Returns the cosine similarity of two words
+   * @param word1   The first word to compare
+   * @param word2   The second word to compare
+   * @param corpus  Optional corpus, defaults to the global one
+   */
+  getSimilarityWord(word1: string, word2: string, corpus?: Corpus): number{
+    return queryUtils.getSimilarityWord(word1, word2, this.usedCorpus(corpus));
   }
 
-  innerProduct(t1, t2, query?: SearchQuery): number{
-    return queryUtils.innerProduct(t1, t2, this.usedQuery(query));
+  /**
+   * Calculates the inner product of the cosine similarities of two word ids
+   * @param id1     The first text id
+   * @param id2     The second text id
+   * @param corpus  Optional corpus, defaults to the global one
+   */
+  innerProduct(id1, id2, corpus?: Corpus): number{
+    return queryUtils.innerProduct(id1, id2, this.usedCorpus(corpus));
   }
 
-  innerProductSingle(t, query?: SearchQuery): number {
-    return queryUtils.innerProductSingle(t, this.usedQuery(query));
+  /**
+   * Calculates the inner product of the cosine similarity of one word id
+   * @param id      The text id
+   * @param corpus  Optional corpus, defaults to the global one
+   */
+  innerProductSingle(id, corpus?: Corpus): number {
+    return queryUtils.innerProductSingle(id, this.usedCorpus(corpus));
   }
 
-  softCosineMeasureNorm(t1, t2, query?: SearchQuery): number{
-    return queryUtils.softCosineMeasureNorm(t1, t2, this.usedQuery(query));
+  /**
+   * Returns the soft cosine normalization of two word ids
+   * @param id1     The first text id
+   * @param id2     The second text id
+   * @param corpus  Optional corpus, defaults to the global one
+   */
+  softCosineMeasureNorm(id1, id2, corpus?: Corpus): number{
+    return queryUtils.softCosineMeasureNorm(id1, id2, this.usedCorpus(corpus));
   }
 
-  getSoftCosineMeasure(textID1: string, textID2: string, query?: SearchQuery): number {
-    return queryUtils.getSoftCosineMeasure(textID1, textID2, this.usedQuery(query));
+  /**
+   * Returns the soft cosine measure of two texts
+   * @param id1     The first text id
+   * @param id2     The second text id
+   * @param corpus  Optional corpus, defaults to the global one
+   */
+  getSoftCosineMeasure(id1: string, id2: string, corpus?: Corpus): number {
+    return queryUtils.getSoftCosineMeasure(id1, id2, this.usedCorpus(corpus));
   }
 
-  getDocumentText(textID: string, query?: SearchQuery): string{
-    return queryUtils.getDocumentText(textID, this.usedQuery(query));
+  /**
+   * Returns the document text
+   * @param id      The first text id
+   * @param corpus  Optional corpus, defaults to the global one
+   */
+  getDocumentText(id: string, corpus?: Corpus): string{
+    return queryUtils.getDocumentText(id, this.usedCorpus(corpus));
   }
 
-  getNormalizedWordImportancePairs(text1: string, text2: string, query?: SearchQuery): {[key: string]: number}{
-    return queryUtils.getNormalizedWordImportancePairs(text1, text2, this.usedQuery(query));
+  /**
+   * Returns the normalized pairs of word importances
+   * @param id1     The first text id
+   * @param id2     The second text id
+   * @param corpus  Optional corpus, defaults to the global one
+   */
+  getNormalizedWordImportancePairs(id1: string, id2: string, corpus?: Corpus): {[key: string]: number}{
+    return queryUtils.getNormalizedWordImportancePairs(id1, id2, this.usedCorpus(corpus));
   }
 
-  initGraphData(query?: SearchQuery): Observable<GraphData>{
+  /**
+   * Returns an observable kickstarting the WebWorker to generate GraphData upon subscription
+   * @param corpus  Optional corpus, defaults to the global one
+   */
+  initGraphData(corpus?: Corpus): Observable<GraphData>{
     this.loadingService.setIsLoading(true);
     const observable = this.workerData.asObservable()
       .pipe(
@@ -90,7 +180,7 @@ export class QueryService {
           return data.data;
         })
       );
-    this.worker.postMessage({query: this.usedQuery(query)});
+    this.worker.postMessage({query: this.usedCorpus(corpus)});
     return observable;
   }
 }

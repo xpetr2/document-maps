@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
 import Ajv, {JSONSchemaType} from 'ajv';
-import {SearchQuery} from '../utils/query.utils';
+import {Corpus} from '../utils/query.utils';
 
+/**
+ * The schema used to validate the parsed JSON
+ */
 // @ts-ignore
-export const searchQuerySchema: JSONSchemaType<SearchQuery> = {
+const searchQuerySchema: JSONSchemaType<Corpus> = {
   type: 'object',
   properties: {
     dictionary: {
@@ -70,17 +73,22 @@ export const searchQuerySchema: JSONSchemaType<SearchQuery> = {
   additionalProperties: false
 };
 
+/**
+ * The validation service, validating a parsed JSON file
+ */
 @Injectable({
   providedIn: 'root'
 })
 export class JsonValidateService {
-  constructor() { }
-
-  validateQuery(query: SearchQuery): boolean{
+  /**
+   * The validation function of a corpus
+   * @param corpus  The corpus to be validated
+   */
+  validateCorpus(corpus: {}): boolean{
     const ajv = new Ajv();
     const validate = ajv.compile(searchQuerySchema);
     try{
-      return validate(query);
+      return validate(corpus);
     } catch (e) {
       return false;
     }
