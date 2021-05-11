@@ -1,0 +1,1589 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>document-maps documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">document-maps documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li>Components</li>
+  <li>ComparisonComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li >
+            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li >
+            <a href="#styleData" role="tab" id="styleData-tab" data-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li >
+            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/home/comparison/comparison.component.ts</code>
+</p>
+
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>A component responsible for the user interface for the selection of words which are to be highlighted</p>
+
+    </p>
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
+                    <code><a href="https://angular.io/api/core/OnChanges" target="_blank" >OnChanges</a></code>
+    </p>
+
+
+<section>
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-comparison</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./comparison.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./comparison.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#documentSimilarities">documentSimilarities</a>
+                            </li>
+                            <li>
+                                <a href="#entryHoverEvent">entryHoverEvent</a>
+                            </li>
+                            <li>
+                                <a href="#hoveredWord">hoveredWord</a>
+                            </li>
+                            <li>
+                                <a href="#scrollable">scrollable</a>
+                            </li>
+                            <li>
+                                <a href="#selectedWords">selectedWords</a>
+                            </li>
+                            <li>
+                                <a href="#sortedWordPairsExact">sortedWordPairsExact</a>
+                            </li>
+                            <li>
+                                <a href="#sortedWordPairsSoft">sortedWordPairsSoft</a>
+                            </li>
+                            <li>
+                                <a href="#wordPairs">wordPairs</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#checkOverflow">checkOverflow</a>
+                            </li>
+                            <li>
+                                <a href="#clearWordSelection">clearWordSelection</a>
+                            </li>
+                            <li>
+                                <a href="#generateExactPairs">generateExactPairs</a>
+                            </li>
+                            <li>
+                                <a href="#generateSoftPairs">generateSoftPairs</a>
+                            </li>
+                            <li>
+                                <a href="#generateWordPairs">generateWordPairs</a>
+                            </li>
+                            <li>
+                                <a href="#handleEntryHover">handleEntryHover</a>
+                            </li>
+                            <li>
+                                <a href="#handleWordSelection">handleWordSelection</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnChanges">ngOnChanges</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit">ngOnInit</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#selectedDocuments">selectedDocuments</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Outputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#wordHovered">wordHovered</a>
+                            </li>
+                            <li>
+                                <a href="#wordsChanged">wordsChanged</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(queryService: <a href="../injectables/QueryService.html">QueryService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="74" class="link-to-prism">src/app/home/comparison/comparison.component.ts:74</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                                    <td>Description</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>queryService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/QueryService.html" target="_self" >QueryService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                                <code><p>The QueryService holding the corpus</p>
+</code>
+                                                        </td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+    <section>
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="selectedDocuments"></a>
+                        <b>selectedDocuments</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/SelectedDocument.html" target="_self" >SelectedDocument[]</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/home/comparison/comparison.component.ts:31</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>The currently selected documents</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+    <section>
+    <h3 id="outputs">Outputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="wordHovered"></a>
+                        <b>wordHovered</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://angular.io/api/core/EventEmitter" target="_blank" >EventEmitter</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">src/app/home/comparison/comparison.component.ts:40</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>An event emitter that emits when the user hovers over a word</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="wordsChanged"></a>
+                        <b>wordsChanged</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://angular.io/api/core/EventEmitter" target="_blank" >EventEmitter</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/app/home/comparison/comparison.component.ts:36</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>An event emitter that emits when the word selection has been changed</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+    <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="checkOverflow"></a>
+                    <span class="name">
+                        <b>
+                            checkOverflow
+                        </b>
+                        <a href="#checkOverflow"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>checkOverflow(element: HTMLElement)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="137"
+                            class="link-to-prism">src/app/home/comparison/comparison.component.ts:137</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Checks whether a given HTML element is overflowing</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>element</td>
+                                    <td>
+                                            <code>HTMLElement</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>The HTML element</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="clearWordSelection"></a>
+                    <span class="name">
+                        <b>
+                            clearWordSelection
+                        </b>
+                        <a href="#clearWordSelection"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>clearWordSelection()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="168"
+                            class="link-to-prism">src/app/home/comparison/comparison.component.ts:168</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Clears the selected words</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="generateExactPairs"></a>
+                    <span class="name">
+                        <b>
+                            generateExactPairs
+                        </b>
+                        <a href="#generateExactPairs"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>generateExactPairs()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="112"
+                            class="link-to-prism">src/app/home/comparison/comparison.component.ts:112</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Populates the sortedWordPairsExact variable with just exact matches</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="generateSoftPairs"></a>
+                    <span class="name">
+                        <b>
+                            generateSoftPairs
+                        </b>
+                        <a href="#generateSoftPairs"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>generateSoftPairs()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="124"
+                            class="link-to-prism">src/app/home/comparison/comparison.component.ts:124</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Populates the sortedWordPairsSoft variable with just soft matches</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="generateWordPairs"></a>
+                    <span class="name">
+                        <b>
+                            generateWordPairs
+                        </b>
+                        <a href="#generateWordPairs"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>generateWordPairs()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="102"
+                            class="link-to-prism">src/app/home/comparison/comparison.component.ts:102</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Generates the word pairs from the corpus in QueryService</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="handleEntryHover"></a>
+                    <span class="name">
+                        <b>
+                            handleEntryHover
+                        </b>
+                        <a href="#handleEntryHover"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>handleEntryHover(word: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, event: <a href="../undefineds/EntryHoverEvent.html">EntryHoverEvent</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="178"
+                            class="link-to-prism">src/app/home/comparison/comparison.component.ts:178</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Handles when the user hovers over a word</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>word</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>The word that was hovered on</p>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>event</td>
+                                    <td>
+                                                <code><a href="../miscellaneous/enumerations.html#EntryHoverEvent" target="_self" >EntryHoverEvent</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>The event type, whether it was an entry or leave event</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="handleWordSelection"></a>
+                    <span class="name">
+                        <b>
+                            handleWordSelection
+                        </b>
+                        <a href="#handleWordSelection"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>handleWordSelection(e: literal type)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="146"
+                            class="link-to-prism">src/app/home/comparison/comparison.component.ts:146</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>The event handler of when the word selection changes</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>e</td>
+                                    <td>
+                                            <code>literal type</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>The event holding which word was updated, whether it was checked or not and potentially its soft match</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnChanges"></a>
+                    <span class="name">
+                        <b>
+                            ngOnChanges
+                        </b>
+                        <a href="#ngOnChanges"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnChanges(changes: <a href="https://angular.io/api/core/SimpleChanges" target="_blank">SimpleChanges</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="90"
+                            class="link-to-prism">src/app/home/comparison/comparison.component.ts:90</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>changes</td>
+                                    <td>
+                                                <code><a href="https://angular.io/api/core/SimpleChanges" target="_blank" >SimpleChanges</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <b>
+                            ngOnInit
+                        </b>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="81"
+                            class="link-to-prism">src/app/home/comparison/comparison.component.ts:81</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="documentSimilarities"></a>
+                        <span class="name">
+                            <b>
+                            documentSimilarities</b>
+                            <a href="#documentSimilarities"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="69" class="link-to-prism">src/app/home/comparison/comparison.component.ts:69</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>The similarity between the two selected documents</p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="entryHoverEvent"></a>
+                        <span class="name">
+                            <b>
+                            entryHoverEvent</b>
+                            <a href="#entryHoverEvent"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>EntryHoverEvent</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="74" class="link-to-prism">src/app/home/comparison/comparison.component.ts:74</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>A helper field, making it possible to use enum in the HTML template</p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="hoveredWord"></a>
+                        <span class="name">
+                            <b>
+                            hoveredWord</b>
+                            <a href="#hoveredWord"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="65" class="link-to-prism">src/app/home/comparison/comparison.component.ts:65</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>The currently hovered on word</p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="scrollable"></a>
+                        <span class="name">
+                            <b>
+                            scrollable</b>
+                            <a href="#scrollable"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>literal type</code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>{}</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="61" class="link-to-prism">src/app/home/comparison/comparison.component.ts:61</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Holds the information of if an HTML element is scrollable</p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="selectedWords"></a>
+                        <span class="name">
+                            <b>
+                            selectedWords</b>
+                            <a href="#selectedWords"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../miscellaneous/typealiases.html#WordMap" target="_self" >WordMap</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>new Map&lt;string, Set&lt;string&gt;&gt;()</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="57" class="link-to-prism">src/app/home/comparison/comparison.component.ts:57</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Holds the selected words in a hierarchical structure</p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="sortedWordPairsExact"></a>
+                        <span class="name">
+                            <b>
+                            sortedWordPairsExact</b>
+                            <a href="#sortedWordPairsExact"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>any[]</code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="49" class="link-to-prism">src/app/home/comparison/comparison.component.ts:49</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Holds the sorted exact matches</p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="sortedWordPairsSoft"></a>
+                        <span class="name">
+                            <b>
+                            sortedWordPairsSoft</b>
+                            <a href="#sortedWordPairsSoft"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>any[]</code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="53" class="link-to-prism">src/app/home/comparison/comparison.component.ts:53</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Holds the sorted soft matches</p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="wordPairs"></a>
+                        <span class="name">
+                            <b>
+                            wordPairs</b>
+                            <a href="#wordPairs"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>literal type</code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/app/home/comparison/comparison.component.ts:45</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Holds the all matched word pairs and their associated weight</p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {Component, Input, OnChanges, OnInit, SimpleChanges, EventEmitter, Output} from &#x27;@angular/core&#x27;;
+import {QueryService} from &#x27;../../services/query.service&#x27;;
+import {SelectedDocument} from &#x27;../sidenav/sidenav.component&#x27;;
+import * as queryUtils from &#x27;../../utils/query.utils&#x27;;
+
+/**
+ * An enum, specifying the hover event type
+ */
+export enum EntryHoverEvent{
+  Enter, Leave
+}
+
+/**
+ * A type, specifying the relation of two matched words
+ */
+export type WordMap &#x3D; Map&lt;string, Set&lt;string&gt;&gt;;
+
+/**
+ * A component responsible for the user interface for the selection of words which are to be highlighted
+ */
+@Component({
+  selector: &#x27;app-comparison&#x27;,
+  templateUrl: &#x27;./comparison.component.html&#x27;,
+  styleUrls: [&#x27;./comparison.component.scss&#x27;]
+})
+export class ComparisonComponent implements OnInit, OnChanges {
+
+  /**
+   * The currently selected documents
+   */
+  @Input() selectedDocuments: SelectedDocument[];
+
+  /**
+   * An event emitter that emits when the word selection has been changed
+   */
+  @Output() wordsChanged &#x3D; new EventEmitter&lt;WordMap&gt;();
+  /**
+   * An event emitter that emits when the user hovers over a word
+   */
+  @Output() wordHovered &#x3D; new EventEmitter&lt;string&gt;();
+
+  /**
+   * Holds the all matched word pairs and their associated weight
+   */
+  wordPairs: {[key: string]: number};
+  /**
+   * Holds the sorted exact matches
+   */
+  sortedWordPairsExact: any[];
+  /**
+   * Holds the sorted soft matches
+   */
+  sortedWordPairsSoft: any[];
+  /**
+   * Holds the selected words in a hierarchical structure
+   */
+  selectedWords: WordMap &#x3D; new Map&lt;string, Set&lt;string&gt;&gt;();
+  /**
+   * Holds the information of if an HTML element is scrollable
+   */
+  scrollable: {[key: string]: boolean} &#x3D; {};
+  /**
+   * The currently hovered on word
+   */
+  hoveredWord: string;
+  /**
+   * The similarity between the two selected documents
+   */
+  documentSimilarities: number;
+
+  /**
+   * A helper field, making it possible to use enum in the HTML template
+   */
+  entryHoverEvent &#x3D; EntryHoverEvent;
+
+  /**
+   * @param queryService  The QueryService holding the corpus
+   */
+  constructor(private queryService: QueryService) {}
+
+  ngOnInit(): void {
+    if (this.selectedDocuments?.length &#x3D;&#x3D;&#x3D; 2){
+      this.generateWordPairs();
+      const id1 &#x3D; this.selectedDocuments[0].id;
+      const id2 &#x3D; this.selectedDocuments[1].id;
+      this.documentSimilarities &#x3D; this.queryService.getSoftCosineMeasure(id1, id2);
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.selectedDocuments){
+      if (changes.selectedDocuments.currentValue.length &#x3D;&#x3D;&#x3D; 2) {
+        this.generateWordPairs();
+      }
+      this.clearWordSelection();
+    }
+  }
+
+  /**
+   * Generates the word pairs from the corpus in QueryService
+   */
+  generateWordPairs(): void{
+    this.wordPairs &#x3D; this.queryService.getNormalizedWordImportancePairs(this.selectedDocuments[0].id, this.selectedDocuments[1].id);
+
+    this.generateExactPairs();
+    this.generateSoftPairs();
+  }
+
+  /**
+   * Populates the sortedWordPairsExact variable with just exact matches
+   */
+  generateExactPairs(): void{
+    const exactPairs &#x3D; queryUtils.getMostImportantExactMatches(this.wordPairs);
+    const items &#x3D; Object.keys(exactPairs).map((key) &#x3D;&gt; {
+      return [key, exactPairs[key]];
+    });
+    items.sort((first, second) &#x3D;&gt; second[1] - first[1]);
+    this.sortedWordPairsExact &#x3D; items;
+  }
+
+  /**
+   * Populates the sortedWordPairsSoft variable with just soft matches
+   */
+  generateSoftPairs(): void{
+    const softPairs &#x3D; queryUtils.getMostImportantSoftMatches(this.wordPairs);
+    const items &#x3D; Object.keys(softPairs).map((key) &#x3D;&gt; {
+      return [key, softPairs[key]];
+    });
+    items.sort((first, second) &#x3D;&gt; second[1] - first[1]);
+    this.sortedWordPairsSoft &#x3D; items;
+  }
+
+  /**
+   * Checks whether a given HTML element is overflowing
+   * @param element   The HTML element
+   */
+  checkOverflow(element: HTMLElement): void {
+    this.scrollable[element.id] &#x3D; element.offsetHeight &lt; element.scrollHeight
+      &amp;&amp; !(element.scrollHeight - element.scrollTop - element.clientHeight &lt; 1);
+  }
+
+  /**
+   * The event handler of when the word selection changes
+   * @param e The event holding which word was updated, whether it was checked or not and potentially its soft match
+   */
+  handleWordSelection(e: { word: string, checked: boolean, softMatch: string }): void {
+    const entry &#x3D; this.selectedWords.get(e.word);
+    const matchWord &#x3D; e.softMatch ?? e.word;
+    if (e.checked){
+      if (this.selectedWords.has(e.word)){
+        entry?.add(matchWord);
+      } else {
+        this.selectedWords.set(e.word, new Set&lt;string&gt;([matchWord]));
+      }
+    } else {
+      if (entry?.size &gt; 1){
+        entry.delete(matchWord);
+      } else {
+        this.selectedWords.delete(e.word);
+      }
+    }
+    this.wordsChanged.emit(this.selectedWords);
+  }
+
+  /**
+   * Clears the selected words
+   */
+  clearWordSelection(): void{
+    this.selectedWords.clear();
+    this.wordsChanged.emit(this.selectedWords);
+  }
+
+  /**
+   * Handles when the user hovers over a word
+   * @param word  The word that was hovered on
+   * @param event The event type, whether it was an entry or leave event
+   */
+  handleEntryHover(word: string, event: EntryHoverEvent): void{
+    const prevWord &#x3D; this.hoveredWord;
+    if (event &#x3D;&#x3D;&#x3D; EntryHoverEvent.Enter){
+      this.hoveredWord &#x3D; word;
+    } else if (this.hoveredWord &#x3D;&#x3D;&#x3D; word){
+      this.hoveredWord &#x3D; undefined;
+    }
+    if (prevWord !&#x3D;&#x3D; this.hoveredWord){
+      this.wordHovered.emit(this.hoveredWord);
+    }
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;comparison-wrapper&quot;&gt;
+  &lt;div class&#x3D;&quot;matches-exact&quot;&gt;
+    &lt;h2&gt;Exact matches&lt;/h2&gt;
+    &lt;div #exactMatches id&#x3D;&quot;exactMatches&quot; class&#x3D;&quot;comparison-matches&quot; (resized)&#x3D;&quot;checkOverflow(exactMatches)&quot; (scroll)&#x3D;&quot;checkOverflow(exactMatches)&quot;&gt;
+      &lt;ng-container *ngFor&#x3D;&quot;let pair of sortedWordPairsExact&quot;&gt;
+        &lt;app-comparison-entry [word]&#x3D;&quot;pair[0]&quot;
+                              [weight]&#x3D;&quot;pair[1]&quot;
+                              [documentSimilarity]&#x3D;&quot;documentSimilarities&quot;
+                              (selectedChange)&#x3D;&quot;handleWordSelection($event)&quot;
+                              (mouseover)&#x3D;&quot;handleEntryHover(pair[0], entryHoverEvent.Enter)&quot;
+                              (mouseleave)&#x3D;&quot;handleEntryHover(pair[0], entryHoverEvent.Leave)&quot;
+        &gt;&lt;/app-comparison-entry&gt;
+      &lt;/ng-container&gt;
+      &lt;div *ngIf&#x3D;&quot;sortedWordPairsSoft.length &#x3D;&#x3D;&#x3D; 0&quot; class&#x3D;&quot;comparison-matches-empty&quot;&gt;No hard matches&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div *ngIf&#x3D;&quot;scrollable[exactMatches.id]&quot; class&#x3D;&quot;matches-fade&quot;&gt;&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class&#x3D;&quot;matches-soft&quot;&gt;
+    &lt;h2&gt;Soft matches&lt;/h2&gt;
+    &lt;div #softMatches id&#x3D;&quot;softMatches&quot; class&#x3D;&quot;comparison-matches&quot; (resized)&#x3D;&quot;checkOverflow(softMatches)&quot; (scroll)&#x3D;&quot;checkOverflow(softMatches)&quot;&gt;
+      &lt;ng-container *ngFor&#x3D;&quot;let pair of sortedWordPairsSoft&quot;&gt;
+        &lt;app-comparison-entry [word]&#x3D;&quot;pair[0] | first&quot;
+                              [softMatch]&#x3D;&quot;pair[0] | second&quot;
+                              [weight]&#x3D;&quot;pair[1]&quot;
+                              [documentSimilarity]&#x3D;&quot;documentSimilarities&quot;
+                              (selectedChange)&#x3D;&quot;handleWordSelection($event)&quot;
+                              (mouseover)&#x3D;&quot;handleEntryHover(pair[0], entryHoverEvent.Enter)&quot;
+                              (mouseleave)&#x3D;&quot;handleEntryHover(pair[0], entryHoverEvent.Leave)&quot;
+        &gt;&lt;/app-comparison-entry&gt;
+      &lt;/ng-container&gt;
+      &lt;div *ngIf&#x3D;&quot;sortedWordPairsSoft.length &#x3D;&#x3D;&#x3D; 0&quot; class&#x3D;&quot;comparison-matches-empty&quot;&gt;No soft matches&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div *ngIf&#x3D;&quot;scrollable[softMatches.id]&quot; class&#x3D;&quot;matches-fade&quot;&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-styleData">
+                <p class="comment">
+                    <code>./comparison.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">.comparison-wrapper{
+  display: flex;
+  position: relative;
+  overflow: hidden;
+  padding-top: 1em;
+  padding-right: 1em;
+  padding-bottom: 1em;
+  height: 100%;
+  .matches-exact, .matches-soft{
+    width: 50%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    h2{
+      margin: 0 1em 0.5em 1em;
+    }
+  }
+  .comparison-matches {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: auto;
+    padding: 0 1em;
+    position: relative;
+
+    ::ng-deep {
+      app-comparison-entry {
+        border-radius: 5px;
+        padding: 0 1em;
+        margin-bottom: 1px;
+        &amp;:nth-child(odd){
+          background-color: #fafafa;
+        }
+        &amp;:nth-child(even){
+          background-color: #eeeeee;
+        }
+
+        .mat-checkbox-layout .mat-checkbox-label{
+          overflow: hidden;
+          text-overflow: ellipsis;
+          width: 100px;
+          line-height: 1.4;
+        }
+      }
+    }
+  }
+
+  .matches-fade{
+    position: absolute;
+    bottom: 0;
+    left: 1em;
+    right: 2em;
+    height: 1px;
+    background: #fff;
+    box-shadow: 0 -4px 15px 12px #fff;
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="comparison-wrapper">  <div class="matches-exact">    <h2>Exact matches</h2>    <div #exactMatches id="exactMatches" class="comparison-matches" (resized)="checkOverflow(exactMatches)" (scroll)="checkOverflow(exactMatches)">      <ng-container *ngFor="let pair of sortedWordPairsExact">        <app-comparison-entry [word]="pair[0]"                              [weight]="pair[1]"                              [documentSimilarity]="documentSimilarities"                              (selectedChange)="handleWordSelection($event)"                              (mouseover)="handleEntryHover(pair[0], entryHoverEvent.Enter)"                              (mouseleave)="handleEntryHover(pair[0], entryHoverEvent.Leave)"        ></app-comparison-entry>      </ng-container>      <div *ngIf="sortedWordPairsSoft.length === 0" class="comparison-matches-empty">No hard matches</div>    </div>    <div *ngIf="scrollable[exactMatches.id]" class="matches-fade"></div>  </div>  <div class="matches-soft">    <h2>Soft matches</h2>    <div #softMatches id="softMatches" class="comparison-matches" (resized)="checkOverflow(softMatches)" (scroll)="checkOverflow(softMatches)">      <ng-container *ngFor="let pair of sortedWordPairsSoft">        <app-comparison-entry [word]="pair[0] | first"                              [softMatch]="pair[0] | second"                              [weight]="pair[1]"                              [documentSimilarity]="documentSimilarities"                              (selectedChange)="handleWordSelection($event)"                              (mouseover)="handleEntryHover(pair[0], entryHoverEvent.Enter)"                              (mouseleave)="handleEntryHover(pair[0], entryHoverEvent.Leave)"        ></app-comparison-entry>      </ng-container>      <div *ngIf="sortedWordPairsSoft.length === 0" class="comparison-matches-empty">No soft matches</div>    </div>    <div *ngIf="scrollable[softMatches.id]" class="matches-fade"></div>  </div></div></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ComparisonComponent', 'selector': 'app-comparison'},{'name': 'ComparisonEntryComponent', 'selector': 'app-comparison-entry'},{'name': 'DocumentComponent', 'selector': 'app-document'},{'name': 'DocumentContentComponent', 'selector': 'app-document-content'},{'name': 'GraphComponent', 'selector': 'app-graph'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'InitComponent', 'selector': 'app-init'},{'name': 'SettingsComponent', 'selector': 'app-settings'},{'name': 'SidenavComponent', 'selector': 'app-sidenav'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'ComparisonComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+                   
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'ComparisonComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

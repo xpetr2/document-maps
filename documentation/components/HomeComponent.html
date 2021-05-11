@@ -1,0 +1,3095 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>document-maps documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">document-maps documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li>Components</li>
+  <li>HomeComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li >
+            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li >
+            <a href="#styleData" role="tab" id="styleData-tab" data-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li >
+            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/home/home.component.ts</code>
+</p>
+
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>The main home component, responsible for holding the graph, sidenav and comparison components</p>
+
+    </p>
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="https://angular.io/api/core/AfterViewInit" target="_blank" >AfterViewInit</a></code>
+    </p>
+
+
+<section>
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-home</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./home.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./home.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#comparingWindowOpen">comparingWindowOpen</a>
+                            </li>
+                            <li>
+                                <a href="#currentZoom">currentZoom</a>
+                            </li>
+                            <li>
+                                <a href="#defaultStepZoom">defaultStepZoom</a>
+                            </li>
+                            <li>
+                                <a href="#errorIndicatorOffset">errorIndicatorOffset</a>
+                            </li>
+                            <li>
+                                <a href="#graph">graph</a>
+                            </li>
+                            <li>
+                                <a href="#graphData">graphData</a>
+                            </li>
+                            <li>
+                                <a href="#hoveredNode">hoveredNode</a>
+                            </li>
+                            <li>
+                                <a href="#loading">loading</a>
+                            </li>
+                            <li>
+                                <a href="#matDrawer">matDrawer</a>
+                            </li>
+                            <li>
+                                <a href="#maxZoom">maxZoom</a>
+                            </li>
+                            <li>
+                                <a href="#minZoom">minZoom</a>
+                            </li>
+                            <li>
+                                <a href="#selectedDocuments">selectedDocuments</a>
+                            </li>
+                            <li>
+                                <a href="#selectedNodes">selectedNodes</a>
+                            </li>
+                            <li>
+                                <a href="#settings">settings</a>
+                            </li>
+                            <li>
+                                <a href="#settingsOpen">settingsOpen</a>
+                            </li>
+                            <li>
+                                <a href="#sidenav">sidenav</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#calculateDeviation">calculateDeviation</a>
+                            </li>
+                            <li>
+                                <a href="#calculateErrorIndicatorOffset">calculateErrorIndicatorOffset</a>
+                            </li>
+                            <li>
+                                <a href="#centerCamera">centerCamera</a>
+                            </li>
+                            <li>
+                                <a href="#changeCamera">changeCamera</a>
+                            </li>
+                            <li>
+                                <a href="#clearDeviation">clearDeviation</a>
+                            </li>
+                            <li>
+                                <a href="#clearSelection">clearSelection</a>
+                            </li>
+                            <li>
+                                <a href="#decreaseCamera">decreaseCamera</a>
+                            </li>
+                            <li>
+                                <a href="#drawDeviation">drawDeviation</a>
+                            </li>
+                            <li>
+                                <a href="#generateSelectedDocuments">generateSelectedDocuments</a>
+                            </li>
+                            <li>
+                                <a href="#getCurrentZoom">getCurrentZoom</a>
+                            </li>
+                            <li>
+                                <a href="#getMaxZoom">getMaxZoom</a>
+                            </li>
+                            <li>
+                                <a href="#getMinZoom">getMinZoom</a>
+                            </li>
+                            <li>
+                                <a href="#handleCompareClick">handleCompareClick</a>
+                            </li>
+                            <li>
+                                <a href="#handleDrawerClose">handleDrawerClose</a>
+                            </li>
+                            <li>
+                                <a href="#handleGraphResize">handleGraphResize</a>
+                            </li>
+                            <li>
+                                <a href="#handleNodeClick">handleNodeClick</a>
+                            </li>
+                            <li>
+                                <a href="#handleNodeHovered">handleNodeHovered</a>
+                            </li>
+                            <li>
+                                <a href="#handleZoomed">handleZoomed</a>
+                            </li>
+                            <li>
+                                <a href="#increaseCamera">increaseCamera</a>
+                            </li>
+                            <li>
+                                <a href="#ngAfterViewInit">ngAfterViewInit</a>
+                            </li>
+                            <li>
+                                <a href="#redrawSelection">redrawSelection</a>
+                            </li>
+                            <li>
+                                <a href="#updateSelection">updateSelection</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(queryService: <a href="../injectables/QueryService.html">QueryService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="96" class="link-to-prism">src/app/home/home.component.ts:96</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                                    <td>Description</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>queryService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/QueryService.html" target="_self" >QueryService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                                <code><p>The QueryService holding the corpus</p>
+</code>
+                                                        </td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="calculateDeviation"></a>
+                    <span class="name">
+                        <b>
+                            calculateDeviation
+                        </b>
+                        <a href="#calculateDeviation"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>calculateDeviation(sourceNode: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, targetNode: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, sourceID: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, targetID: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="240"
+                            class="link-to-prism">src/app/home/home.component.ts:240</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Calculates the deviation error between two nodes</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>sourceNode</td>
+                                    <td>
+                                                <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>The first node</p>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>targetNode</td>
+                                    <td>
+                                                <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>The second node</p>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>sourceID</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>The id of the first node</p>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>targetID</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>The id of the second node</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="calculateErrorIndicatorOffset"></a>
+                    <span class="name">
+                        <b>
+                            calculateErrorIndicatorOffset
+                        </b>
+                        <a href="#calculateErrorIndicatorOffset"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>calculateErrorIndicatorOffset(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, selectedNode: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, d3: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="154"
+                            class="link-to-prism">src/app/home/home.component.ts:154</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Calculates and stores the indicator offset that should be displayed in the deviation error legend</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>id</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>The ID of the hovered element</p>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>selectedNode</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>The selected node</p>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>d3</td>
+                                    <td>
+                                                <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>The D3 object</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="centerCamera"></a>
+                    <span class="name">
+                        <b>
+                            centerCamera
+                        </b>
+                        <a href="#centerCamera"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>centerCamera()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="294"
+                            class="link-to-prism">src/app/home/home.component.ts:294</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Center the camera to the origin, keeping the zoom</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="changeCamera"></a>
+                    <span class="name">
+                        <b>
+                            changeCamera
+                        </b>
+                        <a href="#changeCamera"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>changeCamera(value: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="316"
+                            class="link-to-prism">src/app/home/home.component.ts:316</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Change the camera zoom to a specified value, adjusted logarithmically</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>value</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>The value the camera should zoom to</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="clearDeviation"></a>
+                    <span class="name">
+                        <b>
+                            clearDeviation
+                        </b>
+                        <a href="#clearDeviation"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>clearDeviation(d3: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="279"
+                            class="link-to-prism">src/app/home/home.component.ts:279</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Clears the coloring of nodes</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>d3</td>
+                                    <td>
+                                                <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>The D3 object</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="clearSelection"></a>
+                    <span class="name">
+                        <b>
+                            clearSelection
+                        </b>
+                        <a href="#clearSelection"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>clearSelection(e: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="223"
+                            class="link-to-prism">src/app/home/home.component.ts:223</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Clears the selected nodes and closes sidenav completely</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>e</td>
+                                    <td>
+                                                <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>The event raised</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="decreaseCamera"></a>
+                    <span class="name">
+                        <b>
+                            decreaseCamera
+                        </b>
+                        <a href="#decreaseCamera"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>decreaseCamera()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="308"
+                            class="link-to-prism">src/app/home/home.component.ts:308</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Decreases the zoom level by the default step, adjusted logarithmically</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="drawDeviation"></a>
+                    <span class="name">
+                        <b>
+                            drawDeviation
+                        </b>
+                        <a href="#drawDeviation"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>drawDeviation(selectedNode: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, d3: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="258"
+                            class="link-to-prism">src/app/home/home.component.ts:258</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Updates all the nodes based on the deviation error calculated between the selected node and that node</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>selectedNode</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>The selected node</p>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>d3</td>
+                                    <td>
+                                                <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>The D3 object</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="generateSelectedDocuments"></a>
+                    <span class="name">
+                        <b>
+                            generateSelectedDocuments
+                        </b>
+                        <a href="#generateSelectedDocuments"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>generateSelectedDocuments()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="165"
+                            class="link-to-prism">src/app/home/home.component.ts:165</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Populates the selectedDocuments array with documents based on the selected nodes</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getCurrentZoom"></a>
+                    <span class="name">
+                        <b>
+                            getCurrentZoom
+                        </b>
+                        <a href="#getCurrentZoom"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getCurrentZoom()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="363"
+                            class="link-to-prism">src/app/home/home.component.ts:363</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Get the current zoom, adjusted logarithmically</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getMaxZoom"></a>
+                    <span class="name">
+                        <b>
+                            getMaxZoom
+                        </b>
+                        <a href="#getMaxZoom"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getMaxZoom()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="356"
+                            class="link-to-prism">src/app/home/home.component.ts:356</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Get the maximum zoom allowed, adjusted logarithmically</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getMinZoom"></a>
+                    <span class="name">
+                        <b>
+                            getMinZoom
+                        </b>
+                        <a href="#getMinZoom"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getMinZoom()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="349"
+                            class="link-to-prism">src/app/home/home.component.ts:349</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Get the minimum zoom allowed, adjusted logarithmically</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="handleCompareClick"></a>
+                    <span class="name">
+                        <b>
+                            handleCompareClick
+                        </b>
+                        <a href="#handleCompareClick"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>handleCompareClick()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="287"
+                            class="link-to-prism">src/app/home/home.component.ts:287</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Handles when the user clicks on the comparison button</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="handleDrawerClose"></a>
+                    <span class="name">
+                        <b>
+                            handleDrawerClose
+                        </b>
+                        <a href="#handleDrawerClose"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>handleDrawerClose()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="333"
+                            class="link-to-prism">src/app/home/home.component.ts:333</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Handles the event when user closes the sidenav</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="handleGraphResize"></a>
+                    <span class="name">
+                        <b>
+                            handleGraphResize
+                        </b>
+                        <a href="#handleGraphResize"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>handleGraphResize()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="342"
+                            class="link-to-prism">src/app/home/home.component.ts:342</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Handles the event when user resizes the window</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="handleNodeClick"></a>
+                    <span class="name">
+                        <b>
+                            handleNodeClick
+                        </b>
+                        <a href="#handleNodeClick"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>handleNodeClick(e: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="119"
+                            class="link-to-prism">src/app/home/home.component.ts:119</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Handles the event, raised by the graph component, when the user clicks a node</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>e</td>
+                                    <td>
+                                                <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>The click event</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="handleNodeHovered"></a>
+                    <span class="name">
+                        <b>
+                            handleNodeHovered
+                        </b>
+                        <a href="#handleNodeHovered"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>handleNodeHovered(e: literal type)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="137"
+                            class="link-to-prism">src/app/home/home.component.ts:137</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Handles the event, raised by the graph component, when the user hovers over a node</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>e</td>
+                                    <td>
+                                            <code>literal type</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>The event, raising the hovered node ID and the D3 object</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="handleZoomed"></a>
+                    <span class="name">
+                        <b>
+                            handleZoomed
+                        </b>
+                        <a href="#handleZoomed"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>handleZoomed(e: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="326"
+                            class="link-to-prism">src/app/home/home.component.ts:326</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Handles the event raised when the user zooms with their mouse on the graph</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>e</td>
+                                    <td>
+                                                <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>The event raised</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="increaseCamera"></a>
+                    <span class="name">
+                        <b>
+                            increaseCamera
+                        </b>
+                        <a href="#increaseCamera"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>increaseCamera()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="301"
+                            class="link-to-prism">src/app/home/home.component.ts:301</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Increases the zoom level by the default step, adjusted logarithmically</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngAfterViewInit"></a>
+                    <span class="name">
+                        <b>
+                            ngAfterViewInit
+                        </b>
+                        <a href="#ngAfterViewInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngAfterViewInit()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="105"
+                            class="link-to-prism">src/app/home/home.component.ts:105</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="redrawSelection"></a>
+                    <span class="name">
+                        <b>
+                            redrawSelection
+                        </b>
+                        <a href="#redrawSelection"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>redrawSelection(oldSelection: string[], d3: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="205"
+                            class="link-to-prism">src/app/home/home.component.ts:205</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Redraws the graph based on the selected nodes</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>oldSelection</td>
+                                    <td>
+                                            <code>string[]</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>The previous selection before the change</p>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>d3</td>
+                                    <td>
+                                                <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>The D3 object</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateSelection"></a>
+                    <span class="name">
+                        <b>
+                            updateSelection
+                        </b>
+                        <a href="#updateSelection"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>updateSelection(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, controlHeld: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="180"
+                            class="link-to-prism">src/app/home/home.component.ts:180</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Updates the node selection array, either adding or removing a node</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>id</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>The node to be added or removed</p>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>controlHeld</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>Whether user had held control when click the node</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="comparingWindowOpen"></a>
+                        <span class="name">
+                            <b>
+                            comparingWindowOpen</b>
+                            <a href="#comparingWindowOpen"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>false</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="70" class="link-to-prism">src/app/home/home.component.ts:70</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Determines if the user is currently comparing two documents</p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="currentZoom"></a>
+                        <span class="name">
+                            <b>
+                            currentZoom</b>
+                            <a href="#currentZoom"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>pow2(2.5)</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/home/home.component.ts:38</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Specifies the initial zoom</p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="defaultStepZoom"></a>
+                        <span class="name">
+                            <b>
+                            defaultStepZoom</b>
+                            <a href="#defaultStepZoom"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>0.25</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/app/home/home.component.ts:42</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Specifies the minimum step possible by clicking the zoom buttons</p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="errorIndicatorOffset"></a>
+                        <span class="name">
+                            <b>
+                            errorIndicatorOffset</b>
+                            <a href="#errorIndicatorOffset"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>0</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="60" class="link-to-prism">src/app/home/home.component.ts:60</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>The value that the indicator, in the distance error legend, should be offset by in pixels.</p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="graph"></a>
+                        <span class="name">
+                            <b>
+                            graph</b>
+                            <a href="#graph"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../components/GraphComponent.html" target="_self" >GraphComponent</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <b>Decorators : </b>
+                            <br />
+                            <code>
+                                @ViewChild(&#x27;graph&#x27;)<br />
+                            </code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="96" class="link-to-prism">src/app/home/home.component.ts:96</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>The graph component, visualizing the nodes.</p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="graphData"></a>
+                        <span class="name">
+                            <b>
+                            graphData</b>
+                            <a href="#graphData"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../interfaces/GraphData.html" target="_self" >GraphData</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>undefined</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/app/home/home.component.ts:25</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>The graph data, retrieved from the WebWorker upon loading</p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="hoveredNode"></a>
+                        <span class="name">
+                            <b>
+                            hoveredNode</b>
+                            <a href="#hoveredNode"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="55" class="link-to-prism">src/app/home/home.component.ts:55</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Specifies the currently hovered over node</p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="loading"></a>
+                        <span class="name">
+                            <b>
+                            loading</b>
+                            <a href="#loading"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>true</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="65" class="link-to-prism">src/app/home/home.component.ts:65</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Specifies whether the component is still loading data from the WebWorker</p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="matDrawer"></a>
+                        <span class="name">
+                            <b>
+                            matDrawer</b>
+                            <a href="#matDrawer"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>MatDrawer</code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <b>Decorators : </b>
+                            <br />
+                            <code>
+                                @ViewChild(&#x27;drawer&#x27;)<br />
+                            </code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="88" class="link-to-prism">src/app/home/home.component.ts:88</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>The Angular Material sidenav component</p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="maxZoom"></a>
+                        <span class="name">
+                            <b>
+                            maxZoom</b>
+                            <a href="#maxZoom"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>32</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/app/home/home.component.ts:34</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Specifies the maximum zoom possible</p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="minZoom"></a>
+                        <span class="name">
+                            <b>
+                            minZoom</b>
+                            <a href="#minZoom"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>1</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/home/home.component.ts:30</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Specifies the minimum zoom possible</p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="selectedDocuments"></a>
+                        <span class="name">
+                            <b>
+                            selectedDocuments</b>
+                            <a href="#selectedDocuments"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../interfaces/SelectedDocument.html" target="_self" >SelectedDocument[]</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>[]</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="51" class="link-to-prism">src/app/home/home.component.ts:51</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Holds the document interfaces of the selected nodes</p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="selectedNodes"></a>
+                        <span class="name">
+                            <b>
+                            selectedNodes</b>
+                            <a href="#selectedNodes"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>string[]</code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>[]</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">src/app/home/home.component.ts:47</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Holds the ids of selected nodes</p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="settings"></a>
+                        <span class="name">
+                            <b>
+                            settings</b>
+                            <a href="#settings"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../interfaces/AppSettings.html" target="_self" >AppSettings</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>{
+    showLabels: true,
+    showDeviations: true,
+    distanceModifier: 40,
+    clumpingModifier: 5,
+  }</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="78" class="link-to-prism">src/app/home/home.component.ts:78</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>The app settings currently in effect</p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="settingsOpen"></a>
+                        <span class="name">
+                            <b>
+                            settingsOpen</b>
+                            <a href="#settingsOpen"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>false</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="74" class="link-to-prism">src/app/home/home.component.ts:74</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Determines if the user has settings menu opened</p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="sidenav"></a>
+                        <span class="name">
+                            <b>
+                            sidenav</b>
+                            <a href="#sidenav"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../components/SidenavComponent.html" target="_self" >SidenavComponent</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <b>Decorators : </b>
+                            <br />
+                            <code>
+                                @ViewChild(&#x27;sidenav&#x27;)<br />
+                            </code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="92" class="link-to-prism">src/app/home/home.component.ts:92</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>The application sidenav component, displaying the documents</p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {AfterViewInit, Component, ViewChild} from &#x27;@angular/core&#x27;;
+import {QueryService} from &#x27;../services/query.service&#x27;;
+import {MatDrawer} from &#x27;@angular/material/sidenav&#x27;;
+import {SelectedDocument, SidenavComponent} from &#x27;./sidenav/sidenav.component&#x27;;
+import {GraphComponent} from &#x27;./graph/graph.component&#x27;;
+import {AppSettings} from &#x27;./settings/settings.component&#x27;;
+import * as queryUtils from &#x27;../utils/query.utils&#x27;;
+import {GraphData} from &#x27;../utils/query.utils&#x27;;
+import {colorSrgbGradient, colorToHex, log2, normalizeDeviation, pow2} from &#x27;../utils/graph.utils&#x27;;
+
+/**
+ * The main home component, responsible for holding the graph, sidenav and comparison components
+ */
+@Component({
+  selector: &#x27;app-home&#x27;,
+  templateUrl: &#x27;./home.component.html&#x27;,
+  styleUrls: [&#x27;./home.component.scss&#x27;]
+})
+
+export class HomeComponent implements AfterViewInit {
+
+  /**
+   * The graph data, retrieved from the WebWorker upon loading
+   */
+  graphData: GraphData &#x3D; undefined;
+
+  /**
+   * Specifies the minimum zoom possible
+   */
+  minZoom &#x3D; 1;
+  /**
+   * Specifies the maximum zoom possible
+   */
+  maxZoom &#x3D; 32;
+  /**
+   * Specifies the initial zoom
+   */
+  currentZoom &#x3D; pow2(2.5);
+  /**
+   * Specifies the minimum step possible by clicking the zoom buttons
+   */
+  defaultStepZoom &#x3D; 0.25;
+
+  /**
+   * Holds the ids of selected nodes
+   */
+  selectedNodes: string[] &#x3D; [];
+  /**
+   * Holds the document interfaces of the selected nodes
+   */
+  selectedDocuments: SelectedDocument[] &#x3D; [];
+  /**
+   * Specifies the currently hovered over node
+   */
+  hoveredNode: string;
+
+  /**
+   * The value that the indicator, in the distance error legend, should be offset by in pixels.
+   */
+  errorIndicatorOffset &#x3D; 0;
+
+  /**
+   * Specifies whether the component is still loading data from the WebWorker
+   */
+  loading &#x3D; true;
+
+  /**
+   * Determines if the user is currently comparing two documents
+   */
+  comparingWindowOpen &#x3D; false;
+  /**
+   * Determines if the user has settings menu opened
+   */
+  settingsOpen &#x3D; false;
+  /**
+   * The app settings currently in effect
+   */
+  settings: AppSettings &#x3D; {
+    showLabels: true,
+    showDeviations: true,
+    distanceModifier: 40,
+    clumpingModifier: 5,
+  };
+
+  /**
+   * The Angular Material sidenav component
+   */
+  @ViewChild(&#x27;drawer&#x27;) matDrawer: MatDrawer;
+  /**
+   * The application sidenav component, displaying the documents
+   */
+  @ViewChild(&#x27;sidenav&#x27;) sidenav: SidenavComponent;
+  /**
+   * The graph component, visualizing the nodes.
+   */
+  @ViewChild(&#x27;graph&#x27;) graph: GraphComponent;
+
+  /**
+   * @param queryService  The QueryService holding the corpus
+   */
+  constructor(
+    private queryService: QueryService
+  ) {}
+
+  ngAfterViewInit(): void{
+    // We need to perform this on the next tick, otherwise we trigger the NG0100 error
+    setTimeout(() &#x3D;&gt; {
+      this.queryService.initGraphData().subscribe(data &#x3D;&gt; {
+        this.graphData &#x3D; data;
+        this.loading &#x3D; false;
+      });
+    });
+  }
+
+  /**
+   * Handles the event, raised by the graph component, when the user clicks a node
+   * @param e The click event
+   */
+  handleNodeClick(e: any): void {
+    const re &#x3D; /^node_\d+_(.*)$/;
+    const id &#x3D; (e.click.target) ? re.exec((e.click.target as any).id)[1] : undefined;
+    const oldSelection &#x3D; this.selectedNodes.slice();
+
+    this.matDrawer.open();
+    this.comparingWindowOpen &#x3D; false;
+
+    this.updateSelection(id, e.click.ctrlKey);
+    this.redrawSelection(oldSelection, e.d3);
+    this.generateSelectedDocuments();
+    this.sidenav.clearHighlightedWords();
+  }
+
+  /**
+   * Handles the event, raised by the graph component, when the user hovers over a node
+   * @param e The event, raising the hovered node ID and the D3 object
+   */
+  handleNodeHovered(e: {nodeId: string, d3: any}): void{
+    if (!this.settings.showDeviations || !e.nodeId || !this.selectedNodes || this.selectedNodes?.length !&#x3D;&#x3D; 1){
+      this.errorIndicatorOffset &#x3D; undefined;
+      return;
+    }
+    const re &#x3D; /^node_\d+_(.*)$/;
+    const id &#x3D; (e.nodeId) ? re.exec(e.nodeId)[1] : undefined;
+
+    this.calculateErrorIndicatorOffset(id, this.selectedNodes[0], e.d3);
+  }
+
+  /**
+   * Calculates and stores the indicator offset that should be displayed in the deviation error legend
+   * @param id            The ID of the hovered element
+   * @param selectedNode  The selected node
+   * @param d3            The D3 object
+   */
+  calculateErrorIndicatorOffset(id: string, selectedNode: string, d3: any): void{
+    const targetNode &#x3D; d3.select(&#x60;[id&#x3D;&quot;wrapper_${id.replace(&#x27;.&#x27;, &#x27;\\.&#x27;)}&quot;]&#x60;);
+    const sourceNode &#x3D; d3.select(&#x60;[id&#x3D;&quot;wrapper_${selectedNode.replace(&#x27;.&#x27;, &#x27;\\.&#x27;)}&quot;]&#x60;);
+
+    const deviation &#x3D; this.calculateDeviation(sourceNode, targetNode, selectedNode, id);
+    this.errorIndicatorOffset &#x3D; ((deviation + 1) / 2) * 128;
+  }
+
+  /**
+   * Populates the selectedDocuments array with documents based on the selected nodes
+   */
+  generateSelectedDocuments(): void{
+    this.selectedDocuments &#x3D; [];
+    for (const id of this.selectedNodes){
+      const title &#x3D; &#x60;Document ${id}&#x60;;
+      const subtitle &#x3D; &#x60;${id}&#x60;;
+      const content &#x3D; this.queryService.getDocumentText(id);
+      this.selectedDocuments.push({id, title, subtitle, content});
+    }
+  }
+
+  /**
+   * Updates the node selection array, either adding or removing a node
+   * @param id            The node to be added or removed
+   * @param controlHeld   Whether user had held control when click the node
+   */
+  updateSelection(id: string, controlHeld: boolean): void{
+    if (id) {
+      if (this.selectedNodes.length &#x3D;&#x3D;&#x3D; 1 &amp;&amp; this.selectedNodes[0] &#x3D;&#x3D;&#x3D; id){
+        this.selectedNodes &#x3D; [];
+      } else if (controlHeld) {
+        const nodeInArray &#x3D; this.selectedNodes.indexOf(id);
+        if (nodeInArray &gt;&#x3D; 0){
+          this.selectedNodes.splice(nodeInArray, 1);
+        } else {
+          this.selectedNodes.push(id);
+        }
+      } else {
+        this.selectedNodes &#x3D; [id];
+      }
+    }
+    if (this.selectedNodes.length &#x3D;&#x3D;&#x3D; 0){
+      this.matDrawer.close();
+    }
+  }
+
+  /**
+   * Redraws the graph based on the selected nodes
+   * @param oldSelection  The previous selection before the change
+   * @param d3            The D3 object
+   */
+  redrawSelection(oldSelection: string[], d3: any): void {
+    if (this.settings.showDeviations &amp;&amp; this.selectedNodes.length &#x3D;&#x3D;&#x3D; 1){
+      this.drawDeviation(this.selectedNodes[0], d3);
+    } else {
+      this.clearDeviation(d3);
+    }
+    for (const id of oldSelection){
+      d3.select(&#x60;[id^&#x3D;&quot;node_&quot;][id$&#x3D;&quot;${id.replace(&#x27;.&#x27;, &#x27;\\.&#x27;)}&quot;]&#x60;).attr(&#x27;class&#x27;, &#x27;&#x27;);
+    }
+    for (const id of this.selectedNodes){
+      d3.select(&#x60;[id^&#x3D;&quot;node_&quot;][id$&#x3D;&quot;${id.replace(&#x27;.&#x27;, &#x27;\\.&#x27;)}&quot;]&#x60;).attr(&#x27;class&#x27;, &#x27;selected&#x27;);
+    }
+  }
+
+  /**
+   * Clears the selected nodes and closes sidenav completely
+   * @param e The event raised
+   */
+  clearSelection(e: any): void{
+    const oldSelection &#x3D; this.selectedNodes;
+    this.selectedNodes &#x3D; [];
+    this.matDrawer.close();
+    this.comparingWindowOpen &#x3D; false;
+    this.redrawSelection(oldSelection, e.d3);
+    this.generateSelectedDocuments();
+    this.sidenav.clearHighlightedWords();
+  }
+
+  /**
+   * Calculates the deviation error between two nodes
+   * @param sourceNode  The first node
+   * @param targetNode  The second node
+   * @param sourceID    The id of the first node
+   * @param targetID    The id of the second node
+   */
+  calculateDeviation(sourceNode: any, targetNode: any, sourceID: string, targetID: string): number{
+    const sPos &#x3D; (sourceNode.attr(&#x27;transform&#x27;) as string).match(/translate\(([^,]+), ([^,)]+)\)/);
+    const tPos &#x3D; (targetNode.attr(&#x27;transform&#x27;) as string).match(/translate\(([^,]+), ([^,)]+)\)/);
+    const [sX, sY, tX, tY] &#x3D; [parseFloat(sPos[1]), parseFloat(sPos[2]), parseFloat(tPos[1]), parseFloat(tPos[2])];
+
+    const distance &#x3D; Math.sqrt( (sX - tX) * (sX - tX) + (sY - tY) * (sY - tY) );
+    const weight &#x3D; this.queryService.getSoftCosineMeasure(sourceID, targetID);
+    const supposedDistance &#x3D;
+      queryUtils.calculateCosineDistance(weight, this.settings.distanceModifier, this.settings.clumpingModifier);
+
+    return normalizeDeviation(supposedDistance - distance, 0.1);
+  }
+
+  /**
+   * Updates all the nodes based on the deviation error calculated between the selected node and that node
+   * @param selectedNode  The selected node
+   * @param d3            The D3 object
+   */
+  drawDeviation(selectedNode: string, d3: any): void{
+    const correctColor &#x3D; {r: 55, g: 176, b: 59};
+    const farColor &#x3D; {r: 176, g: 55, b: 55};
+    const closeColor &#x3D; {r: 69, g: 55, b: 176};
+
+    for (const node of this.graphData.nodes){
+      if (node.id &#x3D;&#x3D;&#x3D; selectedNode) {
+        continue;
+      }
+      const targetNode &#x3D; d3.select(&#x60;[id&#x3D;&quot;wrapper_${node.id.replace(&#x27;.&#x27;, &#x27;\\.&#x27;)}&quot;]&#x60;);
+      const sourceNode &#x3D; d3.select(&#x60;[id&#x3D;&quot;wrapper_${selectedNode.replace(&#x27;.&#x27;, &#x27;\\.&#x27;)}&quot;]&#x60;);
+      const deviation &#x3D; this.calculateDeviation(sourceNode, targetNode, selectedNode, node.id);
+      const color &#x3D; colorToHex(colorSrgbGradient(correctColor, deviation &lt; 0 ? closeColor : farColor, Math.abs(deviation)));
+      targetNode.select(&#x27;circle&#x27;).attr(&#x27;fill&#x27;, color);
+    }
+  }
+
+  /**
+   * Clears the coloring of nodes
+   * @param d3  The D3 object
+   */
+  clearDeviation(d3: any): void{
+    d3.selectAll(&#x60;[id^&#x3D;&quot;node_2_&quot;]&#x60;).attr(&#x27;fill&#x27;, null);
+    d3.selectAll(&#x60;[id^&#x3D;&quot;node_1_&quot;]&#x60;).attr(&#x27;fill&#x27;, null);
+  }
+
+  /**
+   * Handles when the user clicks on the comparison button
+   */
+  handleCompareClick(): void{
+    this.comparingWindowOpen &#x3D; !this.comparingWindowOpen;
+  }
+
+  /**
+   * Center the camera to the origin, keeping the zoom
+   */
+  centerCamera(): void{
+    this.graph.centerCamera(0, 0, this.currentZoom);
+  }
+
+  /**
+   * Increases the zoom level by the default step, adjusted logarithmically
+   */
+  increaseCamera(): void{
+    this.changeCamera(pow2(log2(this.currentZoom) + this.defaultStepZoom));
+  }
+
+  /**
+   * Decreases the zoom level by the default step, adjusted logarithmically
+   */
+  decreaseCamera(): void{
+    this.changeCamera(pow2(log2(this.currentZoom) - this.defaultStepZoom));
+  }
+
+  /**
+   * Change the camera zoom to a specified value, adjusted logarithmically
+   * @param value   The value the camera should zoom to
+   */
+  changeCamera(value: number): void{
+    value &#x3D; Math.max(Math.min(pow2(value), this.maxZoom), this.minZoom);
+    this.currentZoom &#x3D; value;
+    this.graph.setZoom(value);
+  }
+
+  /**
+   * Handles the event raised when the user zooms with their mouse on the graph
+   * @param e The event raised
+   */
+  handleZoomed(e: any): void {
+    this.currentZoom &#x3D; e?.transform?.k ?? this.currentZoom;
+  }
+
+  /**
+   * Handles the event when user closes the sidenav
+   */
+  handleDrawerClose(): void{
+    this.matDrawer.close();
+    this.sidenav.clearHighlightedWords();
+    this.comparingWindowOpen &#x3D; false;
+  }
+
+  /**
+   * Handles the event when user resizes the window
+   */
+  handleGraphResize(): void{
+    this.graph.detectChanges();
+  }
+
+  /**
+   * Get the minimum zoom allowed, adjusted logarithmically
+   */
+  getMinZoom(): number {
+    return log2(this.minZoom);
+  }
+
+  /**
+   * Get the maximum zoom allowed, adjusted logarithmically
+   */
+  getMaxZoom(): number {
+    return log2(this.maxZoom);
+  }
+
+  /**
+   * Get the current zoom, adjusted logarithmically
+   */
+  getCurrentZoom(): number {
+    return log2(this.currentZoom);
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;mat-drawer-container *ngIf&#x3D;&quot;!loading&quot;&gt;
+  &lt;mat-drawer class&#x3D;&quot;compare-sidenav&quot; [ngClass]&#x3D;&quot;{&#x27;comparing&#x27;: comparingWindowOpen}&quot; #drawer mode&#x3D;&quot;side&quot; position&#x3D;&quot;end&quot;&gt;
+    &lt;app-sidenav #sidenav
+                 [selectedDocuments]&#x3D;&quot;selectedDocuments&quot;
+                 [comparingWindowOpen]&#x3D;&quot;comparingWindowOpen&quot;
+                 (sidebarClose)&#x3D;&quot;handleDrawerClose()&quot;
+                 (compareClick)&#x3D;&quot;handleCompareClick()&quot;
+    &gt;&lt;/app-sidenav&gt;
+  &lt;/mat-drawer&gt;
+  &lt;mat-drawer-content&gt;
+    &lt;div class&#x3D;&quot;graph-wrapper&quot; #graphWrapper&gt;
+      &lt;app-graph
+        #graph
+        *ngIf&#x3D;&quot;graphData&quot;
+        [width]&#x3D;&quot;graphWrapper.clientWidth&quot;
+        [height]&#x3D;&quot;graphWrapper.clientHeight&quot;
+        [showLabels]&#x3D;&quot;settings.showLabels&quot;
+        [data]&#x3D;&quot;graphData&quot;
+        [minZoom]&#x3D;&quot;minZoom&quot;
+        [maxZoom]&#x3D;&quot;maxZoom&quot;
+        [defaultZoom]&#x3D;&quot;currentZoom&quot;
+        [distanceModifier]&#x3D;&quot;settings.distanceModifier&quot;
+        [clumpingModifier]&#x3D;&quot;settings.clumpingModifier&quot;
+        [graphPadding]&#x3D;&quot;64&quot;
+        (nodeClicked)&#x3D;&quot;handleNodeClick($event)&quot;
+        (emptyClicked)&#x3D;&quot;clearSelection($event)&quot;
+        (nodeHovered)&#x3D;&quot;handleNodeHovered($event)&quot;
+        (zoomed)&#x3D;&quot;handleZoomed($event)&quot;
+        (resized)&#x3D;&quot;handleGraphResize()&quot;
+      &gt;&lt;/app-graph&gt;
+    &lt;/div&gt;
+  &lt;/mat-drawer-content&gt;
+&lt;/mat-drawer-container&gt;
+&lt;div class&#x3D;&quot;ui-wrapper&quot; *ngIf&#x3D;&quot;!loading&quot;&gt;
+  &lt;div class&#x3D;&quot;settings-wrapper&quot;&gt;
+    &lt;div class&#x3D;&quot;settings&quot; [class.opened]&#x3D;&quot;settingsOpen&quot;&gt;
+      &lt;button mat-icon-button aria-label&#x3D;&quot;Open/close settings&quot; (click)&#x3D;&quot;settingsOpen &#x3D; !settingsOpen&quot;&gt;
+        &lt;mat-icon&gt;{{settingsOpen ? &#x27;close&#x27; : &#x27;settings&#x27;}}&lt;/mat-icon&gt;
+      &lt;/button&gt;
+      &lt;app-settings *ngIf&#x3D;&quot;settingsOpen&quot; [(settings)]&#x3D;&quot;settings&quot;&gt;&lt;/app-settings&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class&#x3D;&quot;error-legend&quot; *ngIf&#x3D;&quot;settings.showDeviations &amp;&amp; selectedNodes.length &#x3D;&#x3D;&#x3D; 1&quot;&gt;
+    &lt;div class&#x3D;&quot;inner&quot;&gt;
+      &lt;div class&#x3D;&quot;bar&quot;&gt;&lt;/div&gt;
+      &lt;div class&#x3D;&quot;up&quot;&gt;Too far&lt;/div&gt;
+      &lt;div class&#x3D;&quot;middle&quot;&gt;Perfect&lt;/div&gt;
+      &lt;div class&#x3D;&quot;bottom&quot;&gt;Too close&lt;/div&gt;
+      &lt;div *ngIf&#x3D;&quot;errorIndicatorOffset&quot; class&#x3D;&quot;indicator&quot; [ngStyle]&#x3D;&quot;{&#x27;top&#x27;: errorIndicatorOffset + &#x27;px&#x27;}&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class&#x3D;&quot;map-controls&quot;&gt;
+    &lt;div class&#x3D;&quot;center-control&quot;&gt;
+      &lt;button mat-icon-button aria-label&#x3D;&quot;Center map&quot; (click)&#x3D;&quot;centerCamera()&quot;&gt;
+        &lt;mat-icon&gt;adjust&lt;/mat-icon&gt;
+      &lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div class&#x3D;&quot;zoom-controls&quot;&gt;
+      &lt;button mat-icon-button aria-label&#x3D;&quot;Increase zoom&quot; (click)&#x3D;&quot;increaseCamera()&quot;&gt;
+        &lt;mat-icon&gt;add_circle_outline&lt;/mat-icon&gt;
+      &lt;/button&gt;
+      &lt;mat-slider vertical [min]&#x3D;&quot;getMinZoom()&quot; [max]&#x3D;&quot;getMaxZoom()&quot; [step]&#x3D;&quot;defaultStepZoom&quot; [value]&#x3D;&quot;getCurrentZoom()&quot; (valueChange)&#x3D;&quot;changeCamera($event)&quot;&gt;&lt;/mat-slider&gt;
+      &lt;button mat-icon-button aria-label&#x3D;&quot;Decrease zoom&quot; (click)&#x3D;&quot;decreaseCamera()&quot;&gt;
+        &lt;mat-icon&gt;remove_circle_outline&lt;/mat-icon&gt;
+      &lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-styleData">
+                <p class="comment">
+                    <code>./home.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">.graph-wrapper{
+  width: 100%;
+  height: 100%;
+}
+
+.compare-sidenav{
+  transition: 0.5s width;
+  width: 401px;
+  &amp;.comparing {
+    width: 60%;
+    min-width: 1000px;
+  }
+}
+
+app-sidenav{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.ui-wrapper{
+  position: fixed;
+  padding: 2em;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  z-index: 1;
+
+  .map-controls{
+    display: flex;
+    flex-direction: column;
+    justify-self: flex-end;
+    margin-top: auto;
+
+    .center-control, .zoom-controls{
+      background: #fff;
+      border-radius: 6px;
+      box-shadow: rgba(0, 0, 0, 0.1) 2px 2px 8px;
+      overflow: hidden;
+    }
+
+    .center-control{
+      margin-bottom: 1em;
+    }
+
+    .zoom-controls{
+      display: flex;
+      flex-direction: column;
+
+      mat-slider{
+        width: 40px;
+        padding: 0;
+        height: 128px;
+
+        ::ng-deep .mat-slider-wrapper {
+          top: 0;
+          bottom: 0;
+          left: 19px;
+        }
+      }
+    }
+  }
+
+  .settings-wrapper{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1em;
+
+    .settings{
+      background: #fff;
+      border-radius: 6px;
+      box-shadow: rgba(0, 0, 0, 0.1) 2px 2px 8px;
+      overflow: hidden;
+      transition: 0.1s;
+      display: flex;
+      flex-direction: column;
+
+      &amp;.opened {
+        min-width: 170px;
+      }
+
+      app-settings{
+        padding: 0.25em 1em 1em;
+      }
+    }
+  }
+
+  .error-legend{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+
+    &gt;.inner {
+      position: relative;
+      background: #fff;
+      border-radius: 6px;
+      box-shadow: rgba(0, 0, 0, 0.1) 2px 2px 8px;
+      overflow: hidden;
+      width: 120px;
+      padding: 1em 1em 1em 2em;
+      height: calc(2em + 128px);
+
+      .bar {
+        height: 128px;
+        width: 8px;
+        background: linear-gradient(to top, rgb(176, 55, 55) 0%, rgb(55, 176, 59) 50%, rgb(69, 55, 176) 100%);
+      }
+
+      .up {
+        position: absolute;
+        top: 1em;
+        height: 1em;
+        left: calc(8px + 2.5em);
+      }
+      .middle {
+        position: absolute;
+        top: calc(50% - 0.5em);
+        height: 1em;
+        left: calc(8px + 2.5em);
+
+        &amp;::before{
+          display: block;
+          content: &quot;&quot;;
+          height: 1px;
+          width: 12px;
+          background-color: rgba(0, 0, 0, 0.95);
+          position: absolute;
+          top: 50%;
+          left: calc(-8px - 0.5em - 2px);
+        }
+      }
+      .bottom {
+        position: absolute;
+        bottom: 1em;
+        height: 1em;
+        left: calc(8px + 2.5em);
+      }
+
+      .indicator{
+        position: absolute;
+
+        top: 0;
+        left: calc(1em + 5px);
+
+        width: 0;
+        height: 0;
+        border-top: 7px solid transparent;
+        border-bottom: 7px solid transparent;
+        border-left: 7px solid black;
+        margin-top: calc(1em - 7px);
+      }
+    }
+  }
+}
+
+@media all and (max-height: 540px){
+  .ui-wrapper{
+    flex-wrap: wrap;
+    .map-controls{
+      order: 2;
+    }
+    .error-legend{
+      order: 3;
+      margin-bottom: 1em;
+      margin-left: 1em;
+    }
+  }
+}
+
+@media all and (max-height: 372px) {
+  .ui-wrapper{
+    .map-controls .zoom-controls mat-slider{
+      display: none;
+    }
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><mat-drawer-container *ngIf="!loading">  <mat-drawer class="compare-sidenav" [ngClass]="{\'comparing\': comparingWindowOpen}" #drawer mode="side" position="end">    <app-sidenav #sidenav                 [selectedDocuments]="selectedDocuments"                 [comparingWindowOpen]="comparingWindowOpen"                 (sidebarClose)="handleDrawerClose()"                 (compareClick)="handleCompareClick()"    ></app-sidenav>  </mat-drawer>  <mat-drawer-content>    <div class="graph-wrapper" #graphWrapper>      <app-graph        #graph        *ngIf="graphData"        [width]="graphWrapper.clientWidth"        [height]="graphWrapper.clientHeight"        [showLabels]="settings.showLabels"        [data]="graphData"        [minZoom]="minZoom"        [maxZoom]="maxZoom"        [defaultZoom]="currentZoom"        [distanceModifier]="settings.distanceModifier"        [clumpingModifier]="settings.clumpingModifier"        [graphPadding]="64"        (nodeClicked)="handleNodeClick($event)"        (emptyClicked)="clearSelection($event)"        (nodeHovered)="handleNodeHovered($event)"        (zoomed)="handleZoomed($event)"        (resized)="handleGraphResize()"      ></app-graph>    </div>  </mat-drawer-content></mat-drawer-container><div class="ui-wrapper" *ngIf="!loading">  <div class="settings-wrapper">    <div class="settings" [class.opened]="settingsOpen">      <button mat-icon-button aria-label="Open/close settings" (click)="settingsOpen = !settingsOpen">        <mat-icon>{{settingsOpen ? \'close\' : \'settings\'}}</mat-icon>      </button>      <app-settings *ngIf="settingsOpen" [(settings)]="settings"></app-settings>    </div>  </div>  <div class="error-legend" *ngIf="settings.showDeviations && selectedNodes.length === 1">    <div class="inner">      <div class="bar"></div>      <div class="up">Too far</div>      <div class="middle">Perfect</div>      <div class="bottom">Too close</div>      <div *ngIf="errorIndicatorOffset" class="indicator" [ngStyle]="{\'top\': errorIndicatorOffset + \'px\'}"></div>    </div>  </div>  <div class="map-controls">    <div class="center-control">      <button mat-icon-button aria-label="Center map" (click)="centerCamera()">        <mat-icon>adjust</mat-icon>      </button>    </div>    <div class="zoom-controls">      <button mat-icon-button aria-label="Increase zoom" (click)="increaseCamera()">        <mat-icon>add_circle_outline</mat-icon>      </button>      <mat-slider vertical [min]="getMinZoom()" [max]="getMaxZoom()" [step]="defaultStepZoom" [value]="getCurrentZoom()" (valueChange)="changeCamera($event)"></mat-slider>      <button mat-icon-button aria-label="Decrease zoom" (click)="decreaseCamera()">        <mat-icon>remove_circle_outline</mat-icon>      </button>    </div>  </div></div></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ComparisonComponent', 'selector': 'app-comparison'},{'name': 'ComparisonEntryComponent', 'selector': 'app-comparison-entry'},{'name': 'DocumentComponent', 'selector': 'app-document'},{'name': 'DocumentContentComponent', 'selector': 'app-document-content'},{'name': 'GraphComponent', 'selector': 'app-graph'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'InitComponent', 'selector': 'app-init'},{'name': 'SettingsComponent', 'selector': 'app-settings'},{'name': 'SidenavComponent', 'selector': 'app-sidenav'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'HomeComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+                   
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'HomeComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

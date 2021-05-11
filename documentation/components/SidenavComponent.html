@@ -1,0 +1,1134 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>document-maps documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">document-maps documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li>Components</li>
+  <li>SidenavComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li >
+            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li >
+            <a href="#styleData" role="tab" id="styleData-tab" data-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li >
+            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/home/sidenav/sidenav.component.ts</code>
+</p>
+
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>The component, contained within the Angular Material sidenav, displaying the documents and comparison components</p>
+
+    </p>
+
+
+
+
+<section>
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-sidenav</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./sidenav.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./sidenav.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#highlightedExactMatches">highlightedExactMatches</a>
+                            </li>
+                            <li>
+                                <a href="#highlightedSoftMatches">highlightedSoftMatches</a>
+                            </li>
+                            <li>
+                                <a href="#highlightedWordMap">highlightedWordMap</a>
+                            </li>
+                            <li>
+                                <a href="#hoveredWord">hoveredWord</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#clearHighlightedWords">clearHighlightedWords</a>
+                            </li>
+                            <li>
+                                <a href="#clickedCompare">clickedCompare</a>
+                            </li>
+                            <li>
+                                <a href="#closeSidenav">closeSidenav</a>
+                            </li>
+                            <li>
+                                <a href="#handleWordHovered">handleWordHovered</a>
+                            </li>
+                            <li>
+                                <a href="#handleWordsChanged">handleWordsChanged</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#comparingWindowOpen">comparingWindowOpen</a>
+                            </li>
+                            <li>
+                                <a href="#selectedDocuments">selectedDocuments</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Outputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#compareClick">compareClick</a>
+                            </li>
+                            <li>
+                                <a href="#sidebarClose">sidebarClose</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+        </tbody>
+    </table>
+</section>
+
+
+    <section>
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="comparingWindowOpen"></a>
+                        <b>comparingWindowOpen</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/home/sidenav/sidenav.component.ts:30</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>A value, specifying whether the comparing window should be open</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="selectedDocuments"></a>
+                        <b>selectedDocuments</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/SelectedDocument.html" target="_self" >SelectedDocument[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/app/home/sidenav/sidenav.component.ts:26</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>The currently selected documents</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+    <section>
+    <h3 id="outputs">Outputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="compareClick"></a>
+                        <b>compareClick</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://angular.io/api/core/EventEmitter" target="_blank" >EventEmitter</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">src/app/home/sidenav/sidenav.component.ts:39</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>An event, that emits when the user clicks on the comparison button</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="sidebarClose"></a>
+                        <b>sidebarClose</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://angular.io/api/core/EventEmitter" target="_blank" >EventEmitter</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/home/sidenav/sidenav.component.ts:35</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>An event, that emits when the sidebar closes</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+    <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="clearHighlightedWords"></a>
+                    <span class="name">
+                        <b>
+                            clearHighlightedWords
+                        </b>
+                        <a href="#clearHighlightedWords"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>clearHighlightedWords()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="92"
+                            class="link-to-prism">src/app/home/sidenav/sidenav.component.ts:92</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Clears the highlighted words</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="clickedCompare"></a>
+                    <span class="name">
+                        <b>
+                            clickedCompare
+                        </b>
+                        <a href="#clickedCompare"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>clickedCompare(e: MouseEvent)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="71"
+                            class="link-to-prism">src/app/home/sidenav/sidenav.component.ts:71</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>An event handler, that handles when user clicks on the comparison button</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>e</td>
+                                    <td>
+                                            <code>MouseEvent</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>The mouse event of clicking on the comparison button</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="closeSidenav"></a>
+                    <span class="name">
+                        <b>
+                            closeSidenav
+                        </b>
+                        <a href="#closeSidenav"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>closeSidenav(e: MouseEvent)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="62"
+                            class="link-to-prism">src/app/home/sidenav/sidenav.component.ts:62</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>An event handler, that handles when the sidenav is closed</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>e</td>
+                                    <td>
+                                            <code>MouseEvent</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>The mouse event that closed the sidenav</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="handleWordHovered"></a>
+                    <span class="name">
+                        <b>
+                            handleWordHovered
+                        </b>
+                        <a href="#handleWordHovered"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>handleWordHovered(word: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="102"
+                            class="link-to-prism">src/app/home/sidenav/sidenav.component.ts:102</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>An event handler, handling the change of the hovered on word</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>word</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>The new hovered word</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="handleWordsChanged"></a>
+                    <span class="name">
+                        <b>
+                            handleWordsChanged
+                        </b>
+                        <a href="#handleWordsChanged"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>handleWordsChanged(wordMap: <a href="../undefineds/WordMap.html">WordMap</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="80"
+                            class="link-to-prism">src/app/home/sidenav/sidenav.component.ts:80</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>An event handler, that updates the highlighted matches when the user has changed what words should be highlighted</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>wordMap</td>
+                                    <td>
+                                                <code><a href="../miscellaneous/typealiases.html#WordMap" target="_self" >WordMap</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>The WordMap containing the relationships of matches</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="highlightedExactMatches"></a>
+                        <span class="name">
+                            <b>
+                            highlightedExactMatches</b>
+                            <a href="#highlightedExactMatches"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>new Set&lt;string&gt;()</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">src/app/home/sidenav/sidenav.component.ts:44</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>A set containing the currently highlighted exact matches</p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="highlightedSoftMatches"></a>
+                        <span class="name">
+                            <b>
+                            highlightedSoftMatches</b>
+                            <a href="#highlightedSoftMatches"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>new Set&lt;string&gt;()</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/app/home/sidenav/sidenav.component.ts:48</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>A set containing the currently highlighted soft matches</p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="highlightedWordMap"></a>
+                        <span class="name">
+                            <b>
+                            highlightedWordMap</b>
+                            <a href="#highlightedWordMap"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../miscellaneous/typealiases.html#WordMap" target="_self" >WordMap</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>new Map&lt;string, Set&lt;string&gt;&gt;()</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="52" class="link-to-prism">src/app/home/sidenav/sidenav.component.ts:52</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>A map, that contains the relationships of matches</p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="hoveredWord"></a>
+                        <span class="name">
+                            <b>
+                            hoveredWord</b>
+                            <a href="#hoveredWord"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="56" class="link-to-prism">src/app/home/sidenav/sidenav.component.ts:56</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>The currently hovered on word within the comparison screen</p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {Component, EventEmitter, Input, Output} from &#x27;@angular/core&#x27;;
+import {WordMap} from &#x27;../comparison/comparison.component&#x27;;
+
+/**
+ * The interface of a displayed document
+ */
+export interface SelectedDocument{
+  id: string;
+  title: string;
+  subtitle: string;
+  content: string;
+}
+
+/**
+ * The component, contained within the Angular Material sidenav, displaying the documents and comparison components
+ */
+@Component({
+  selector: &#x27;app-sidenav&#x27;,
+  templateUrl: &#x27;./sidenav.component.html&#x27;,
+  styleUrls: [&#x27;./sidenav.component.scss&#x27;]
+})
+export class SidenavComponent {
+  /**
+   * The currently selected documents
+   */
+  @Input() selectedDocuments: SelectedDocument[] &#x3D; [];
+  /**
+   * A value, specifying whether the comparing window should be open
+   */
+  @Input() comparingWindowOpen &#x3D; false;
+
+  /**
+   * An event, that emits when the sidebar closes
+   */
+  @Output() sidebarClose &#x3D; new EventEmitter&lt;any&gt;();
+  /**
+   * An event, that emits when the user clicks on the comparison button
+   */
+  @Output() compareClick &#x3D; new EventEmitter&lt;any&gt;();
+
+  /**
+   * A set containing the currently highlighted exact matches
+   */
+  highlightedExactMatches &#x3D; new Set&lt;string&gt;();
+  /**
+   * A set containing the currently highlighted soft matches
+   */
+  highlightedSoftMatches &#x3D; new Set&lt;string&gt;();
+  /**
+   * A map, that contains the relationships of matches
+   */
+  highlightedWordMap: WordMap &#x3D; new Map&lt;string, Set&lt;string&gt;&gt;();
+  /**
+   * The currently hovered on word within the comparison screen
+   */
+  hoveredWord: string;
+
+  /**
+   * An event handler, that handles when the sidenav is closed
+   * @param e The mouse event that closed the sidenav
+   */
+  closeSidenav(e: MouseEvent): void {
+    this.sidebarClose.emit(e);
+    this.clearHighlightedWords();
+  }
+
+  /**
+   * An event handler, that handles when user clicks on the comparison button
+   * @param e The mouse event of clicking on the comparison button
+   */
+  clickedCompare(e: MouseEvent): void {
+    this.compareClick.emit(e);
+    this.clearHighlightedWords();
+  }
+
+  /**
+   * An event handler, that updates the highlighted matches when the user has changed what words should be highlighted
+   * @param wordMap The WordMap containing the relationships of matches
+   */
+  handleWordsChanged(wordMap: WordMap): void{
+    this.highlightedExactMatches &#x3D; new Set&lt;string&gt;(wordMap.keys());
+    const softMatches &#x3D; Array.from(wordMap.values())
+      .reduce((a, c) &#x3D;&gt; a.concat([...c]), [])
+      .filter(a &#x3D;&gt; !this.highlightedExactMatches.has(a));
+    this.highlightedSoftMatches &#x3D; new Set(softMatches);
+    this.highlightedWordMap &#x3D; wordMap;
+  }
+
+  /**
+   * Clears the highlighted words
+   */
+  clearHighlightedWords(): void{
+    this.highlightedExactMatches &#x3D; new Set&lt;string&gt;();
+    this.highlightedSoftMatches &#x3D; new Set&lt;string&gt;();
+    this.highlightedWordMap &#x3D; new Map&lt;string, Set&lt;string&gt;&gt;();
+  }
+
+  /**
+   * An event handler, handling the change of the hovered on word
+   * @param word  The new hovered word
+   */
+  handleWordHovered(word: string): void{
+    this.hoveredWord &#x3D; word;
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;sidenav-wrapper&quot; [ngClass]&#x3D;&quot;{&#x27;comparing&#x27;: comparingWindowOpen}&quot;&gt;
+  &lt;div class&#x3D;&quot;sidenav-nav&quot;&gt;
+    &lt;button mat-icon-button aria-label&#x3D;&quot;Close sidenav&quot; (click)&#x3D;&quot;closeSidenav($event)&quot;&gt;
+      &lt;mat-icon&gt;close&lt;/mat-icon&gt;
+    &lt;/button&gt;
+    &lt;button *ngIf&#x3D;&quot;!comparingWindowOpen&quot; mat-raised-button color&#x3D;&quot;accent&quot; class&#x3D;&quot;compare-button&quot; [disabled]&#x3D;&quot;selectedDocuments.length !&#x3D;&#x3D; 2&quot; (click)&#x3D;&quot;clickedCompare($event)&quot;&gt;
+      Compare&lt;span class&#x3D;&quot;material-icons&quot;&gt;keyboard_arrow_right&lt;/span&gt;
+    &lt;/button&gt;
+  &lt;/div&gt;
+  &lt;app-document *ngFor&#x3D;&quot;let doc of selectedDocuments&quot;
+                [document]&#x3D;&quot;doc&quot;
+                [highlightedExactMatches]&#x3D;&quot;highlightedExactMatches&quot;
+                [highlightedSoftMatches]&#x3D;&quot;highlightedSoftMatches&quot;
+                [highlightedWordMap]&#x3D;&quot;highlightedWordMap&quot;
+                [hoveredWord]&#x3D;&quot;hoveredWord&quot;
+                [style.comparing]&#x3D;&quot;comparingWindowOpen&quot;
+  &gt;&lt;/app-document&gt;
+&lt;/div&gt;
+&lt;div class&#x3D;&quot;sidenav-comparison&quot; *ngIf&#x3D;&quot;comparingWindowOpen&quot;&gt;
+  &lt;app-comparison [selectedDocuments]&#x3D;&quot;selectedDocuments&quot;
+                  (wordsChanged)&#x3D;&quot;handleWordsChanged($event)&quot;
+                  (wordHovered)&#x3D;&quot;handleWordHovered($event)&quot;
+  &gt;&lt;/app-comparison&gt;
+&lt;/div&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-styleData">
+                <p class="comment">
+                    <code>./sidenav.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">::ng-deep{
+  .mat-drawer-inner-container{
+    overflow-x: hidden;
+  }
+}
+
+.sidenav-wrapper{
+  width: 400px;
+  height: 100%;
+  padding: 1em;
+  display: grid;
+  position: relative;
+  grid-template-columns: 1fr;
+  grid-template-rows: 40px;
+  grid-auto-rows: minmax(200px, 1fr);
+  grid-gap: 1em;
+  flex-shrink: 0;
+
+  &amp;.comparing{
+    width: 100%;
+    height: 50%;
+    grid-template-columns: 1fr 1fr;
+
+    .sidenav-nav{
+      grid-column: 1/3;
+    }
+  }
+}
+
+app-document {
+  padding-bottom: 1em;
+  ::ng-deep {
+    .mat-card{
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    .mat-card-content {
+      overflow: auto;
+      max-height: 100%;
+      padding-right: 0.5em;
+    }
+  }
+}
+
+.sidenav-nav{
+  width: 100%;
+  height: 40px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.sidenav-comparison{
+  width: 100%;
+  height: 50%;
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="sidenav-wrapper" [ngClass]="{\'comparing\': comparingWindowOpen}">  <div class="sidenav-nav">    <button mat-icon-button aria-label="Close sidenav" (click)="closeSidenav($event)">      <mat-icon>close</mat-icon>    </button>    <button *ngIf="!comparingWindowOpen" mat-raised-button color="accent" class="compare-button" [disabled]="selectedDocuments.length !== 2" (click)="clickedCompare($event)">      Compare<span class="material-icons">keyboard_arrow_right</span>    </button>  </div>  <app-document *ngFor="let doc of selectedDocuments"                [document]="doc"                [highlightedExactMatches]="highlightedExactMatches"                [highlightedSoftMatches]="highlightedSoftMatches"                [highlightedWordMap]="highlightedWordMap"                [hoveredWord]="hoveredWord"                [style.comparing]="comparingWindowOpen"  ></app-document></div><div class="sidenav-comparison" *ngIf="comparingWindowOpen">  <app-comparison [selectedDocuments]="selectedDocuments"                  (wordsChanged)="handleWordsChanged($event)"                  (wordHovered)="handleWordHovered($event)"  ></app-comparison></div></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ComparisonComponent', 'selector': 'app-comparison'},{'name': 'ComparisonEntryComponent', 'selector': 'app-comparison-entry'},{'name': 'DocumentComponent', 'selector': 'app-document'},{'name': 'DocumentContentComponent', 'selector': 'app-document-content'},{'name': 'GraphComponent', 'selector': 'app-graph'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'InitComponent', 'selector': 'app-init'},{'name': 'SettingsComponent', 'selector': 'app-settings'},{'name': 'SidenavComponent', 'selector': 'app-sidenav'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'SidenavComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+                   
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'SidenavComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
