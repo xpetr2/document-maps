@@ -282,6 +282,16 @@ export class HomeComponent implements AfterViewInit {
   }
 
   /**
+   * Handles when the alpha value, the temperature, of the graph changes
+   * @param value The current value of alpha
+   */
+  handleAlphaChanged(e: {value: number, d3: any}): void{
+    if (this.settings.showDeviations && this.selectedNodes.length === 1){
+      this.drawDeviation(this.selectedNodes[0], e.d3);
+    }
+  }
+
+  /**
    * Handles when the user clicks on the comparison button
    */
   handleCompareClick(): void{

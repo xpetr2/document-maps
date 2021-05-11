@@ -69,6 +69,10 @@ export class GraphComponent implements OnChanges, AfterViewInit {
    * Emits every time the user zooms the graph
    */
   @Output() zoomed = new EventEmitter<any>();
+  /**
+   * Emits every time the alpha, the temperature, of the simulation changes
+   */
+  @Output() alphaChanged = new EventEmitter<any>();
 
   /**
    * The SVG component holding all graph components
@@ -101,6 +105,12 @@ export class GraphComponent implements OnChanges, AfterViewInit {
    * @private
    */
   private hoveredNode: string;
+
+  /**
+   * Holds the previous alpha, the temperature, value of the graph
+   * @private
+   */
+  private previousAlpha = 1;
 
   /**
    * @param queryService    the QueryService holding the corpus information
@@ -214,7 +224,22 @@ export class GraphComponent implements OnChanges, AfterViewInit {
 
     this.simulation.on('tick', () => {
       this.nodes.attr('transform', d => `translate(${d.x}, ${d.y})`);
+      this.updateAlpha(0.001, 0.01);
     });
+  }
+
+  /**
+   * Emits an event whenever the alpha, the temperature, of the simulation changes by a specific amount
+   * @param minimumAlpha  The minimum alpha that the event will emit to
+   * @param stepRequired The minimal step required between the last emission
+   */
+  updateAlpha(minimumAlpha: number, stepRequired: number): void{
+    if (this.simulation.alpha() > minimumAlpha && Math.abs(this.previousAlpha - this.simulation.alpha()) > stepRequired ||
+      this.simulation.alpha() === 0 && this.previousAlpha !== 0)
+    {
+      this.previousAlpha = this.simulation.alpha();
+      this.alphaChanged.emit({value: this.simulation.alpha(), d3});
+    }
   }
 
   /**
