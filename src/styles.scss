@@ -47,14 +47,14 @@ main {
 
 a {
   text-decoration: none;
-  color: white;
+  color: map-get($color, selected);
 
   &:hover {
-    color: lightgray;
+    color: map-get($color, primary);
   }
 
   &:active {
-    color: lightgray;
+    color: map-get($color, primary);
   }
 }
 

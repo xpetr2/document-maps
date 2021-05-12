@@ -21,8 +21,11 @@
     position: relative;
     overflow: hidden;
 
-    h1{
-      margin-bottom: 0;
+    .init-preface{
+      h1{
+        margin-bottom: 0;
+      }
+      padding-bottom: 1em;
     }
 
     .init-buttons{
@@ -103,7 +106,7 @@
         margin-top: 24px;
 
         textarea{
-          height: 119px;
+          height: 393px;
           max-height: calc(100vh - 12em);
         }
       }
