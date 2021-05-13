@@ -19,6 +19,7 @@
         [minZoom]="minZoom"
         [maxZoom]="maxZoom"
         [defaultZoom]="currentZoom"
+        [defaultZoomStep]="defaultStepZoom"
         [distanceModifier]="settings.distanceModifier"
         [clumpingModifier]="settings.clumpingModifier"
         [graphPadding]="64"
@@ -60,7 +61,7 @@
       <button mat-icon-button aria-label="Increase zoom" (click)="increaseCamera()">
         <mat-icon>add_circle_outline</mat-icon>
       </button>
-      <mat-slider vertical [min]="getMinZoom()" [max]="getMaxZoom()" [step]="defaultStepZoom" [value]="getCurrentZoom()" (valueChange)="changeCamera($event)"></mat-slider>
+      <mat-slider vertical [min]="getMinZoom()" [max]="getMaxZoom()" [step]="defaultStepZoom" [value]="getCurrentZoom()" (valueChange)="changeCameraZoom($event)"></mat-slider>
       <button mat-icon-button aria-label="Decrease zoom" (click)="decreaseCamera()">
         <mat-icon>remove_circle_outline</mat-icon>
       </button>

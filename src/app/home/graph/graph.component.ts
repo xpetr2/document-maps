@@ -45,6 +45,14 @@ export class GraphComponent implements OnChanges, AfterViewInit {
    */
   @Input() defaultZoom: number;
   /**
+   * The default amount the map should pan by using the arrow keys
+   */
+  @Input() defaultPanStep = 5;
+  /**
+   * The default amount the map should pan by using the arrow keys
+   */
+  @Input() defaultZoomStep = 0.25;
+  /**
    * Specifies, whether labels for individual nodes should be rendered
    */
   @Input() showLabels: boolean;
@@ -152,6 +160,7 @@ export class GraphComponent implements OnChanges, AfterViewInit {
     this.initEvents();
     this.drawGraph();
 
+    // Center the camera, but wait with the zoom for a bit for the temperature of the simulation to settle down
     this.centerCamera(0, 0, this.defaultZoom, 0);
     setTimeout(() => {
       this.setZoom(this.defaultZoom * this.calculateCoverZoom(), 1000);
@@ -198,15 +207,21 @@ export class GraphComponent implements OnChanges, AfterViewInit {
   initEvents(): void{
     this.zoom = d3.zoom()
       .on('zoom', (e) => {
-        if (e?.sourceEvent?.type === 'wheel' || e?.sourceEvent?.type === 'dblclick'){
-          this.zoomed.emit(e);
-        }
+        this.zoomed.emit(e);
         this.g.attr('transform', e.transform);
       })
-
       .scaleExtent([this.minZoom, this.maxZoom]);
 
     this.svg.call(this.zoom);
+
+    d3.select('body')
+      .on('keydown', (e) => {
+        if (e.key.startsWith('Arrow')){
+          this.keyboardPan(e.key);
+        } else if (e.key === '+' || e.key === '=' || e.key === '-') {
+          this.keyboardZoom(e.key);
+        }
+      });
 
     this.svg.on('click', (e) => {
       if (e.target.id === this.svg.attr('id')){
@@ -329,9 +344,37 @@ export class GraphComponent implements OnChanges, AfterViewInit {
    * @param duration  The duration of the animation should take in milliseconds
    */
   setZoom(value: number, duration = 250): void{
+    // this.zoomed.emit({transform: {k: value}});
     this.svg.transition()
       .duration(duration)
       .call(this.zoom.scaleTo, value);
+  }
+
+  /**
+   * Pans the graph based on the arrow key input
+   * @param keyCode   The keycode of the key pressed
+   * @param step      The size of the step to pan by
+   * @param duration  The duration of the animation
+   */
+  keyboardPan(keyCode: string, step = this.defaultPanStep, duration = 125): void{
+    const translateByX = keyCode === 'ArrowLeft' ? step : (keyCode === 'ArrowRight' ? -step : 0);
+    const translateByY = keyCode === 'ArrowUp' ? step : (keyCode === 'ArrowDown' ? -step : 0);
+    this.svg.transition()
+      .duration(duration)
+      .call(this.zoom.translateBy, translateByX, translateByY);
+  }
+
+  /**
+   * Zooms the graph based on the inputs from a keyboard
+   * @param keyCode   The keycode of the key pressed
+   * @param step      The size of the step to zoom by
+   * @param duration  The duration of the animation
+   */
+  keyboardZoom(keyCode: string, step = this.defaultZoomStep, duration = 125): void{
+    const zoomStep = keyCode === '+' || keyCode === '=' ? step : (keyCode === '-' ? -step : 0);
+    this.svg.transition()
+      .duration(duration)
+      .call(this.zoom.scaleBy, 1 + zoomStep);
   }
 
   /**

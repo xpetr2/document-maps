@@ -1,9 +1,10 @@
 {
   "name": "document-maps",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "scripts": {
     "start": "ng serve",
     "build": "ng build",
+    "build-prod": "ng build --prod",
     "compodoc": "npx compodoc -p tsconfig.doc.json"
   },
   "private": true,

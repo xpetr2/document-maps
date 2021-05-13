@@ -309,21 +309,21 @@ export class HomeComponent implements AfterViewInit {
    * Increases the zoom level by the default step, adjusted logarithmically
    */
   increaseCamera(): void{
-    this.changeCamera(pow2(log2(this.currentZoom) + this.defaultStepZoom));
+    this.changeCameraZoom(log2(this.currentZoom) + this.defaultStepZoom);
   }
 
   /**
    * Decreases the zoom level by the default step, adjusted logarithmically
    */
   decreaseCamera(): void{
-    this.changeCamera(pow2(log2(this.currentZoom) - this.defaultStepZoom));
+    this.changeCameraZoom(log2(this.currentZoom) - this.defaultStepZoom);
   }
 
   /**
    * Change the camera zoom to a specified value, adjusted logarithmically
    * @param value   The value the camera should zoom to
    */
-  changeCamera(value: number): void{
+  changeCameraZoom(value: number): void{
     value = Math.max(Math.min(pow2(value), this.maxZoom), this.minZoom);
     this.currentZoom = value;
     this.graph.setZoom(value);
