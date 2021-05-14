@@ -6,7 +6,7 @@ import {GraphComponent} from './graph/graph.component';
 import {AppSettings} from './settings/settings.component';
 import * as queryUtils from '../utils/query.utils';
 import {GraphData} from '../utils/query.utils';
-import {colorSrgbGradient, colorToHex, log2, normalizeDeviation, pow2} from '../utils/graph.utils';
+import {DefaultColors, log2, normalizeDeviation, pow2} from '../utils/graph.utils';
 
 /**
  * The main home component, responsible for holding the graph, sidenav and comparison components
@@ -256,10 +256,6 @@ export class HomeComponent implements AfterViewInit {
    * @param d3            The D3 object
    */
   drawDeviation(selectedNode: string, d3: any): void{
-    const correctColor = {r: 55, g: 176, b: 59};
-    const farColor = {r: 176, g: 55, b: 55};
-    const closeColor = {r: 69, g: 55, b: 176};
-
     for (const node of this.graphData.nodes){
       if (node.id === selectedNode) {
         continue;
@@ -267,7 +263,8 @@ export class HomeComponent implements AfterViewInit {
       const targetNode = d3.select(`[id="wrapper_${node.id.replace('.', '\\.')}"]`);
       const sourceNode = d3.select(`[id="wrapper_${selectedNode.replace('.', '\\.')}"]`);
       const deviation = this.calculateDeviation(sourceNode, targetNode, selectedNode, node.id);
-      const color = colorToHex(colorSrgbGradient(correctColor, deviation < 0 ? closeColor : farColor, Math.abs(deviation)));
+      const incorrectColor = deviation < 0 ? DefaultColors.deviationFar() : DefaultColors.deviationClose();
+      const color = DefaultColors.deviationCorrect().colorSrgbGradient(incorrectColor, Math.abs(deviation)).toHex();
       targetNode.select('circle').attr('fill', color);
     }
   }
@@ -283,7 +280,7 @@ export class HomeComponent implements AfterViewInit {
 
   /**
    * Handles when the alpha value, the temperature, of the graph changes
-   * @param value The current value of alpha
+   * @param e An event object, holding the current value of alpha and the D3 object
    */
   handleAlphaChanged(e: {value: number, d3: any}): void{
     if (this.settings.showDeviations && this.selectedNodes.length === 1){
