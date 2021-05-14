@@ -31,18 +31,18 @@
         (resized)="handleGraphResize()"
       ></app-graph>
     </div>
+    <app-user-interface
+      [(settings)]="settings"
+      [selectedNodes]="selectedNodes"
+      [defaultStepZoom]="defaultStepZoom"
+      [minZoom]="getMinZoom()"
+      [maxZoom]="getMaxZoom()"
+      [currentZoom]="getCurrentZoom()"
+      [errorIndicatorOffset]="errorIndicatorOffset"
+      (increaseCamera)="increaseCamera()"
+      (decreaseCamera)="decreaseCamera()"
+      (centerCamera)="centerCamera()"
+      (changeCameraZoom)="changeCameraZoom($event)"
+    ></app-user-interface>
   </mat-drawer-content>
 </mat-drawer-container>
-<app-user-interface
-  [(settings)]="settings"
-  [selectedNodes]="selectedNodes"
-  [defaultStepZoom]="defaultStepZoom"
-  [minZoom]="getMinZoom()"
-  [maxZoom]="getMaxZoom()"
-  [currentZoom]="getCurrentZoom()"
-  [errorIndicatorOffset]="errorIndicatorOffset"
-  (increaseCamera)="increaseCamera()"
-  (decreaseCamera)="decreaseCamera()"
-  (centerCamera)="centerCamera()"
-  (changeCameraZoom)="changeCameraZoom($event)"
-></app-user-interface>
