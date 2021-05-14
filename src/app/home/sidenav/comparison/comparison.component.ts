@@ -1,7 +1,7 @@
 import {Component, Input, OnChanges, OnInit, SimpleChanges, EventEmitter, Output} from '@angular/core';
-import {QueryService} from '../../services/query.service';
-import {SelectedDocument} from '../sidenav/sidenav.component';
-import * as queryUtils from '../../utils/query.utils';
+import {QueryService} from '../../../services/query.service';
+import {SelectedDocument} from '../sidenav.component';
+import * as queryUtils from '../../../utils/query.utils';
 
 /**
  * An enum, specifying the hover event type

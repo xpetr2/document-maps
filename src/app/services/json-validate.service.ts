@@ -84,7 +84,7 @@ export class JsonValidateService {
    * The validation function of a corpus
    * @param corpus  The corpus to be validated
    */
-  validateCorpus(corpus: {}): boolean{
+  validateCorpus(corpus: {}): boolean {
     const ajv = new Ajv();
     const validate = ajv.compile(searchQuerySchema);
     try{
@@ -93,4 +93,6 @@ export class JsonValidateService {
       return false;
     }
   }
+
+
 }

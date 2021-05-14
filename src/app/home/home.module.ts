@@ -6,13 +6,14 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HomeRoutes } from './home.routes';
 import { GraphComponent } from './graph/graph.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
-import { ComparisonComponent } from './comparison/comparison.component';
-import { ComparisonEntryComponent } from './comparison/comparison-entry/comparison-entry.component';
-import { SettingsComponent } from './settings/settings.component';
+import { ComparisonComponent } from './sidenav/comparison/comparison.component';
+import { ComparisonEntryComponent } from './sidenav/comparison/comparison-entry/comparison-entry.component';
+import { SettingsComponent } from './user-interface/settings/settings.component';
 import {AngularResizedEventModule} from 'angular-resize-event';
 import { DocumentComponent } from './sidenav/document/document.component';
 import { DocumentContentComponent } from './sidenav/document/document-content/document-content.component';
 import {PipesModule} from '../pipes/pipes.module';
+import { UserInterfaceComponent } from './user-interface/user-interface.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import {PipesModule} from '../pipes/pipes.module';
     ComparisonEntryComponent,
     SettingsComponent,
     DocumentComponent,
-    DocumentContentComponent
+    DocumentContentComponent,
+    UserInterfaceComponent
   ],
   imports: [
     CommonModule,

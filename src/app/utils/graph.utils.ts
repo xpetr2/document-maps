@@ -1,5 +1,3 @@
-
-
 /**
  * A normalization function, normalizing between -1 and 1
  * @param value       The value to be normalized

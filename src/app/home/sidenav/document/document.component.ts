@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {SelectedDocument} from '../sidenav.component';
-import {WordMap} from '../../comparison/comparison.component';
+import {WordMap} from '../comparison/comparison.component';
 
 /**
  * The displayed document component, showing the documents text

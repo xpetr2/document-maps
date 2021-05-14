@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {EscapeHtmlPipe} from '../../../../pipes/escape-html.pipe';
 import escapeStringRegexp from 'escape-string-regexp';
-import {WordMap} from '../../../comparison/comparison.component';
+import {WordMap} from '../../comparison/comparison.component';
 import {pairSeparator, valueChanged} from '../../../../utils/various.utils';
 import {SplitUpPipe} from '../../../../pipes/pair-split.pipe';
 

@@ -3,7 +3,7 @@ import {QueryService} from '../services/query.service';
 import {MatDrawer} from '@angular/material/sidenav';
 import {SelectedDocument, SidenavComponent} from './sidenav/sidenav.component';
 import {GraphComponent} from './graph/graph.component';
-import {AppSettings} from './settings/settings.component';
+import {AppSettings} from './user-interface/settings/settings.component';
 import * as queryUtils from '../utils/query.utils';
 import {GraphData} from '../utils/query.utils';
 import {DefaultColors, log2, normalizeDeviation, pow2} from '../utils/graph.utils';
@@ -27,11 +27,11 @@ export class HomeComponent implements AfterViewInit {
   /**
    * Specifies the minimum zoom possible
    */
-  minZoom = 1;
+  readonly minZoom = 1;
   /**
    * Specifies the maximum zoom possible
    */
-  maxZoom = 32;
+  readonly maxZoom = 32;
   /**
    * Specifies the initial zoom
    */
@@ -39,7 +39,7 @@ export class HomeComponent implements AfterViewInit {
   /**
    * Specifies the minimum step possible by clicking the zoom buttons
    */
-  defaultStepZoom = 0.25;
+  readonly defaultStepZoom = 0.25;
 
   /**
    * Holds the ids of selected nodes
@@ -60,18 +60,9 @@ export class HomeComponent implements AfterViewInit {
   errorIndicatorOffset = 0;
 
   /**
-   * Specifies whether the component is still loading data from the WebWorker
-   */
-  loading = true;
-
-  /**
    * Determines if the user is currently comparing two documents
    */
   comparingWindowOpen = false;
-  /**
-   * Determines if the user has settings menu opened
-   */
-  settingsOpen = false;
   /**
    * The app settings currently in effect
    */
@@ -107,7 +98,6 @@ export class HomeComponent implements AfterViewInit {
     setTimeout(() => {
       this.queryService.initGraphData().subscribe(data => {
         this.graphData = data;
-        this.loading = false;
       });
     });
   }

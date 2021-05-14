@@ -1,0 +1,47 @@
+<div class="ui-wrapper">
+  <div class="settings-wrapper">
+    <div class="settings" [class.opened]="settingsOpen">
+      <button mat-icon-button
+              matTooltip="Open/close settings"
+              aria-label="Button that opens, or closes, the settings menu"
+              (click)="settingsOpen = !settingsOpen">
+        <mat-icon>{{settingsOpen ? 'close' : 'settings'}}</mat-icon>
+      </button>
+      <app-settings *ngIf="settingsOpen" [(settings)]="settings"></app-settings>
+    </div>
+  </div>
+  <div class="error-legend" *ngIf="settings.showDeviations && selectedNodes.length === 1">
+    <div class="inner">
+      <div class="bar"></div>
+      <div class="up">Too far</div>
+      <div class="middle">Perfect</div>
+      <div class="bottom">Too close</div>
+      <div *ngIf="errorIndicatorOffset" class="indicator" [ngStyle]="{'top': errorIndicatorOffset + 'px'}"></div>
+    </div>
+  </div>
+  <div class="map-controls">
+    <div class="center-control">
+      <button mat-icon-button
+              matTooltip="Center camera"
+              aria-label="Button that centers the camera to the point of origin"
+              (click)="this.centerCamera.emit()">
+        <mat-icon>adjust</mat-icon>
+      </button>
+    </div>
+    <div class="zoom-controls">
+      <button mat-icon-button
+              matTooltip="Increase camera zoom"
+              aria-label="Button that increases the camera zoom"
+              (click)="this.increaseCamera.emit()">
+        <mat-icon>add_circle_outline</mat-icon>
+      </button>
+      <mat-slider vertical [min]="minZoom" [max]="maxZoom" [step]="defaultStepZoom" [value]="currentZoom" (valueChange)="this.changeCameraZoom.emit($event)"></mat-slider>
+      <button mat-icon-button
+              matTooltip="Decrease camera zoom"
+              aria-label="Button that decreases the camera zoom"
+              (click)="this.decreaseCamera.emit()">
+        <mat-icon>remove_circle_outline</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>
