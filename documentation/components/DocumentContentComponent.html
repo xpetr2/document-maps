@@ -455,8 +455,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="103"
-                            class="link-to-prism">src/app/home/sidenav/document/document-content/document-content.component.ts:103</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="113"
+                            class="link-to-prism">src/app/home/sidenav/document/document-content/document-content.component.ts:113</a></div>
                 </td>
             </tr>
 
@@ -496,8 +496,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="67"
-                            class="link-to-prism">src/app/home/sidenav/document/document-content/document-content.component.ts:67</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="68"
+                            class="link-to-prism">src/app/home/sidenav/document/document-content/document-content.component.ts:68</a></div>
                 </td>
             </tr>
 
@@ -537,8 +537,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="89"
-                            class="link-to-prism">src/app/home/sidenav/document/document-content/document-content.component.ts:89</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="94"
+                            class="link-to-prism">src/app/home/sidenav/document/document-content/document-content.component.ts:94</a></div>
                 </td>
             </tr>
 
@@ -863,7 +863,7 @@
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges} from &#x27;@angular/core&#x27;;
 import {EscapeHtmlPipe} from &#x27;../../../../pipes/escape-html.pipe&#x27;;
 import escapeStringRegexp from &#x27;escape-string-regexp&#x27;;
-import {WordMap} from &#x27;../../../comparison/comparison.component&#x27;;
+import {WordMap} from &#x27;../../comparison/comparison.component&#x27;;
 import {pairSeparator, valueChanged} from &#x27;../../../../utils/various.utils&#x27;;
 import {SplitUpPipe} from &#x27;../../../../pipes/pair-split.pipe&#x27;;
 
@@ -918,6 +918,7 @@ export class DocumentContentComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    // If the highlighted word changes, format the content again
     if (valueChanged(changes?.highlightedWords)){
       this.convertedContent &#x3D; this.getFormattedContent();
     }
@@ -929,11 +930,15 @@ export class DocumentContentComponent implements OnInit, OnChanges {
   getReversedWordMap(): WordMap{
     const entries &#x3D; this.highlightedWordMap.entries();
     const out &#x3D; new Map&lt;string, Set&lt;string&gt;&gt;();
+    // Go over the parent and all children
     for (const [parent, set] of entries){
       for (const match of set){
+        // If the reverse map already has the child as a key
         if (out.has(match)){
+          // Add the parent to the set
           out.get(match).add(parent);
         } else {
+          // Create an entry for the child and parent
           out.set(match, new Set&lt;string&gt;([parent]));
         }
       }
@@ -948,14 +953,19 @@ export class DocumentContentComponent implements OnInit, OnChanges {
    * @param words             The set, containing all the matched words
    * @param reversedWordMap   The reversed WordMap
    */
-  isWordLowlighted(word: string, hoveredWord: string, words: Set&lt;string&gt;, reversedWordMap: WordMap): boolean{
+  isWordLowlighted(word: string, hoveredWord: string, words: Set&lt;string&gt;, reversedWordMap: WordMap): boolean {
+    // If there is no hovered word, then no words should be low-lighted
     if (!hoveredWord){
       return false;
     }
+    // If the hovered word is a soft match (contains a pair separator)
     if (hoveredWord.includes(pairSeparator)){
+      // Split the pair up
       const [w1, w2] &#x3D; this.splitUpPipe.transform(hoveredWord);
+      // See if one of the words in the pair is selected and neither of the words is the one being evaluated
       return (words.has(w1) || words.has(w2)) &amp;&amp; !(word &#x3D;&#x3D;&#x3D; w1 || word &#x3D;&#x3D;&#x3D; w2);
     }
+    // If the hovered word is an exact match, see if the hovered word is selected and is not the one being evaluated
     return words.has(hoveredWord) &amp;&amp; !(hoveredWord &#x3D;&#x3D;&#x3D; word || reversedWordMap.get(word)?.has(hoveredWord));
   }
 
@@ -963,15 +973,23 @@ export class DocumentContentComponent implements OnInit, OnChanges {
    * Sets the content of this document, highlighting and lowlighting the appropriate words in the process
    */
   getFormattedContent(): string{
+    // Merge the exact and soft matches sets
     const allWords &#x3D; new Set([...this.highlightedSoftMatches, ...this.highlightedExactMatches]);
+    // Escape the potential intrusive HTML characters
     let content &#x3D; this.escapeHtml.transform(this.content);
     const reversedWordMap &#x3D; this.getReversedWordMap();
+    // Go over all the selected words
     for (const word of allWords){
+      // Escape the evaluated word for more unsafe HTML characters
       const escapedWord &#x3D; this.escapeHtml.transform(word);
+      // Create a new RegEx, that matches all the looked for words, that have no characters before and after
       const re &#x3D; new RegExp(&#x60;(?&lt;&#x3D;^|\\s)${escapeStringRegexp(escapedWord)}(?&#x3D;$|\\s)&#x60;, &#x27;g&#x27;);
+      // See what type of a match the word is
       const wordType &#x3D; this.highlightedExactMatches.has(word) ? (this.highlightedSoftMatches.has(word) ? &#x27;both&#x27; : &#x27;exact&#x27;) : &#x27;soft&#x27;;
-      const isHovered &#x3D; this.isWordLowlighted(word, this.hoveredWord, allWords, reversedWordMap);
-      content &#x3D; content.replace(re, &#x60;&lt;span class&#x3D;&quot;${isHovered ? &#x27;lowlight&#x27; : &#x27;highlight&#x27;} ${wordType}&quot;&gt;${escapedWord}&lt;/span&gt;&#x60;);
+
+      const lowlighted &#x3D; this.isWordLowlighted(word, this.hoveredWord, allWords, reversedWordMap);
+      // Replace all the matched words with the span tag
+      content &#x3D; content.replace(re, &#x60;&lt;span class&#x3D;&quot;${lowlighted ? &#x27;lowlight&#x27; : &#x27;highlight&#x27;} ${wordType}&quot;&gt;${escapedWord}&lt;/span&gt;&#x60;);
     }
     return content;
   }
@@ -1050,7 +1068,7 @@ p{
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
         var COMPONENT_TEMPLATE = '<div><p [innerHTML]="getFormattedContent()"></p></div>'
-    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ComparisonComponent', 'selector': 'app-comparison'},{'name': 'ComparisonEntryComponent', 'selector': 'app-comparison-entry'},{'name': 'DocumentComponent', 'selector': 'app-document'},{'name': 'DocumentContentComponent', 'selector': 'app-document-content'},{'name': 'GraphComponent', 'selector': 'app-graph'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'InitComponent', 'selector': 'app-init'},{'name': 'SettingsComponent', 'selector': 'app-settings'},{'name': 'SidenavComponent', 'selector': 'app-sidenav'}];
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ComparisonComponent', 'selector': 'app-comparison'},{'name': 'ComparisonEntryComponent', 'selector': 'app-comparison-entry'},{'name': 'DocumentComponent', 'selector': 'app-document'},{'name': 'DocumentContentComponent', 'selector': 'app-document-content'},{'name': 'GraphComponent', 'selector': 'app-graph'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'InitComponent', 'selector': 'app-init'},{'name': 'SettingsComponent', 'selector': 'app-settings'},{'name': 'SidenavComponent', 'selector': 'app-sidenav'},{'name': 'UserInterfaceComponent', 'selector': 'app-user-interface'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'DocumentContentComponent'};
 </script>

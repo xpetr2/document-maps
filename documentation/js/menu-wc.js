@@ -76,13 +76,13 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="modules/HomeModule.html" data-type="entity-link">HomeModule</a>
                                     <li class="chapter inner">
                                         <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
-                                            'data-target="#components-links-module-HomeModule-194a52839939810fbdf64dd8f0c2daec"' : 'data-target="#xs-components-links-module-HomeModule-194a52839939810fbdf64dd8f0c2daec"' }>
+                                            'data-target="#components-links-module-HomeModule-6b27e9a5949ad27879aee860c1ce11a6"' : 'data-target="#xs-components-links-module-HomeModule-6b27e9a5949ad27879aee860c1ce11a6"' }>
                                             <span class="icon ion-md-cog"></span>
                                             <span>Components</span>
                                             <span class="icon ion-ios-arrow-down"></span>
                                         </div>
-                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-HomeModule-194a52839939810fbdf64dd8f0c2daec"' :
-                                            'id="xs-components-links-module-HomeModule-194a52839939810fbdf64dd8f0c2daec"' }>
+                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-HomeModule-6b27e9a5949ad27879aee860c1ce11a6"' :
+                                            'id="xs-components-links-module-HomeModule-6b27e9a5949ad27879aee860c1ce11a6"' }>
                                             <li class="link">
                                                 <a href="components/ComparisonComponent.html"
                                                     data-type="entity-link" data-context="sub-entity" data-context-id="modules">ComparisonComponent</a>
@@ -114,6 +114,10 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                             <li class="link">
                                                 <a href="components/SidenavComponent.html"
                                                     data-type="entity-link" data-context="sub-entity" data-context-id="modules">SidenavComponent</a>
+                                            </li>
+                                            <li class="link">
+                                                <a href="components/UserInterfaceComponent.html"
+                                                    data-type="entity-link" data-context="sub-entity" data-context-id="modules">UserInterfaceComponent</a>
                                             </li>
                                         </ul>
                                     </li>
@@ -181,6 +185,22 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                             </li>
                 </ul>
                 </li>
+                    <li class="chapter">
+                        <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ? 'data-target="#classes-links"' :
+                            'data-target="#xs-classes-links"' }>
+                            <span class="icon ion-ios-paper"></span>
+                            <span>Classes</span>
+                            <span class="icon ion-ios-arrow-down"></span>
+                        </div>
+                        <ul class="links collapse " ${ isNormalMode ? 'id="classes-links"' : 'id="xs-classes-links"' }>
+                            <li class="link">
+                                <a href="classes/Color.html" data-type="entity-link">Color</a>
+                            </li>
+                            <li class="link">
+                                <a href="classes/DefaultColors.html" data-type="entity-link">DefaultColors</a>
+                            </li>
+                        </ul>
+                    </li>
                         <li class="chapter">
                             <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ? 'data-target="#injectables-links"' :
                                 'data-target="#xs-injectables-links"' }>
@@ -223,9 +243,6 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                         <ul class="links collapse " ${ isNormalMode ? ' id="interfaces-links"' : 'id="xs-interfaces-links"' }>
                             <li class="link">
                                 <a href="interfaces/AppSettings.html" data-type="entity-link">AppSettings</a>
-                            </li>
-                            <li class="link">
-                                <a href="interfaces/Color.html" data-type="entity-link">Color</a>
                             </li>
                             <li class="link">
                                 <a href="interfaces/Corpus.html" data-type="entity-link">Corpus</a>

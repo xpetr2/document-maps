@@ -230,7 +230,7 @@
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {Component, EventEmitter, Input, Output} from &#x27;@angular/core&#x27;;
-import {WordMap} from &#x27;../comparison/comparison.component&#x27;;
+import {WordMap} from &#x27;./comparison/comparison.component&#x27;;
 
 /**
  * The interface of a displayed document
@@ -291,6 +291,7 @@ export class SidenavComponent {
    * @param e The mouse event that closed the sidenav
    */
   closeSidenav(e: MouseEvent): void {
+    // Notify the parent
     this.sidebarClose.emit(e);
     this.clearHighlightedWords();
   }
@@ -300,6 +301,7 @@ export class SidenavComponent {
    * @param e The mouse event of clicking on the comparison button
    */
   clickedCompare(e: MouseEvent): void {
+    // Notify the parent
     this.compareClick.emit(e);
     this.clearHighlightedWords();
   }
@@ -309,10 +311,15 @@ export class SidenavComponent {
    * @param wordMap The WordMap containing the relationships of matches
    */
   handleWordsChanged(wordMap: WordMap): void{
+    // Store the keys of the word map, containing the exact matches
     this.highlightedExactMatches &#x3D; new Set&lt;string&gt;(wordMap.keys());
+
+    // Merge all the sets, contained in the values of the word map, which contain the soft matches
     const softMatches &#x3D; Array.from(wordMap.values())
       .reduce((a, c) &#x3D;&gt; a.concat([...c]), [])
       .filter(a &#x3D;&gt; !this.highlightedExactMatches.has(a));
+
+    // Store the soft matches as a set
     this.highlightedSoftMatches &#x3D; new Set(softMatches);
     this.highlightedWordMap &#x3D; wordMap;
   }

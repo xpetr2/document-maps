@@ -363,8 +363,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="92"
-                            class="link-to-prism">src/app/home/sidenav/sidenav.component.ts:92</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="99"
+                            class="link-to-prism">src/app/home/sidenav/sidenav.component.ts:99</a></div>
                 </td>
             </tr>
 
@@ -404,8 +404,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="71"
-                            class="link-to-prism">src/app/home/sidenav/sidenav.component.ts:71</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="72"
+                            class="link-to-prism">src/app/home/sidenav/sidenav.component.ts:72</a></div>
                 </td>
             </tr>
 
@@ -558,8 +558,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="102"
-                            class="link-to-prism">src/app/home/sidenav/sidenav.component.ts:102</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="109"
+                            class="link-to-prism">src/app/home/sidenav/sidenav.component.ts:109</a></div>
                 </td>
             </tr>
 
@@ -635,8 +635,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="80"
-                            class="link-to-prism">src/app/home/sidenav/sidenav.component.ts:80</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="82"
+                            class="link-to-prism">src/app/home/sidenav/sidenav.component.ts:82</a></div>
                 </td>
             </tr>
 
@@ -838,7 +838,7 @@
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {Component, EventEmitter, Input, Output} from &#x27;@angular/core&#x27;;
-import {WordMap} from &#x27;../comparison/comparison.component&#x27;;
+import {WordMap} from &#x27;./comparison/comparison.component&#x27;;
 
 /**
  * The interface of a displayed document
@@ -899,6 +899,7 @@ export class SidenavComponent {
    * @param e The mouse event that closed the sidenav
    */
   closeSidenav(e: MouseEvent): void {
+    // Notify the parent
     this.sidebarClose.emit(e);
     this.clearHighlightedWords();
   }
@@ -908,6 +909,7 @@ export class SidenavComponent {
    * @param e The mouse event of clicking on the comparison button
    */
   clickedCompare(e: MouseEvent): void {
+    // Notify the parent
     this.compareClick.emit(e);
     this.clearHighlightedWords();
   }
@@ -917,10 +919,15 @@ export class SidenavComponent {
    * @param wordMap The WordMap containing the relationships of matches
    */
   handleWordsChanged(wordMap: WordMap): void{
+    // Store the keys of the word map, containing the exact matches
     this.highlightedExactMatches &#x3D; new Set&lt;string&gt;(wordMap.keys());
+
+    // Merge all the sets, contained in the values of the word map, which contain the soft matches
     const softMatches &#x3D; Array.from(wordMap.values())
       .reduce((a, c) &#x3D;&gt; a.concat([...c]), [])
       .filter(a &#x3D;&gt; !this.highlightedExactMatches.has(a));
+
+    // Store the soft matches as a set
     this.highlightedSoftMatches &#x3D; new Set(softMatches);
     this.highlightedWordMap &#x3D; wordMap;
   }
@@ -1062,7 +1069,7 @@ app-document {
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
         var COMPONENT_TEMPLATE = '<div><div class="sidenav-wrapper" [ngClass]="{\'comparing\': comparingWindowOpen}">  <div class="sidenav-nav">    <button mat-icon-button aria-label="Close sidenav" (click)="closeSidenav($event)">      <mat-icon>close</mat-icon>    </button>    <button *ngIf="!comparingWindowOpen" mat-raised-button color="accent" class="compare-button" [disabled]="selectedDocuments.length !== 2" (click)="clickedCompare($event)">      Compare<span class="material-icons">keyboard_arrow_right</span>    </button>  </div>  <app-document *ngFor="let doc of selectedDocuments"                [document]="doc"                [highlightedExactMatches]="highlightedExactMatches"                [highlightedSoftMatches]="highlightedSoftMatches"                [highlightedWordMap]="highlightedWordMap"                [hoveredWord]="hoveredWord"                [style.comparing]="comparingWindowOpen"  ></app-document></div><div class="sidenav-comparison" *ngIf="comparingWindowOpen">  <app-comparison [selectedDocuments]="selectedDocuments"                  (wordsChanged)="handleWordsChanged($event)"                  (wordHovered)="handleWordHovered($event)"  ></app-comparison></div></div>'
-    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ComparisonComponent', 'selector': 'app-comparison'},{'name': 'ComparisonEntryComponent', 'selector': 'app-comparison-entry'},{'name': 'DocumentComponent', 'selector': 'app-document'},{'name': 'DocumentContentComponent', 'selector': 'app-document-content'},{'name': 'GraphComponent', 'selector': 'app-graph'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'InitComponent', 'selector': 'app-init'},{'name': 'SettingsComponent', 'selector': 'app-settings'},{'name': 'SidenavComponent', 'selector': 'app-sidenav'}];
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ComparisonComponent', 'selector': 'app-comparison'},{'name': 'ComparisonEntryComponent', 'selector': 'app-comparison-entry'},{'name': 'DocumentComponent', 'selector': 'app-document'},{'name': 'DocumentContentComponent', 'selector': 'app-document-content'},{'name': 'GraphComponent', 'selector': 'app-graph'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'InitComponent', 'selector': 'app-init'},{'name': 'SettingsComponent', 'selector': 'app-settings'},{'name': 'SidenavComponent', 'selector': 'app-sidenav'},{'name': 'UserInterfaceComponent', 'selector': 'app-user-interface'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'SidenavComponent'};
 </script>

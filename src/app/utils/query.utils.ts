@@ -94,12 +94,8 @@ export function getSimilarity(id1: string, id2: string, corpus: Corpus): number 
   if (+id1 > +id2) {
     id2 = [id1, id1 = id2][0];
   }
-  // If the words are not in each others similarities, then they're not similar
-  if (!(id1 in corpus.word_similarities) || !(id2 in corpus.word_similarities[id1])) {
-    return 0.0;
-  }
-  // Return the found similarity
-  return corpus.word_similarities[id1][id2];
+  // Return the found similarity if there is an entry for them.
+  return corpus.word_similarities?.[id1]?.[id2] ?? 0.0;
 }
 
 /**

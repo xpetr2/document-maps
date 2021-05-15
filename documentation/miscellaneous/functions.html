@@ -61,15 +61,6 @@
                             <a href="#calculateCosineDistance" title="src/app/utils/query.utils.ts"><b>calculateCosineDistance</b>&nbsp;&nbsp;&nbsp;(src/.../query.utils.ts)</a>
                         </li>
                         <li>
-                            <a href="#colorMix" title="src/app/utils/graph.utils.ts"><b>colorMix</b>&nbsp;&nbsp;&nbsp;(src/.../graph.utils.ts)</a>
-                        </li>
-                        <li>
-                            <a href="#colorSrgbGradient" title="src/app/utils/graph.utils.ts"><b>colorSrgbGradient</b>&nbsp;&nbsp;&nbsp;(src/.../graph.utils.ts)</a>
-                        </li>
-                        <li>
-                            <a href="#colorToHex" title="src/app/utils/graph.utils.ts"><b>colorToHex</b>&nbsp;&nbsp;&nbsp;(src/.../graph.utils.ts)</a>
-                        </li>
-                        <li>
                             <a href="#createLinks" title="src/app/utils/query.utils.ts"><b>createLinks</b>&nbsp;&nbsp;&nbsp;(src/.../query.utils.ts)</a>
                         </li>
                         <li>
@@ -83,6 +74,9 @@
                         </li>
                         <li>
                             <a href="#getMostImportantSoftMatches" title="src/app/utils/query.utils.ts"><b>getMostImportantSoftMatches</b>&nbsp;&nbsp;&nbsp;(src/.../query.utils.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#getNodeDocumentId" title="src/app/utils/various.utils.ts"><b>getNodeDocumentId</b>&nbsp;&nbsp;&nbsp;(src/.../various.utils.ts)</a>
                         </li>
                         <li>
                             <a href="#getNormalizedWordImportancePairs" title="src/app/utils/query.utils.ts"><b>getNormalizedWordImportancePairs</b>&nbsp;&nbsp;&nbsp;(src/.../query.utils.ts)</a>
@@ -112,9 +106,6 @@
                             <a href="#innerProductSingle" title="src/app/utils/query.utils.ts"><b>innerProductSingle</b>&nbsp;&nbsp;&nbsp;(src/.../query.utils.ts)</a>
                         </li>
                         <li>
-                            <a href="#inverseSrgbCompanding" title="src/app/utils/graph.utils.ts"><b>inverseSrgbCompanding</b>&nbsp;&nbsp;&nbsp;(src/.../graph.utils.ts)</a>
-                        </li>
-                        <li>
                             <a href="#log2" title="src/app/utils/graph.utils.ts"><b>log2</b>&nbsp;&nbsp;&nbsp;(src/.../graph.utils.ts)</a>
                         </li>
                         <li>
@@ -125,9 +116,6 @@
                         </li>
                         <li>
                             <a href="#softCosineMeasureNorm" title="src/app/utils/query.utils.ts"><b>softCosineMeasureNorm</b>&nbsp;&nbsp;&nbsp;(src/.../query.utils.ts)</a>
-                        </li>
-                        <li>
-                            <a href="#srgbCompanding" title="src/app/utils/graph.utils.ts"><b>srgbCompanding</b>&nbsp;&nbsp;&nbsp;(src/.../graph.utils.ts)</a>
                         </li>
                         <li>
                             <a href="#valueChanged" title="src/app/utils/various.utils.ts"><b>valueChanged</b>&nbsp;&nbsp;&nbsp;(src/.../various.utils.ts)</a>
@@ -1252,7 +1240,7 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-description"><p>Calculates the inner product of the cosine similarities of two word ids</p>
+                    <div class="io-description"><p>Calculates the inner product of the cosine similarities of two document ids</p>
 </div>
 
                     <div class="io-description">
@@ -1345,7 +1333,7 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-description"><p>Calculates the inner product of the cosine similarity of one word id</p>
+                    <div class="io-description"><p>Calculates the inner product of the cosine similarity of one document id</p>
 </div>
 
                     <div class="io-description">
@@ -1494,24 +1482,24 @@
             </tr>
         </tbody>
     </table>
-</section>    <h3>src/app/utils/graph.utils.ts</h3>
+</section>    <h3>src/app/utils/various.utils.ts</h3>
     <section>
     <h3></h3>    <table class="table table-sm table-bordered">
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="colorMix"></a>
+                    <a name="getNodeDocumentId"></a>
                     <span class="name">
                         <b>
-                            colorMix
+                            getNodeDocumentId
                         </b>
-                        <a href="#colorMix"><span class="icon ion-ios-link"></span></a>
+                        <a href="#getNodeDocumentId"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>colorMix(color1, color2, gradient)</code>
+<code>getNodeDocumentId(nodeId)</code>
                 </td>
             </tr>
 
@@ -1520,7 +1508,7 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-description"><p>A naive way of color mixing, not taking color compression in mind</p>
+                    <div class="io-description"><p>A quick regex way of retrieving the document ID from the node ID</p>
 </div>
 
                     <div class="io-description">
@@ -1535,7 +1523,7 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>color1</td>
+                                    <td>nodeId</td>
 
                                     <td>
                                         No
@@ -1543,193 +1531,7 @@
 
 
                                     <td>
-                                        <p>First color to be mixed</p>
-
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>color2</td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                    <td>
-                                        <p>Second color to be mixed</p>
-
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>gradient</td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                    <td>
-                                        <p>The gradient percentage between the two colors</p>
-
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div>
-                    </div>
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="../interfaces/Color.html" target="_self" >Color</a></code>
-
-                    </div>
-                    <div class="io-description">
-                        
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="colorSrgbGradient"></a>
-                    <span class="name">
-                        <b>
-                            colorSrgbGradient
-                        </b>
-                        <a href="#colorSrgbGradient"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>colorSrgbGradient(color1, color2, gradient)</code>
-                </td>
-            </tr>
-
-
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-description"><p>A color mix of two colors using the sRGB method</p>
-</div>
-
-                    <div class="io-description">
-                        <b>Parameters :</b>
-                        <table class="params">
-                            <thead>
-                                <tr>
-                                    <td>Name</td>
-                                    <td>Optional</td>
-                                    <td>Description</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>color1</td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                    <td>
-                                        <p>First color to be mixed</p>
-
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>color2</td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                    <td>
-                                        <p>Second color to be mixed</p>
-
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>gradient</td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                    <td>
-                                        <p>The gradient percentage between the two colors</p>
-
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div>
-                    </div>
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="../interfaces/Color.html" target="_self" >Color</a></code>
-
-                    </div>
-                    <div class="io-description">
-                        
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="colorToHex"></a>
-                    <span class="name">
-                        <b>
-                            colorToHex
-                        </b>
-                        <a href="#colorToHex"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>colorToHex(color)</code>
-                </td>
-            </tr>
-
-
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-description"><p>Converts a color interface to a hexcode string</p>
-</div>
-
-                    <div class="io-description">
-                        <b>Parameters :</b>
-                        <table class="params">
-                            <thead>
-                                <tr>
-                                    <td>Name</td>
-                                    <td>Optional</td>
-                                    <td>Description</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>color</td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                    <td>
-                                        <p>The color to be converted</p>
+                                        <p>The node ID we&#39;d like to get the document ID from</p>
 
                                     </td>
                                 </tr>
@@ -1753,18 +1555,18 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="inverseSrgbCompanding"></a>
+                    <a name="valueChanged"></a>
                     <span class="name">
                         <b>
-                            inverseSrgbCompanding
+                            valueChanged
                         </b>
-                        <a href="#inverseSrgbCompanding"><span class="icon ion-ios-link"></span></a>
+                        <a href="#valueChanged"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>inverseSrgbCompanding(color)</code>
+<code>valueChanged(changesValue: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
                 </td>
             </tr>
 
@@ -1773,7 +1575,7 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-description"><p>A function that decompresses the color value from normal color space</p>
+                    <div class="io-description"><p>A helper function that determines if the value has changed from a SimpleChange object</p>
 </div>
 
                     <div class="io-description">
@@ -1782,13 +1584,17 @@
                             <thead>
                                 <tr>
                                     <td>Name</td>
+                                    <td>Type</td>
                                     <td>Optional</td>
                                     <td>Description</td>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>color</td>
+                                    <td>changesValue</td>
+                                    <td>
+                                                <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                    </td>
 
                                     <td>
                                         No
@@ -1796,7 +1602,7 @@
 
 
                                     <td>
-                                        <p>The color to be decompressed</p>
+                                        <p>The value to check for changes</p>
 
                                     </td>
                                 </tr>
@@ -1806,7 +1612,7 @@
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>        <code><a href="../interfaces/Color.html" target="_self" >Color</a></code>
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
 
                     </div>
                     <div class="io-description">
@@ -1816,7 +1622,9 @@
             </tr>
         </tbody>
     </table>
-    <table class="table table-sm table-bordered">
+</section>    <h3>src/app/utils/graph.utils.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
         <tbody>
             <tr>
                 <td class="col-md-4">
@@ -1907,7 +1715,7 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-description"><p>A normalization function, normalizing between -1 and 1</p>
+                    <div class="io-description"><p>A simple and quick normalization function, normalizing the inputted value between -1 and 1</p>
 </div>
 
                     <div class="io-description">
@@ -1943,7 +1751,7 @@
 
 
                                     <td>
-                                        <p>The initial incline of the function</p>
+                                        <p>The incline of the function</p>
 
                                     </td>
                                 </tr>
@@ -2021,146 +1829,6 @@
                     </div>
                     <div class="io-description">
                         <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
-
-                    </div>
-                    <div class="io-description">
-                        
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="srgbCompanding"></a>
-                    <span class="name">
-                        <b>
-                            srgbCompanding
-                        </b>
-                        <a href="#srgbCompanding"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>srgbCompanding(color)</code>
-                </td>
-            </tr>
-
-
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-description"><p>A function that compresses the color value back to normal color space</p>
-</div>
-
-                    <div class="io-description">
-                        <b>Parameters :</b>
-                        <table class="params">
-                            <thead>
-                                <tr>
-                                    <td>Name</td>
-                                    <td>Optional</td>
-                                    <td>Description</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>color</td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                    <td>
-                                        <p>The color to be compressed</p>
-
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div>
-                    </div>
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="../interfaces/Color.html" target="_self" >Color</a></code>
-
-                    </div>
-                    <div class="io-description">
-                        
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</section>    <h3>src/app/utils/various.utils.ts</h3>
-    <section>
-    <h3></h3>    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="valueChanged"></a>
-                    <span class="name">
-                        <b>
-                            valueChanged
-                        </b>
-                        <a href="#valueChanged"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>valueChanged(changesValue: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
-                </td>
-            </tr>
-
-
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-description"><p>A helper function that determines if the value has changed from a SimpleChange object</p>
-</div>
-
-                    <div class="io-description">
-                        <b>Parameters :</b>
-                        <table class="params">
-                            <thead>
-                                <tr>
-                                    <td>Name</td>
-                                    <td>Type</td>
-                                    <td>Optional</td>
-                                    <td>Description</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>changesValue</td>
-                                    <td>
-                                                <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                    <td>
-                                        <p>The value to check for changes</p>
-
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div>
-                    </div>
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
 
                     </div>
                     <div class="io-description">

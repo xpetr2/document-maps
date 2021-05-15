@@ -326,8 +326,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="91"
-                            class="link-to-prism">src/app/init/init.component.ts:91</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="94"
+                            class="link-to-prism">src/app/init/init.component.ts:94</a></div>
                 </td>
             </tr>
 
@@ -403,8 +403,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="70"
-                            class="link-to-prism">src/app/init/init.component.ts:70</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="71"
+                            class="link-to-prism">src/app/init/init.component.ts:71</a></div>
                 </td>
             </tr>
 
@@ -521,8 +521,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="161"
-                            class="link-to-prism">src/app/init/init.component.ts:161</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="172"
+                            class="link-to-prism">src/app/init/init.component.ts:172</a></div>
                 </td>
             </tr>
 
@@ -562,8 +562,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="153"
-                            class="link-to-prism">src/app/init/init.component.ts:153</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="162"
+                            class="link-to-prism">src/app/init/init.component.ts:162</a></div>
                 </td>
             </tr>
 
@@ -639,8 +639,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="132"
-                            class="link-to-prism">src/app/init/init.component.ts:132</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="138"
+                            class="link-to-prism">src/app/init/init.component.ts:138</a></div>
                 </td>
             </tr>
 
@@ -748,8 +748,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="107"
-                            class="link-to-prism">src/app/init/init.component.ts:107</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="112"
+                            class="link-to-prism">src/app/init/init.component.ts:112</a></div>
                 </td>
             </tr>
 
@@ -789,8 +789,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="116"
-                            class="link-to-prism">src/app/init/init.component.ts:116</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="121"
+                            class="link-to-prism">src/app/init/init.component.ts:121</a></div>
                 </td>
             </tr>
 
@@ -1050,6 +1050,7 @@ export class InitComponent {
    */
   handleTextUpload(): void{
     this.validating &#x3D; true;
+    // Validate the text and then set outputted corpus to the query service
     this.validateText().then(res &#x3D;&gt; {
       this.validating &#x3D; false;
       this.setQuery(res);
@@ -1065,12 +1066,14 @@ export class InitComponent {
   handleFileUpload(e: any): void{
     this.validating &#x3D; true;
 
+    // If there is one valid file
     const files &#x3D; e?.target?.files;
     if (files?.length !&#x3D;&#x3D; 1) {
       return;
     }
     this.jsonFile &#x3D; files[0];
 
+    // Validate the file and then set the outputted corpus to the query service
     this.validateUploadedFile().then(res &#x3D;&gt; {
       this.validating &#x3D; false;
       this.setQuery(res);
@@ -1084,8 +1087,10 @@ export class InitComponent {
    * @param msg The message to be displayed
    */
   displayError(msg: string): void{
+    // Remove the file
     this.jsonFile &#x3D; undefined;
     this.validating &#x3D; false;
+    // Show the snackbar message
     this.snackBar.open(
       msg,
       &#x27;&#x27;,
@@ -1110,6 +1115,7 @@ export class InitComponent {
    */
   validateUploadedFile(): Promise&lt;Corpus&gt;{
    return new Promise((resolve, reject) &#x3D;&gt; {
+      // Read the passed in file and validate it when ready
       const fileReader &#x3D; new FileReader();
       fileReader.readAsBinaryString(this.jsonFile);
       fileReader.onloadend &#x3D; () &#x3D;&gt; {
@@ -1125,9 +1131,12 @@ export class InitComponent {
    * @param reject  The function to be called if unsuccessful
    */
   validateAndParse(text: string, resolve: any, reject: any): void{
+    // If any text was passed in
     if (text) {
       try{
+        // Parse the text to JSON
         const parsed &#x3D; JSON.parse(text);
+        // Validate the parsed JSON according to a scheme
         if (this.jsonValidateService.validateCorpus(parsed)){
           resolve(parsed);
         } else {
@@ -1146,7 +1155,9 @@ export class InitComponent {
    * @param corpus  The corpus that will be set
    */
   setQuery(corpus: Corpus): void{
+    // Set the corpus to the query service
     this.queryService.setCorpus(corpus);
+    // Reroute to the map screen
     this.router.navigate([&#x27;/map&#x27;]);
   }
 
@@ -1357,7 +1368,7 @@ export class InitComponent {
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
         var COMPONENT_TEMPLATE = '<div><div class="init-wrapper">  <div class="init-content">    <div *ngIf="!insertingText" class="init-preface">      <h1>Document maps</h1>      <h2>visualization tool for semantic document representations</h2>      <p>        This tool will allow you to explore the similarities of a data set of documents/texts,        showing you why documents are similar, what words they have in common and what\'s their respective weights      </p>      <p>        You can either import a <a href="https://www.fi.muni.cz/~xpetr2/document-maps/documentation/interfaces/Corpus.html">valid JSON file</a> containing the corpus data or enter the JSON by hand.        If you just wish to explore the tool, you can use the attached example corpus.      </p>      <p>        This tool is open-source and the source code is available on <a href="https://github.com/xpetr2/document-maps">GitHub</a>.        If you wish to read the documentation of this tool it is available <a href="https://www.fi.muni.cz/~xpetr2/document-maps/documentation/">here</a>.      </p>    </div>    <div *ngIf="!insertingText" class="init-buttons">      <button mat-raised-button color="primary" (click)="fileInput.click()"><mat-icon>file_upload</mat-icon><span>Insert corpus as file</span></button>      <button mat-raised-button color="primary" (click)="insertingText = true"><mat-icon>wysiwyg</mat-icon><span>Insert corpus as JSON text</span></button>    </div>    <div *ngIf="!insertingText" class="init-example">      <div class="separator">OR</div>      <button mat-raised-button class="long-button" (click)="loadExample()"><mat-icon>description</mat-icon>&nbsp;<span>Use the example corpus</span></button>    </div>    <div *ngIf="insertingText" class="init-insert-text">      <button mat-button aria-label="Back" class="navigate-back" (click)="insertingText = false">        <mat-icon>arrow_back</mat-icon><span>Back</span>      </button>      <mat-form-field class="json-form">        <mat-label>Insert JSON</mat-label>        <textarea [(ngModel)]="insertedText" #jsonTextarea matInput></textarea>      </mat-form-field>      <button mat-raised-button color="primary" (click)="handleTextUpload()">        <mat-icon>file_upload</mat-icon><span>Upload</span>      </button>    </div>    <input #fileInput type="file" name="name" style="display: none;" (change)="handleFileUpload($event)" />    <div *ngIf="validating" class="loading">      <mat-spinner></mat-spinner>    </div>  </div></div></div>'
-    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ComparisonComponent', 'selector': 'app-comparison'},{'name': 'ComparisonEntryComponent', 'selector': 'app-comparison-entry'},{'name': 'DocumentComponent', 'selector': 'app-document'},{'name': 'DocumentContentComponent', 'selector': 'app-document-content'},{'name': 'GraphComponent', 'selector': 'app-graph'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'InitComponent', 'selector': 'app-init'},{'name': 'SettingsComponent', 'selector': 'app-settings'},{'name': 'SidenavComponent', 'selector': 'app-sidenav'}];
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ComparisonComponent', 'selector': 'app-comparison'},{'name': 'ComparisonEntryComponent', 'selector': 'app-comparison-entry'},{'name': 'DocumentComponent', 'selector': 'app-document'},{'name': 'DocumentContentComponent', 'selector': 'app-document-content'},{'name': 'GraphComponent', 'selector': 'app-graph'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'InitComponent', 'selector': 'app-init'},{'name': 'SettingsComponent', 'selector': 'app-settings'},{'name': 'SidenavComponent', 'selector': 'app-sidenav'},{'name': 'UserInterfaceComponent', 'selector': 'app-user-interface'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'InitComponent'};
 </script>
