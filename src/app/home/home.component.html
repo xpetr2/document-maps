@@ -23,10 +23,10 @@
         [distanceModifier]="settings.distanceModifier"
         [clumpingModifier]="settings.clumpingModifier"
         [graphPadding]="64"
+        [selectedNodes]="selectedNodes"
         (nodeClicked)="handleNodeClick($event)"
         (emptyClicked)="clearSelection($event)"
         (nodeHovered)="handleNodeHovered($event)"
-        (alphaChanged)="handleAlphaChanged($event)"
         (zoomed)="handleZoomed($event)"
         (resized)="handleGraphResize()"
       ></app-graph>

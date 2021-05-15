@@ -4,9 +4,8 @@ import {MatDrawer} from '@angular/material/sidenav';
 import {SelectedDocument, SidenavComponent} from './sidenav/sidenav.component';
 import {GraphComponent} from './graph/graph.component';
 import {AppSettings} from './user-interface/settings/settings.component';
-import * as queryUtils from '../utils/query.utils';
 import {GraphData} from '../utils/query.utils';
-import {DefaultColors, log2, normalizeDeviation, pow2} from '../utils/graph.utils';
+import {log2, pow2} from '../utils/graph.utils';
 import {getNodeDocumentId} from '../utils/various.utils';
 
 /**
@@ -155,7 +154,7 @@ export class HomeComponent implements AfterViewInit {
     const sourceNode = d3.select(`[id="wrapper_${selectedNode.replace('.', '\\.')}"]`);
 
     // Calculate the deviation and store it
-    const deviation = this.calculateDeviation(sourceNode, targetNode, selectedNode, id);
+    const deviation = this.graph.calculateDeviation(sourceNode, targetNode, selectedNode, id);
     // We add one and divide by two to move the range from [-1, 1] to [0, 1] and multiply by the height of the indicator
     this.errorIndicatorOffset = ((deviation + 1) / 2) * 128;
   }
@@ -219,9 +218,9 @@ export class HomeComponent implements AfterViewInit {
   redrawSelection(oldSelection: string[], d3: any): void {
     // If we're supposed to be showing deviations, draw them, otherwise clear them, just in case
     if (this.settings.showDeviations && this.selectedNodes.length === 1){
-      this.drawDeviation(this.selectedNodes[0], d3);
+      this.graph.drawDeviation(this.selectedNodes[0]);
     } else {
-      this.clearDeviation(d3);
+      this.graph.clearDeviation();
     }
     // Go through the previously selected nodes and remove their selected class
     for (const id of oldSelection){
@@ -249,79 +248,6 @@ export class HomeComponent implements AfterViewInit {
     this.redrawSelection(oldSelection, e.d3);
     this.generateSelectedDocuments();
     this.sidenav.clearHighlightedWords();
-  }
-
-  /**
-   * Calculates the deviation error between two nodes
-   * @param sourceNode  The first node
-   * @param targetNode  The second node
-   * @param sourceID    The id of the first node
-   * @param targetID    The id of the second node
-   */
-  calculateDeviation(sourceNode: any, targetNode: any, sourceID: string, targetID: string): number{
-    // Get the X and Y coordinates of the nodes from their transform string using RegEx
-    const sPos = (sourceNode.attr('transform') as string).match(/translate\(([^,]+), ([^,)]+)\)/);
-    const tPos = (targetNode.attr('transform') as string).match(/translate\(([^,]+), ([^,)]+)\)/);
-    // Convert them to floats
-    const [sX, sY, tX, tY] = [parseFloat(sPos[1]), parseFloat(sPos[2]), parseFloat(tPos[1]), parseFloat(tPos[2])];
-
-    // Calculate the Euclidean distance from the retrieved coordinates
-    const distance = Math.sqrt( (sX - tX) * (sX - tX) + (sY - tY) * (sY - tY) );
-    // Get the actual cosine similarity and calculate cosine distance from it
-    const weight = this.queryService.getSoftCosineMeasure(sourceID, targetID);
-    const supposedDistance =
-      queryUtils.calculateCosineDistance(weight, this.settings.distanceModifier, this.settings.clumpingModifier);
-
-    // Normalize the difference from (-inf, inf) to (-1, 1)
-    return normalizeDeviation(supposedDistance - distance, 0.1);
-  }
-
-  /**
-   * Colors all the nodes based on the deviation error calculated between the selected node and that node
-   * @param selectedNode  The selected node
-   * @param d3            The D3 object
-   */
-  drawDeviation(selectedNode: string, d3: any): void{
-    // Go over all the nodes on the map
-    for (const node of this.graphData.nodes){
-      // If the current node is the selected one, skip it
-      if (node.id === selectedNode) {
-        continue;
-      }
-      // Retrieve the wrappers of the nodes that store the x and y coordinates
-      const targetNode = d3.select(`[id="wrapper_${node.id.replace('.', '\\.')}"]`);
-      const sourceNode = d3.select(`[id="wrapper_${selectedNode.replace('.', '\\.')}"]`);
-
-      // Calculate the deviation
-      const deviation = this.calculateDeviation(sourceNode, targetNode, selectedNode, node.id);
-
-      // Calculate the color gradient, using the helper color functions
-      const incorrectColor = deviation < 0 ? DefaultColors.deviationFar() : DefaultColors.deviationClose();
-      const color = DefaultColors.deviationCorrect().colorSrgbGradient(incorrectColor, Math.abs(deviation)).toHex();
-
-      // Color the node based on its deviation from the truth
-      targetNode.select('circle').attr('fill', color);
-    }
-  }
-
-  /**
-   * Clears the coloring of all nodes
-   * @param d3  The D3 object
-   */
-  clearDeviation(d3: any): void{
-    d3.selectAll(`[id^="node_2_"]`).attr('fill', null);
-    d3.selectAll(`[id^="node_1_"]`).attr('fill', null);
-  }
-
-  /**
-   * Handles when the alpha value, the temperature, of the graph changes
-   * @param e An event object, holding the current value of alpha and the D3 object
-   */
-  handleAlphaChanged(e: {value: number, d3: any}): void{
-    // If we're supposed to be showing deviations
-    if (this.settings.showDeviations && this.selectedNodes.length === 1){
-      this.drawDeviation(this.selectedNodes[0], e.d3);
-    }
   }
 
   /**

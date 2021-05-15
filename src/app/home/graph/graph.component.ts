@@ -4,6 +4,7 @@ import {QueryService} from '../../services/query.service';
 import * as queryUtils from '../../utils/query.utils';
 import {GraphData, GraphLink, GraphNode} from '../../utils/query.utils';
 import {valueChanged} from '../../utils/various.utils';
+import {DefaultColors, normalizeDeviation} from '../../utils/graph.utils';
 
 @Component({
   selector: 'app-graph',
@@ -60,6 +61,10 @@ export class GraphComponent implements OnChanges, AfterViewInit {
    * On initialization, the camera attempts to keep the sides of the graph view empty by this amount
    */
   @Input() graphPadding: number;
+  /**
+   * The currently selected nodes
+   */
+  @Input() selectedNodes: string[];
 
   /**
    * Emits every time the user clicks on a node
@@ -287,6 +292,10 @@ export class GraphComponent implements OnChanges, AfterViewInit {
     if (this.simulation.alpha() > minimumAlpha && Math.abs(this.previousAlpha - this.simulation.alpha()) > stepRequired ||
       this.simulation.alpha() === 0 && this.previousAlpha !== 0)
     {
+      // We redraw the deviations, if there's only one node selected
+      if (this.selectedNodes.length === 1){
+        this.drawDeviation(this.selectedNodes[0]);
+      }
       // We notify the parent using an event
       this.previousAlpha = this.simulation.alpha();
       this.alphaChanged.emit({value: this.simulation.alpha(), d3});
@@ -347,6 +356,66 @@ export class GraphComponent implements OnChanges, AfterViewInit {
       // Remove all the text elements
       this.nodes.selectAll('text').remove();
     }
+  }
+
+  /**
+   * Calculates the deviation error between two nodes
+   * @param sourceNode  The first node
+   * @param targetNode  The second node
+   * @param sourceID    The id of the first node
+   * @param targetID    The id of the second node
+   */
+  calculateDeviation(sourceNode: any, targetNode: any, sourceID: string, targetID: string): number{
+    // Get the X and Y coordinates of the nodes from their transform string using RegEx
+    const sPos = (sourceNode.attr('transform') as string).match(/translate\(([^,]+), ([^,)]+)\)/);
+    const tPos = (targetNode.attr('transform') as string).match(/translate\(([^,]+), ([^,)]+)\)/);
+    // Convert them to floats
+    const [sX, sY, tX, tY] = [parseFloat(sPos[1]), parseFloat(sPos[2]), parseFloat(tPos[1]), parseFloat(tPos[2])];
+
+    // Calculate the Euclidean distance from the retrieved coordinates
+    const distance = Math.sqrt( (sX - tX) * (sX - tX) + (sY - tY) * (sY - tY) );
+    // Get the actual cosine similarity and calculate cosine distance from it
+    const weight = this.queryService.getSoftCosineMeasure(sourceID, targetID);
+    const supposedDistance =
+      queryUtils.calculateCosineDistance(weight, this.distanceModifier, this.clumpingModifier);
+
+    // Normalize the difference from (-inf, inf) to (-1, 1)
+    return normalizeDeviation(supposedDistance - distance, 0.1);
+  }
+
+  /**
+   * Colors all the nodes based on the deviation error calculated between the selected node and that node
+   * @param selectedNode  The selected node
+   */
+  drawDeviation(selectedNode: string): void{
+    // Go over all the nodes on the map
+    for (const node of this.data.nodes){
+      // If the current node is the selected one, skip it
+      if (node.id === selectedNode) {
+        continue;
+      }
+      // Retrieve the wrappers of the nodes that store the x and y coordinates
+      const targetNode = d3.select(`[id="wrapper_${node.id.replace('.', '\\.')}"]`);
+      const sourceNode = d3.select(`[id="wrapper_${selectedNode.replace('.', '\\.')}"]`);
+
+      // Calculate the deviation
+      const deviation = this.calculateDeviation(sourceNode, targetNode, selectedNode, node.id);
+
+      // Calculate the color gradient, using the helper color functions
+      const incorrectColor = deviation < 0 ? DefaultColors.deviationFar() : DefaultColors.deviationClose();
+      const color = DefaultColors.deviationCorrect().colorSrgbGradient(incorrectColor, Math.abs(deviation)).toHex();
+
+      // Color the node based on its deviation from the truth
+      targetNode.select('circle').attr('fill', color);
+    }
+  }
+
+  /**
+   * Clears the coloring of all nodes
+   */
+  clearDeviation(): void{
+    d3.selectAll(`[id^="node_2_"]`).attr('fill', null);
+    d3.selectAll(`[id^="node_1_"]`).attr('fill', null);
   }
 
   /**
