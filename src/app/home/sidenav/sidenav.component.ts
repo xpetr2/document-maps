@@ -60,6 +60,7 @@ export class SidenavComponent {
    * @param e The mouse event that closed the sidenav
    */
   closeSidenav(e: MouseEvent): void {
+    // Notify the parent
     this.sidebarClose.emit(e);
     this.clearHighlightedWords();
   }
@@ -69,6 +70,7 @@ export class SidenavComponent {
    * @param e The mouse event of clicking on the comparison button
    */
   clickedCompare(e: MouseEvent): void {
+    // Notify the parent
     this.compareClick.emit(e);
     this.clearHighlightedWords();
   }
@@ -78,10 +80,15 @@ export class SidenavComponent {
    * @param wordMap The WordMap containing the relationships of matches
    */
   handleWordsChanged(wordMap: WordMap): void{
+    // Store the keys of the word map, containing the exact matches
     this.highlightedExactMatches = new Set<string>(wordMap.keys());
+
+    // Merge all the sets, contained in the values of the word map, which contain the soft matches
     const softMatches = Array.from(wordMap.values())
       .reduce((a, c) => a.concat([...c]), [])
       .filter(a => !this.highlightedExactMatches.has(a));
+
+    // Store the soft matches as a set
     this.highlightedSoftMatches = new Set(softMatches);
     this.highlightedWordMap = wordMap;
   }

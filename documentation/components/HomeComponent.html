@@ -308,15 +308,15 @@
                                         <tbody>
                                                 <tr>
                                                         <td>queryService</td>
-                                                  
+
                                                         <td>
                                                                         <code><a href="../injectables/QueryService.html" target="_self" >QueryService</a></code>
                                                         </td>
-                                                  
+
                                                     <td>
                                                             No
                                                     </td>
-                                                    
+
                                                         <td>
                                                                 <code><p>The QueryService holding the corpus</p>
 </code>
@@ -336,7 +336,7 @@
 
 
     <section>
-    
+
     <h3 id="methods">
         Methods
     </h3>
@@ -459,7 +459,7 @@
 
                     </div>
                     <div class="io-description">
-                        
+
                     </div>
                 </td>
             </tr>
@@ -568,7 +568,7 @@
 
                     </div>
                     <div class="io-description">
-                        
+
                     </div>
                 </td>
             </tr>
@@ -686,7 +686,7 @@
 
                     </div>
                     <div class="io-description">
-                        
+
                     </div>
                 </td>
             </tr>
@@ -763,7 +763,7 @@
 
                     </div>
                     <div class="io-description">
-                        
+
                     </div>
                 </td>
             </tr>
@@ -840,7 +840,7 @@
 
                     </div>
                     <div class="io-description">
-                        
+
                     </div>
                 </td>
             </tr>
@@ -974,7 +974,7 @@
 
                     </div>
                     <div class="io-description">
-                        
+
                     </div>
                 </td>
             </tr>
@@ -1210,7 +1210,7 @@
 
                     </div>
                     <div class="io-description">
-                        
+
                     </div>
                 </td>
             </tr>
@@ -1410,7 +1410,7 @@
 
                     </div>
                     <div class="io-description">
-                        
+
                     </div>
                 </td>
             </tr>
@@ -1487,7 +1487,7 @@
 
                     </div>
                     <div class="io-description">
-                        
+
                     </div>
                 </td>
             </tr>
@@ -1564,7 +1564,7 @@
 
                     </div>
                     <div class="io-description">
-                        
+
                     </div>
                 </td>
             </tr>
@@ -1737,7 +1737,7 @@
 
                     </div>
                     <div class="io-description">
-                        
+
                     </div>
                 </td>
             </tr>
@@ -1830,7 +1830,7 @@
 
                     </div>
                     <div class="io-description">
-                        
+
                     </div>
                 </td>
             </tr>
@@ -1838,7 +1838,7 @@
     </table>
 </section>
     <section>
-    
+
         <h3 id="inputs">
             Properties
         </h3>
@@ -3102,14 +3102,14 @@ app-sidenav{
         </div>
     </div>
 
-    
+
 </div>
 
 <script src="../js/libs/vis.min.js"></script>
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><mat-drawer-container *ngIf="!loading">  <mat-drawer class="compare-sidenav" [ngClass]="{\'comparing\': comparingWindowOpen}" #drawer mode="side" position="end">    <app-sidenav #sidenav                 [selectedDocuments]="selectedDocuments"                 [comparingWindowOpen]="comparingWindowOpen"                 (sidebarClose)="handleDrawerClose()"                 (compareClick)="handleCompareClick()"    ></app-sidenav>  </mat-drawer>  <mat-drawer-content>    <div class="graph-wrapper" #graphWrapper>      <app-graph        #graph        *ngIf="graphData"        [width]="graphWrapper.clientWidth"        [height]="graphWrapper.clientHeight"        [showLabels]="settings.showLabels"        [data]="graphData"        [minZoom]="minZoom"        [maxZoom]="maxZoom"        [defaultZoom]="currentZoom"        [defaultZoomStep]="defaultStepZoom"        [distanceModifier]="settings.distanceModifier"        [clumpingModifier]="settings.clumpingModifier"        [graphPadding]="64"        (nodeClicked)="handleNodeClick($event)"        (emptyClicked)="clearSelection($event)"        (nodeHovered)="handleNodeHovered($event)"        (alphaChanged)="handleAlphaChanged($event)"        (zoomed)="handleZoomed($event)"        (resized)="handleGraphResize()"      ></app-graph>    </div>  </mat-drawer-content></mat-drawer-container><div class="ui-wrapper" *ngIf="!loading">  <div class="settings-wrapper">    <div class="settings" [class.opened]="settingsOpen">      <button mat-icon-button aria-label="Open/close settings" (click)="settingsOpen = !settingsOpen">        <mat-icon>{{settingsOpen ? \'close\' : \'settings\'}}</mat-icon>      </button>      <app-settings *ngIf="settingsOpen" [(settings)]="settings"></app-settings>    </div>  </div>  <div class="error-legend" *ngIf="settings.showDeviations && selectedNodes.length === 1">    <div class="inner">      <div class="bar"></div>      <div class="up">Too far</div>      <div class="middle">Perfect</div>      <div class="bottom">Too close</div>      <div *ngIf="errorIndicatorOffset" class="indicator" [ngStyle]="{\'top\': errorIndicatorOffset + \'px\'}"></div>    </div>  </div>  <div class="map-controls">    <div class="center-control">      <button mat-icon-button aria-label="Center map" (click)="centerCamera()">        <mat-icon>adjust</mat-icon>      </button>    </div>    <div class="zoom-controls">      <button mat-icon-button aria-label="Increase zoom" (click)="increaseCamera()">        <mat-icon>add_circle_outline</mat-icon>      </button>      <mat-slider vertical [min]="getMinZoom()" [max]="getMaxZoom()" [step]="defaultStepZoom" [value]="getCurrentZoom()" (valueChange)="changeCameraZoom($event)"></mat-slider>      <button mat-icon-button aria-label="Decrease zoom" (click)="decreaseCamera()">        <mat-icon>remove_circle_outline</mat-icon>      </button>    </div>  </div></div></div>'
+        var COMPONENT_TEMPLATE = '<div><mat-drawer-container *ngIf="!loading">  <mat-drawer class="compare-sidenav" [ngClass]="{\'comparing\': comparingWindowOpen}" #drawer mode="side" position="end">    <app-sidenav #sidenav                 [selectedDocuments]="selectedDocuments"                 [comparingWindowOpen]="comparingWindowOpen"                 (sidebarClose)="handleDrawerClose()"                 (compareClick)="handleCompareClick()"    ></app-sidenav>  </mat-drawer>  <mat-drawer-content>    <div class="graph-wrapper" #graphWrapper>      <app-graph        #graph        *ngIf="graphData"        [width]="graphWrapper.clientWidth"        [height]="graphWrapper.clientHeight"        [showLabels]="settings.showLabels"        [data]="graphData"        [minZoom]="minZoom"        [maxZoom]="maxZoom"        [defaultZoom]="currentZoom"        [defaultZoomStep]="defaultStepZoom"        [distanceModifier]="settings.distanceModifier"        [clumpingModifier]="settings.clumpingModifier"        [graphPadding]="64"        (nodeClicked)="handleNodeClick($event)"        (emptyClicked)="clearSelection($event)"        (nodeHovered)="handleNodeHovered($event)"        (alphaChanged)="handleAlphaChanged($event)"        (zoomed)="handleZoomed($event)"        (resized)="handleGraphResize()"      ></app-graph>    </div>  </mat-drawer-content></mat-drawer-container><div class="ui-wrapper" *ngIf="!loading">  <div class="settings-wrapper">    <div class="settings" [class.opened]="settingsOpen">      <button mat-icon-button aria-label="Open/close settings" (click)="settingsOpen = !settingsOpen">        <mat-icon>{{settingsOpen ? \'close\' : \'settings\'}}</mat-icon>      </button>      <app-settings *ngIf="settingsOpen" [(settings)]="settings"></app-settings>    </div>  </div>  <div class="error-legend" *ngIf="settings.showDeviations && selectedNodes.length === 1">    <div class="inner">      <div class="bar"></div>      <div class="up">Too far</div>      <div class="middle">Perfect</div>      <div class="bottom">Too close</div>      <div *ngIf="errorIndicatorOffset" class="indicator" [ngStyle]="{\'top\': errorIndicatorOffset + \'px\'}"></div>    </div>  </div>  <div class="map-controls">    <div class="center-control">      <button mat-icon-button aria-label="Center map" (click)="handleCenterCamera()">        <mat-icon>adjust</mat-icon>      </button>    </div>    <div class="zoom-controls">      <button mat-icon-button aria-label="Increase zoom" (click)="handleIncreaseCamera()">        <mat-icon>add_circle_outline</mat-icon>      </button>      <mat-slider vertical [min]="getMinZoom()" [max]="getMaxZoom()" [step]="defaultStepZoom" [value]="getCurrentZoom()" (valueChange)="changeCameraZoom($event)"></mat-slider>      <button mat-icon-button aria-label="Decrease zoom" (click)="handleDecreaseCamera()">        <mat-icon>remove_circle_outline</mat-icon>      </button>    </div>  </div></div></div>'
     var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ComparisonComponent', 'selector': 'app-comparison'},{'name': 'ComparisonEntryComponent', 'selector': 'app-comparison-entry'},{'name': 'DocumentComponent', 'selector': 'app-document'},{'name': 'DocumentContentComponent', 'selector': 'app-document-content'},{'name': 'GraphComponent', 'selector': 'app-graph'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'InitComponent', 'selector': 'app-init'},{'name': 'SettingsComponent', 'selector': 'app-settings'},{'name': 'SidenavComponent', 'selector': 'app-sidenav'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'HomeComponent'};
@@ -3125,7 +3125,7 @@ app-sidenav{
 
 
 
-                   
+
 
 
 

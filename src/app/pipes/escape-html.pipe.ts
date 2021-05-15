@@ -1,7 +1,7 @@
 import {Pipe, PipeTransform} from '@angular/core';
 
 /**
- * A pipe that replaces the HTML special characters
+ * A pipe that escapes the HTML special characters
  */
 @Pipe({
   name: 'escapeHtml'

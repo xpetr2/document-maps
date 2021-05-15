@@ -55,6 +55,7 @@ export class InitComponent {
    */
   handleTextUpload(): void{
     this.validating = true;
+    // Validate the text and then set outputted corpus to the query service
     this.validateText().then(res => {
       this.validating = false;
       this.setQuery(res);
@@ -70,12 +71,14 @@ export class InitComponent {
   handleFileUpload(e: any): void{
     this.validating = true;
 
+    // If there is one valid file
     const files = e?.target?.files;
     if (files?.length !== 1) {
       return;
     }
     this.jsonFile = files[0];
 
+    // Validate the file and then set the outputted corpus to the query service
     this.validateUploadedFile().then(res => {
       this.validating = false;
       this.setQuery(res);
@@ -89,8 +92,10 @@ export class InitComponent {
    * @param msg The message to be displayed
    */
   displayError(msg: string): void{
+    // Remove the file
     this.jsonFile = undefined;
     this.validating = false;
+    // Show the snackbar message
     this.snackBar.open(
       msg,
       '',
@@ -115,6 +120,7 @@ export class InitComponent {
    */
   validateUploadedFile(): Promise<Corpus>{
    return new Promise((resolve, reject) => {
+      // Read the passed in file and validate it when ready
       const fileReader = new FileReader();
       fileReader.readAsBinaryString(this.jsonFile);
       fileReader.onloadend = () => {
@@ -130,9 +136,12 @@ export class InitComponent {
    * @param reject  The function to be called if unsuccessful
    */
   validateAndParse(text: string, resolve: any, reject: any): void{
+    // If any text was passed in
     if (text) {
       try{
+        // Parse the text to JSON
         const parsed = JSON.parse(text);
+        // Validate the parsed JSON according to a scheme
         if (this.jsonValidateService.validateCorpus(parsed)){
           resolve(parsed);
         } else {
@@ -151,7 +160,9 @@ export class InitComponent {
    * @param corpus  The corpus that will be set
    */
   setQuery(corpus: Corpus): void{
+    // Set the corpus to the query service
     this.queryService.setCorpus(corpus);
+    // Reroute to the map screen
     this.router.navigate(['/map']);
   }
 

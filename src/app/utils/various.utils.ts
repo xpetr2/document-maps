@@ -11,3 +11,12 @@ export const pairSeparator = '\0';
 export function valueChanged(changesValue: any): boolean{
   return changesValue?.previousValue !== undefined && changesValue?.currentValue !== changesValue?.previousValue;
 }
+
+/**
+ * A quick regex way of retrieving the document ID from the node ID
+ * @param nodeId  The node ID we'd like to get the document ID from
+ */
+export function getNodeDocumentId(nodeId: string): string{
+  const re = /^node_\d+_(.*)$/;
+  return (nodeId) ? re.exec(nodeId)[1] : undefined;
+}

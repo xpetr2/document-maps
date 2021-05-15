@@ -130,20 +130,26 @@ export class GraphComponent implements OnChanges, AfterViewInit {
   ) { }
 
   ngAfterViewInit(): void{
+    // As soon as the component is created, initiate the simulation
     this.initSimulation();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    // If the "show label" setting is changed, redraw the labels
     if (valueChanged(changes?.showLabels)){
       this.drawLabels();
     }
 
+    // If the "distance modifier" or "clumping modifier" settings is changed
     if (valueChanged(changes?.distanceModifier) || valueChanged(changes?.clumpingModifier)){
+      // Recalculate the forces
       this.simulation.force('link')
         .distance(this.calculateLinkDistance.bind(this));
+      // Increase the simulation temperature a bit so the nodes can re-settle
       this.simulation.alpha(0.1).restart();
     }
 
+    // If the width or height of the component changes, change the SVG wrapper's view box
     if (valueChanged(changes?.width) || valueChanged(changes?.height) ){
         this.svg.attr('viewBox', `0 0 ${this.width} ${this.height}`);
     }
@@ -153,11 +159,15 @@ export class GraphComponent implements OnChanges, AfterViewInit {
    * The initialization of the simulation
    */
   initSimulation(): void{
+    // Create the simulation
     this.simulation = d3.forceSimulation(this.data.nodes);
 
+    // Initialize the various parts of the simulation
     this.initForces();
     this.initSvg();
     this.initEvents();
+
+    // Draw the nodes on screen
     this.drawGraph();
 
     // Center the camera, but wait with the zoom for a bit for the temperature of the simulation to settle down
@@ -171,17 +181,22 @@ export class GraphComponent implements OnChanges, AfterViewInit {
    * Initialize the forces applied to nodes
    */
   initForces(): void{
-    this.simulation.force('link', d3.forceLink(this.data.links)
+    this.simulation
+      // Add the node link force between the two nodes
+      .force('link', d3.forceLink(this.data.links)
       .id((d: GraphNode) => d.id)
       .distance(this.calculateLinkDistance.bind(this))
       .strength(link => link.value)
       .iterations(10))
+      // Add a naturally repulsive force
       .force('charge', d3.forceManyBody()
         .strength(-10))
+      // Add a force to prevent overlaps
       .force('collide', d3.forceCollide()
         .strength(1)
         .iterations(10)
         .radius(1))
+      // Add a force to gravitate the graph to the center
       .force('center', d3.forceCenter(0, 0)
         .strength(0));
   }
@@ -190,6 +205,7 @@ export class GraphComponent implements OnChanges, AfterViewInit {
    * Initialize the main SVG component of the graph
    */
   initSvg(): void{
+    // Create a wrapper SVG element
     this.svg = d3.select('figure#graph')
       .append('svg')
       .attr('id', 'svg_wrapper')
@@ -198,6 +214,7 @@ export class GraphComponent implements OnChanges, AfterViewInit {
       .attr('preserveAspectRatio', 'xMinYMin meet')
       .attr('viewBox', `0 0 ${this.width} ${this.height}`);
 
+    // Add a group, containing the graph
     this.g = this.svg.append('g');
   }
 
@@ -205,26 +222,39 @@ export class GraphComponent implements OnChanges, AfterViewInit {
    * Initialize the behaviours and events of the graph
    */
   initEvents(): void{
+    // Create the zoom and pan behaviour
     this.zoom = d3.zoom()
       .on('zoom', (e) => {
+        // If zoom changes, we send the value to the parent component
         this.zoomed.emit(e);
+        // And we move the actual group, containing the graph
         this.g.attr('transform', e.transform);
       })
+      // Add constraints to the zoom
       .scaleExtent([this.minZoom, this.maxZoom]);
 
+    // Add the zoom behaviour to the SVG container
     this.svg.call(this.zoom);
 
+    // Add the keyboard events to the body element
     d3.select('body')
       .on('keydown', (e) => {
+        // If the key was an arrow key
         if (e.key.startsWith('Arrow')){
+          // We pan using the keyboard
           this.keyboardPan(e.key);
-        } else if (e.key === '+' || e.key === '=' || e.key === '-') {
+        }
+        // If the key was a plus or minus key (equals counts as plus)
+        else if (e.key === '+' || e.key === '=' || e.key === '-') {
+          // We zoom using the keyboard
           this.keyboardZoom(e.key);
         }
       });
 
+    // If we click on the map itself, not on a node
     this.svg.on('click', (e) => {
       if (e.target.id === this.svg.attr('id')){
+        // We emit an event notifying the parent
         this.emptyClicked.emit({click: e, d3});
       }
     });
@@ -234,11 +264,15 @@ export class GraphComponent implements OnChanges, AfterViewInit {
    *  Draw the interactive part of the graph
    */
   drawGraph(): void{
+    // We draw the nodes and labels
     this.drawNodes();
     this.drawLabels();
 
+    // On every tick of the simulation
     this.simulation.on('tick', () => {
+      // We update the positions of the nodes
       this.nodes.attr('transform', d => `translate(${d.x}, ${d.y})`);
+      // We emit the alpha event, if possible
       this.updateAlpha(0.001, 0.01);
     });
   }
@@ -249,9 +283,11 @@ export class GraphComponent implements OnChanges, AfterViewInit {
    * @param stepRequired The minimal step required between the last emission
    */
   updateAlpha(minimumAlpha: number, stepRequired: number): void{
+    // If the alpha change was significant
     if (this.simulation.alpha() > minimumAlpha && Math.abs(this.previousAlpha - this.simulation.alpha()) > stepRequired ||
       this.simulation.alpha() === 0 && this.previousAlpha !== 0)
     {
+      // We notify the parent using an event
       this.previousAlpha = this.simulation.alpha();
       this.alphaChanged.emit({value: this.simulation.alpha(), d3});
     }
@@ -261,6 +297,7 @@ export class GraphComponent implements OnChanges, AfterViewInit {
    * Draw the nodes on the graph and apply interaction events on them
    */
   drawNodes(): void{
+    // For every node, create a group wrapper
     this.nodes = this.g.append('g')
       .selectAll('.node-group')
       .data(this.data.nodes)
@@ -268,17 +305,21 @@ export class GraphComponent implements OnChanges, AfterViewInit {
       .attr('id', c => `wrapper_${c.id}`)
       .attr('class', 'node-group');
 
+    // Append a circle, portraying the node itself
     this.nodes.append('circle')
       .attr('r', 1)
       .attr('id', c => `node_${c.group}_${c.id}`)
       .attr('z-index', '1')
+      // If we click the node, we notify the parent
       .on('click', (e) => {
         this.nodeClicked.emit({click: e, nodes: this.nodes, d3});
       })
+      // If we hover over the node, we notify the parent
       .on('mouseenter', (e) => {
         this.hoveredNode = e?.target?.id;
         this.nodeHovered.emit({nodeId: this.hoveredNode, d3});
       })
+      // If we stop hovering over the node, we notify the parent
       .on('mouseleave', () => {
         this.hoveredNode = undefined;
         this.nodeHovered.emit({nodeId: this.hoveredNode, d3});
@@ -289,7 +330,9 @@ export class GraphComponent implements OnChanges, AfterViewInit {
    * Draws the labels next to the nodes
    */
   drawLabels(): void{
+    // If we're meant to be showing labels
     if (this.showLabels) {
+      // We append the node labels to the wrappers
       this.nodes.append('text')
         .attr('dx', 1.25)
         .attr('dy', '.35em')
@@ -298,8 +341,10 @@ export class GraphComponent implements OnChanges, AfterViewInit {
         .attr('z-index', '2')
         .text(c => c.id);
 
+      // Raise the labels to top
       this.nodes.select('node-label').raise();
     } else {
+      // Remove all the text elements
       this.nodes.selectAll('text').remove();
     }
   }
@@ -308,9 +353,14 @@ export class GraphComponent implements OnChanges, AfterViewInit {
    * Calculates the required zoom value to contain all the nodes on screen
    */
   calculateCoverZoom(): number {
+    // Get the position and size of the graph wrapper
     const transform = this.g.node().getBoundingClientRect();
+
+    // Get the zoom multipliers needed for both width and height
     const widthMult = (this.width - this.graphPadding) / transform.width;
     const heightMult = (this.height - this.graphPadding) / transform.height;
+
+    // Return the smaller, to ensure that no nodes will be out of screen
     return ((widthMult < heightMult) ? widthMult : heightMult);
   }
 
@@ -322,12 +372,12 @@ export class GraphComponent implements OnChanges, AfterViewInit {
    * @param duration  The duration the animation should take in milliseconds
    */
   centerCamera(x: number, y: number, k: number, duration = 250): void {
-    const computedX = x;
-    const computedY = y;
+    // Call the zoom in
     this.svg.call(this.zoom.scaleTo, k);
+    // Transition to the specified coordinates
     this.svg.transition()
       .duration(duration)
-      .call(this.zoom.translateTo, computedX, computedY);
+      .call(this.zoom.translateTo, x, y);
   }
 
   /**
@@ -344,7 +394,7 @@ export class GraphComponent implements OnChanges, AfterViewInit {
    * @param duration  The duration of the animation should take in milliseconds
    */
   setZoom(value: number, duration = 250): void{
-    // this.zoomed.emit({transform: {k: value}});
+    // Transition to the specified zoom in level
     this.svg.transition()
       .duration(duration)
       .call(this.zoom.scaleTo, value);
@@ -357,8 +407,10 @@ export class GraphComponent implements OnChanges, AfterViewInit {
    * @param duration  The duration of the animation
    */
   keyboardPan(keyCode: string, step = this.defaultPanStep, duration = 125): void{
+    // Find which key was pressed and store the vector
     const translateByX = keyCode === 'ArrowLeft' ? step : (keyCode === 'ArrowRight' ? -step : 0);
     const translateByY = keyCode === 'ArrowUp' ? step : (keyCode === 'ArrowDown' ? -step : 0);
+    // Pan by the specified vector
     this.svg.transition()
       .duration(duration)
       .call(this.zoom.translateBy, translateByX, translateByY);
@@ -371,7 +423,9 @@ export class GraphComponent implements OnChanges, AfterViewInit {
    * @param duration  The duration of the animation
    */
   keyboardZoom(keyCode: string, step = this.defaultZoomStep, duration = 125): void{
+    // Find out, if a zoom in or a zoom out key was pressed
     const zoomStep = keyCode === '+' || keyCode === '=' ? step : (keyCode === '-' ? -step : 0);
+    // Zoom in by the step
     this.svg.transition()
       .duration(duration)
       .call(this.zoom.scaleBy, 1 + zoomStep);

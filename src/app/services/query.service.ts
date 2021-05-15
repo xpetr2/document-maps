@@ -38,8 +38,10 @@ export class QueryService {
    * @param loadingService  The loading service, handling the progress reports
    */
   constructor(private loadingService: LoadingService) {
+    // Create the web worker
     if (typeof Worker !== 'undefined'){
       this.worker = new Worker('../workers/graph-data.worker', { type: 'module' });
+      // If the web worker receives any data, store it in this service
       this.worker.onmessage = ({ data }) => {
         this.workerData.next(data);
       };
@@ -60,9 +62,11 @@ export class QueryService {
    * @private
    */
   private usedCorpus(corpus: Corpus): Corpus{
+    // If there is no passed in corpus or a default one set return undefined
     if (!corpus && !this.corpusSource.getValue()){
       return undefined;
     }
+    // Otherwise if there is a passed in corpus, use that one, otherwise use the default one
     return corpus ? corpus : this.corpusSource.getValue();
   }
 
@@ -167,19 +171,25 @@ export class QueryService {
    * @param corpus  Optional corpus, defaults to the global one
    */
   initGraphData(corpus?: Corpus): Observable<GraphData>{
+    // Tell the loading service that we started loading
     this.loadingService.setIsLoading(true);
+    // Create an observable that observes the worker data, firing every time theres a change
     const observable = this.workerData.asObservable()
       .pipe(
+        // Look at the data the worker passed in and give the loading service the loading stage and progress
         tap(progress => {
           this.loadingService.setLoadingStage(progress.stage);
           this.loadingService.setLoadingProgress(progress.value);
         }),
+        // If the web worker data has the final processed data
         filter(data => data.data),
+        // We finally tell the loading service we're done loading and return the output data
         map(data => {
           this.loadingService.setIsLoading(false);
           return data.data;
         })
       );
+    // Tell the web worker to start processing
     this.worker.postMessage({query: this.usedCorpus(corpus)});
     return observable;
   }

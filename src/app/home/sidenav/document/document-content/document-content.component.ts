@@ -56,6 +56,7 @@ export class DocumentContentComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    // If the highlighted word changes, format the content again
     if (valueChanged(changes?.highlightedWords)){
       this.convertedContent = this.getFormattedContent();
     }
@@ -67,11 +68,15 @@ export class DocumentContentComponent implements OnInit, OnChanges {
   getReversedWordMap(): WordMap{
     const entries = this.highlightedWordMap.entries();
     const out = new Map<string, Set<string>>();
+    // Go over the parent and all children
     for (const [parent, set] of entries){
       for (const match of set){
+        // If the reverse map already has the child as a key
         if (out.has(match)){
+          // Add the parent to the set
           out.get(match).add(parent);
         } else {
+          // Create an entry for the child and parent
           out.set(match, new Set<string>([parent]));
         }
       }
@@ -86,14 +91,19 @@ export class DocumentContentComponent implements OnInit, OnChanges {
    * @param words             The set, containing all the matched words
    * @param reversedWordMap   The reversed WordMap
    */
-  isWordLowlighted(word: string, hoveredWord: string, words: Set<string>, reversedWordMap: WordMap): boolean{
+  isWordLowlighted(word: string, hoveredWord: string, words: Set<string>, reversedWordMap: WordMap): boolean {
+    // If there is no hovered word, then no words should be low-lighted
     if (!hoveredWord){
       return false;
     }
+    // If the hovered word is a soft match (contains a pair separator)
     if (hoveredWord.includes(pairSeparator)){
+      // Split the pair up
       const [w1, w2] = this.splitUpPipe.transform(hoveredWord);
+      // See if one of the words in the pair is selected and neither of the words is the one being evaluated
       return (words.has(w1) || words.has(w2)) && !(word === w1 || word === w2);
     }
+    // If the hovered word is an exact match, see if the hovered word is selected and is not the one being evaluated
     return words.has(hoveredWord) && !(hoveredWord === word || reversedWordMap.get(word)?.has(hoveredWord));
   }
 
@@ -101,15 +111,23 @@ export class DocumentContentComponent implements OnInit, OnChanges {
    * Sets the content of this document, highlighting and lowlighting the appropriate words in the process
    */
   getFormattedContent(): string{
+    // Merge the exact and soft matches sets
     const allWords = new Set([...this.highlightedSoftMatches, ...this.highlightedExactMatches]);
+    // Escape the potential intrusive HTML characters
     let content = this.escapeHtml.transform(this.content);
     const reversedWordMap = this.getReversedWordMap();
+    // Go over all the selected words
     for (const word of allWords){
+      // Escape the evaluated word for more unsafe HTML characters
       const escapedWord = this.escapeHtml.transform(word);
+      // Create a new RegEx, that matches all the looked for words, that have no characters before and after
       const re = new RegExp(`(?<=^|\\s)${escapeStringRegexp(escapedWord)}(?=$|\\s)`, 'g');
+      // See what type of a match the word is
       const wordType = this.highlightedExactMatches.has(word) ? (this.highlightedSoftMatches.has(word) ? 'both' : 'exact') : 'soft';
-      const isHovered = this.isWordLowlighted(word, this.hoveredWord, allWords, reversedWordMap);
-      content = content.replace(re, `<span class="${isHovered ? 'lowlight' : 'highlight'} ${wordType}">${escapedWord}</span>`);
+
+      const lowlighted = this.isWordLowlighted(word, this.hoveredWord, allWords, reversedWordMap);
+      // Replace all the matched words with the span tag
+      content = content.replace(re, `<span class="${lowlighted ? 'lowlight' : 'highlight'} ${wordType}">${escapedWord}</span>`);
     }
     return content;
   }

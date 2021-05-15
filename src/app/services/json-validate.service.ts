@@ -85,9 +85,11 @@ export class JsonValidateService {
    * @param corpus  The corpus to be validated
    */
   validateCorpus(corpus: {}): boolean {
+    // Create a validator instance
     const ajv = new Ajv();
     const validate = ajv.compile(searchQuerySchema);
     try{
+      // See if the passed in object is a valid corpus
       return validate(corpus);
     } catch (e) {
       return false;

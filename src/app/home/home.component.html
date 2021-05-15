@@ -39,9 +39,9 @@
       [maxZoom]="getMaxZoom()"
       [currentZoom]="getCurrentZoom()"
       [errorIndicatorOffset]="errorIndicatorOffset"
-      (increaseCamera)="increaseCamera()"
-      (decreaseCamera)="decreaseCamera()"
-      (centerCamera)="centerCamera()"
+      (increaseCamera)="handleIncreaseCamera()"
+      (decreaseCamera)="handleDecreaseCamera()"
+      (centerCamera)="handleCenterCamera()"
       (changeCameraZoom)="changeCameraZoom($event)"
     ></app-user-interface>
   </mat-drawer-content>
