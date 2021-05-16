@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {CanActivate, RouterModule, Routes} from '@angular/router';
-import {DocumentLoadedGuard} from './guards/document-loaded.guard';
+import {CorpusLoadedGuard} from './guards/corpus-loaded-guard.service';
 
 const routes: Routes = [
   {
@@ -9,7 +9,7 @@ const routes: Routes = [
   },
   {
     path: 'map',
-    canActivate: ([DocumentLoadedGuard]),
+    canActivate: ([CorpusLoadedGuard]),
     loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
   },
   {path: '**', redirectTo: ''}

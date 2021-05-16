@@ -283,26 +283,6 @@ export class GraphComponent implements OnChanges, AfterViewInit {
   }
 
   /**
-   * Emits an event whenever the alpha, the temperature, of the simulation changes by a specific amount
-   * @param minimumAlpha  The minimum alpha that the event will emit to
-   * @param stepRequired The minimal step required between the last emission
-   */
-  updateAlpha(minimumAlpha: number, stepRequired: number): void{
-    // If the alpha change was significant
-    if (this.simulation.alpha() > minimumAlpha && Math.abs(this.previousAlpha - this.simulation.alpha()) > stepRequired ||
-      this.simulation.alpha() === 0 && this.previousAlpha !== 0)
-    {
-      // We redraw the deviations, if there's only one node selected
-      if (this.selectedNodes.length === 1){
-        this.drawDeviation(this.selectedNodes[0]);
-      }
-      // We notify the parent using an event
-      this.previousAlpha = this.simulation.alpha();
-      this.alphaChanged.emit({value: this.simulation.alpha(), d3});
-    }
-  }
-
-  /**
    * Draw the nodes on the graph and apply interaction events on them
    */
   drawNodes(): void{
@@ -355,6 +335,26 @@ export class GraphComponent implements OnChanges, AfterViewInit {
     } else {
       // Remove all the text elements
       this.nodes.selectAll('text').remove();
+    }
+  }
+
+  /**
+   * Emits an event whenever the alpha, the temperature, of the simulation changes by a specific amount
+   * @param minimumAlpha  The minimum alpha that the event will emit to
+   * @param stepRequired The minimal step required between the last emission
+   */
+  updateAlpha(minimumAlpha: number, stepRequired: number): void{
+    // If the alpha change was significant
+    if (this.simulation.alpha() > minimumAlpha && Math.abs(this.previousAlpha - this.simulation.alpha()) > stepRequired ||
+      this.simulation.alpha() === 0 && this.previousAlpha !== 0)
+    {
+      // We redraw the deviations, if there's only one node selected
+      if (this.selectedNodes.length === 1){
+        this.drawDeviation(this.selectedNodes[0]);
+      }
+      // We notify the parent using an event
+      this.previousAlpha = this.simulation.alpha();
+      this.alphaChanged.emit({value: this.simulation.alpha(), d3});
     }
   }
 

@@ -105,43 +105,6 @@ export class HomeComponent implements AfterViewInit {
   }
 
   /**
-   * Handles the event, raised by the graph component, when the user clicks a node
-   * @param e The click event
-   */
-  handleNodeClick(e: any): void {
-    // Retrieve the document ID of the clicked node
-    const id = getNodeDocumentId(e.click.target?.id);
-    // Create a copy of the selectedNodes array
-    const oldSelection = this.selectedNodes.slice();
-
-    // Open the sidebar and close the comparison window, if they haven't done already
-    this.matDrawer.open();
-    this.comparingWindowOpen = false;
-
-    // Handle the selection list change and redraw nodes
-    this.updateSelection(id, e.click.ctrlKey);
-    this.redrawSelection(oldSelection, e.d3);
-    this.generateSelectedDocuments();
-    this.sidenav.clearHighlightedWords();
-  }
-
-  /**
-   * Handles the event, raised by the graph component, when the user hovers over a node
-   * @param e The event, raising the hovered node ID and the D3 object
-   */
-  handleNodeHovered(e: {nodeId: string, d3: any}): void{
-    // If we're not supposed to be showing deviation data, don't bother with the function
-    if (!this.settings.showDeviations || !e.nodeId || !this.selectedNodes || this.selectedNodes?.length !== 1){
-      this.errorIndicatorOffset = undefined;
-      return;
-    }
-    // Get the document ID
-    const id = getNodeDocumentId(e.nodeId);
-
-    this.calculateErrorIndicatorOffset(id, this.selectedNodes[0], e.d3);
-  }
-
-  /**
    * Calculates and stores the indicator offset that should be displayed in the deviation error legend
    * @param id            The ID of the hovered element
    * @param selectedNode  The selected node
@@ -248,6 +211,43 @@ export class HomeComponent implements AfterViewInit {
     this.redrawSelection(oldSelection, e.d3);
     this.generateSelectedDocuments();
     this.sidenav.clearHighlightedWords();
+  }
+
+  /**
+   * Handles the event, raised by the graph component, when the user clicks a node
+   * @param e The click event
+   */
+  handleNodeClick(e: any): void {
+    // Retrieve the document ID of the clicked node
+    const id = getNodeDocumentId(e.click.target?.id);
+    // Create a copy of the selectedNodes array
+    const oldSelection = this.selectedNodes.slice();
+
+    // Open the sidebar and close the comparison window, if they haven't done already
+    this.matDrawer.open();
+    this.comparingWindowOpen = false;
+
+    // Handle the selection list change and redraw nodes
+    this.updateSelection(id, e.click.ctrlKey);
+    this.redrawSelection(oldSelection, e.d3);
+    this.generateSelectedDocuments();
+    this.sidenav.clearHighlightedWords();
+  }
+
+  /**
+   * Handles the event, raised by the graph component, when the user hovers over a node
+   * @param e The event, raising the hovered node ID and the D3 object
+   */
+  handleNodeHovered(e: {nodeId: string, d3: any}): void{
+    // If we're not supposed to be showing deviation data, don't bother with the function
+    if (!this.settings.showDeviations || !e.nodeId || !this.selectedNodes || this.selectedNodes?.length !== 1){
+      this.errorIndicatorOffset = undefined;
+      return;
+    }
+    // Get the document ID
+    const id = getNodeDocumentId(e.nodeId);
+
+    this.calculateErrorIndicatorOffset(id, this.selectedNodes[0], e.d3);
   }
 
   /**

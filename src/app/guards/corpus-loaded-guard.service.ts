@@ -10,7 +10,7 @@ import {map} from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class DocumentLoadedGuard implements CanActivate {
+export class CorpusLoadedGuard implements CanActivate {
   /**
    * @param queryService  The query service where the corpus is located
    * @param router        The router used for navigating to homepage if document is not loaded
