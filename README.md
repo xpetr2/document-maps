@@ -1,4 +1,4 @@
-# Document maps
+# The user manual
 
 ## Importing the corpus
 To proceed into the application you'll have to use a valid corpus. 
@@ -21,7 +21,7 @@ You can also use the on screen user interface to center or zoom the camera.
 ![Camera control UI](https://raw.githubusercontent.com/xpetr2/document-maps/master/src/assets/camera_controls.jpg "The camera controls")
 
 ## Selecting nodes
-To select a node you can simply click on it. This will defaultly colour in all the other nodes depending on their
+To select a node you can simply click on it. This will by default colour in all the other nodes depending on their
 deviation from the calculated cosine distance. You can refer to the deviation legend that appears.
 
 ![Deviation error indicator](https://raw.githubusercontent.com/xpetr2/document-maps/master/src/assets/deviation_error.jpg "The deviation error indicator")
