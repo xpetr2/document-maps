@@ -27,7 +27,7 @@ export class DocumentContentComponent implements OnInit, OnChanges {
   /**
    * The currently highlighted soft matches
    */
-  @Input() highlightedSoftMatches: Set<string>;
+  @Input() highlightedSoftMatches: [Set<string>, Set<string>];
   /**
    * The current WordMap containing the relations of matched words
    */
@@ -36,6 +36,10 @@ export class DocumentContentComponent implements OnInit, OnChanges {
    * The currently hovered on word
    */
   @Input() hoveredWord: string;
+  /**
+   * The index in the array of selected documents
+   */
+  @Input() documentIndex: number;
 
   /**
    * The HTML safe content
@@ -99,9 +103,9 @@ export class DocumentContentComponent implements OnInit, OnChanges {
     // If the hovered word is a soft match (contains a pair separator)
     if (hoveredWord.includes(pairSeparator)){
       // Split the pair up
-      const [w1, w2] = this.splitUpPipe.transform(hoveredWord);
+      const split = this.splitUpPipe.transform(hoveredWord);
       // See if one of the words in the pair is selected and neither of the words is the one being evaluated
-      return (words.has(w1) || words.has(w2)) && !(word === w1 || word === w2);
+      return (words.has(split[this.documentIndex])) && !(word === split[this.documentIndex]);
     }
     // If the hovered word is an exact match, see if the hovered word is selected and is not the one being evaluated
     return words.has(hoveredWord) && !(hoveredWord === word || reversedWordMap.get(word)?.has(hoveredWord));
@@ -111,8 +115,10 @@ export class DocumentContentComponent implements OnInit, OnChanges {
    * Sets the content of this document, highlighting and lowlighting the appropriate words in the process
    */
   getFormattedContent(): string{
+    // Get the soft matches for this document
+    const currentDocumentSofts = this.highlightedSoftMatches[this.documentIndex];
     // Merge the exact and soft matches sets
-    const allWords = new Set([...this.highlightedSoftMatches, ...this.highlightedExactMatches]);
+    const allWords = new Set([...currentDocumentSofts, ...this.highlightedExactMatches]);
     // Escape the potential intrusive HTML characters
     let content = this.escapeHtml.transform(this.content);
     const reversedWordMap = this.getReversedWordMap();
@@ -123,13 +129,29 @@ export class DocumentContentComponent implements OnInit, OnChanges {
       // Create a new RegEx, that matches all the looked for words, that have no characters before and after
       const re = new RegExp(`(?<=^|\\s)${escapeStringRegexp(escapedWord)}(?=$|\\s)`, 'g');
       // See what type of a match the word is
-      const wordType = this.highlightedExactMatches.has(word) ? (this.highlightedSoftMatches.has(word) ? 'both' : 'exact') : 'soft';
-
+      const wordType = this.getWordType(word, reversedWordMap);
+      // See if the word should be highlighted or lowlighted
       const lowlighted = this.isWordLowlighted(word, this.hoveredWord, allWords, reversedWordMap);
       // Replace all the matched words with the span tag
       content = content.replace(re, `<span class="${lowlighted ? 'lowlight' : 'highlight'} ${wordType}">${escapedWord}</span>`);
     }
     return content;
+  }
+
+  /**
+   * Determines, whether the given word is an exact match, soft match or both
+   * @param word              The word we wish to find out the type of
+   * @param reversedWordMap   The reversed word map
+   */
+  getWordType(word: string, reversedWordMap: WordMap): string{
+    // See if the word is in the word map and if it contains itself as a child
+    if (this.highlightedWordMap.has(word) && this.highlightedWordMap.get(word).has(word)){
+      // If the word map has only itself as a child and no other word has it as its child, then its an exact match, otherwise its both
+      const both = this.highlightedWordMap.get(word).size > 1 || reversedWordMap.get(word).size > 1;
+      return both ? 'both' : 'exact';
+    }
+    // Otherwise it's a soft match
+    return 'soft';
   }
 
 }

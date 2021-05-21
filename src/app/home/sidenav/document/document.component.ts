@@ -23,7 +23,7 @@ export class DocumentComponent {
   /**
    * The currently highlighted soft matches
    */
-  @Input() highlightedSoftMatches: Set<string>;
+  @Input() highlightedSoftMatches: [Set<string>, Set<string>];
   /**
    * The current WordMap containing the relations of matches
    */
@@ -32,5 +32,9 @@ export class DocumentComponent {
    * The currently hovered on word
    */
   @Input() hoveredWord: string;
+  /**
+   * The index in the array of selected documents
+   */
+  @Input() documentIndex: number;
 
 }

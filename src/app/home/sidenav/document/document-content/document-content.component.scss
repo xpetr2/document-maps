@@ -26,7 +26,7 @@ p{
   }
 
   ::ng-deep .highlight.both{
-    background-color: linear-gradient(45deg, $soft-highlight 0%, $soft-highlight 50%, $highlight 50%, $highlight 50%);
-    box-shadow: -2px 0px 2px 0px $soft-highlight, 2px 0px 2px 0px $soft-highlight;
+    background: linear-gradient(165deg, $soft-highlight 0%, $soft-highlight 45%, $highlight 55%, $highlight 50%);
+    box-shadow: -2px 0px 2px 0px $soft-highlight, 2px 0px 2px 0px $highlight;
   }
 }

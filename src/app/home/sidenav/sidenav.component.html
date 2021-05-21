@@ -7,12 +7,13 @@
       Compare<span class="material-icons">keyboard_arrow_right</span>
     </button>
   </div>
-  <app-document *ngFor="let doc of selectedDocuments"
+  <app-document *ngFor="let doc of selectedDocuments; let i = index"
                 [document]="doc"
                 [highlightedExactMatches]="highlightedExactMatches"
                 [highlightedSoftMatches]="highlightedSoftMatches"
                 [highlightedWordMap]="highlightedWordMap"
                 [hoveredWord]="hoveredWord"
+                [documentIndex]="i"
                 [style.comparing]="comparingWindowOpen"
   ></app-document>
 </div>

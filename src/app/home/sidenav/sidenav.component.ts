@@ -45,7 +45,7 @@ export class SidenavComponent {
   /**
    * A set containing the currently highlighted soft matches
    */
-  highlightedSoftMatches = new Set<string>();
+  highlightedSoftMatches: [Set<string>, Set<string>] = [new Set<string>(), new Set<string>()];
   /**
    * A map, that contains the relationships of matches
    */
@@ -80,16 +80,27 @@ export class SidenavComponent {
    * @param wordMap The WordMap containing the relationships of matches
    */
   handleWordsChanged(wordMap: WordMap): void{
+    // Create arrays from the keys and concatenated values
+    const keyArray = Array.from(wordMap.keys());
+    const concatenatedSoft = Array.from(wordMap.values())
+      .reduce((a, c) => a.concat([...c]), []);
+
     // Store the keys of the word map, containing the exact matches
-    this.highlightedExactMatches = new Set<string>(wordMap.keys());
+    this.highlightedExactMatches = new Set<string>(keyArray
+      .filter(word => concatenatedSoft.includes(word))
+    );
 
-    // Merge all the sets, contained in the values of the word map, which contain the soft matches
-    const softMatches = Array.from(wordMap.values())
-      .reduce((a, c) => a.concat([...c]), [])
-      .filter(a => !this.highlightedExactMatches.has(a));
+    // Filter out the soft matches, that will be displayed in the left document
+    const leftSoftMatches = new Set<string>(keyArray
+      .filter(word => !concatenatedSoft.includes(word))
+    );
 
-    // Store the soft matches as a set
-    this.highlightedSoftMatches = new Set(softMatches);
+    // filter out the soft matches, that will be displayed in the right document
+    const rightSoftMatches = new Set<string>(concatenatedSoft
+      .filter(word => !keyArray.includes(word))
+    );
+
+    this.highlightedSoftMatches = [leftSoftMatches, rightSoftMatches];
     this.highlightedWordMap = wordMap;
   }
 
@@ -98,7 +109,7 @@ export class SidenavComponent {
    */
   clearHighlightedWords(): void{
     this.highlightedExactMatches = new Set<string>();
-    this.highlightedSoftMatches = new Set<string>();
+    this.highlightedSoftMatches = [new Set<string>(), new Set<string>()];
     this.highlightedWordMap = new Map<string, Set<string>>();
   }
 
