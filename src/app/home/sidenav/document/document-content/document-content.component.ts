@@ -115,6 +115,9 @@ export class DocumentContentComponent implements OnInit, OnChanges {
    * Sets the content of this document, highlighting and lowlighting the appropriate words in the process
    */
   getFormattedContent(): string{
+    if (this.documentIndex > 1){
+      return this.content;
+    }
     // Get the soft matches for this document
     const currentDocumentSofts = this.highlightedSoftMatches[this.documentIndex];
     // Merge the exact and soft matches sets
