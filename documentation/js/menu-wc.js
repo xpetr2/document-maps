@@ -229,7 +229,7 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                         </div>
                         <ul class="links collapse " ${ isNormalMode ? 'id="guards-links"' : 'id="xs-guards-links"' }>
                             <li class="link">
-                                <a href="guards/DocumentLoadedGuard.html" data-type="entity-link">DocumentLoadedGuard</a>
+                                <a href="guards/CorpusLoadedGuard.html" data-type="entity-link">CorpusLoadedGuard</a>
                             </li>
                         </ul>
                     </li>

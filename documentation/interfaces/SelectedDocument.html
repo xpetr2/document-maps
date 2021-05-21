@@ -276,7 +276,7 @@ export class SidenavComponent {
   /**
    * A set containing the currently highlighted soft matches
    */
-  highlightedSoftMatches &#x3D; new Set&lt;string&gt;();
+  highlightedSoftMatches: [Set&lt;string&gt;, Set&lt;string&gt;] &#x3D; [new Set&lt;string&gt;(), new Set&lt;string&gt;()];
   /**
    * A map, that contains the relationships of matches
    */
@@ -311,16 +311,27 @@ export class SidenavComponent {
    * @param wordMap The WordMap containing the relationships of matches
    */
   handleWordsChanged(wordMap: WordMap): void{
+    // Create arrays from the keys and concatenated values
+    const keyArray &#x3D; Array.from(wordMap.keys());
+    const concatenatedSoft &#x3D; Array.from(wordMap.values())
+      .reduce((a, c) &#x3D;&gt; a.concat([...c]), []);
+
     // Store the keys of the word map, containing the exact matches
-    this.highlightedExactMatches &#x3D; new Set&lt;string&gt;(wordMap.keys());
+    this.highlightedExactMatches &#x3D; new Set&lt;string&gt;(keyArray
+      .filter(word &#x3D;&gt; concatenatedSoft.includes(word))
+    );
 
-    // Merge all the sets, contained in the values of the word map, which contain the soft matches
-    const softMatches &#x3D; Array.from(wordMap.values())
-      .reduce((a, c) &#x3D;&gt; a.concat([...c]), [])
-      .filter(a &#x3D;&gt; !this.highlightedExactMatches.has(a));
+    // Filter out the soft matches, that will be displayed in the left document
+    const leftSoftMatches &#x3D; new Set&lt;string&gt;(keyArray
+      .filter(word &#x3D;&gt; !concatenatedSoft.includes(word))
+    );
 
-    // Store the soft matches as a set
-    this.highlightedSoftMatches &#x3D; new Set(softMatches);
+    // filter out the soft matches, that will be displayed in the right document
+    const rightSoftMatches &#x3D; new Set&lt;string&gt;(concatenatedSoft
+      .filter(word &#x3D;&gt; !keyArray.includes(word))
+    );
+
+    this.highlightedSoftMatches &#x3D; [leftSoftMatches, rightSoftMatches];
     this.highlightedWordMap &#x3D; wordMap;
   }
 
@@ -329,7 +340,7 @@ export class SidenavComponent {
    */
   clearHighlightedWords(): void{
     this.highlightedExactMatches &#x3D; new Set&lt;string&gt;();
-    this.highlightedSoftMatches &#x3D; new Set&lt;string&gt;();
+    this.highlightedSoftMatches &#x3D; [new Set&lt;string&gt;(), new Set&lt;string&gt;()];
     this.highlightedWordMap &#x3D; new Map&lt;string, Set&lt;string&gt;&gt;();
   }
 

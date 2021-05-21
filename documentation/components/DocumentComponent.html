@@ -136,6 +136,9 @@
                                 <a href="#document">document</a>
                             </li>
                             <li>
+                                <a href="#documentIndex">documentIndex</a>
+                            </li>
+                            <li>
                                 <a href="#highlightedExactMatches">highlightedExactMatches</a>
                             </li>
                             <li>
@@ -192,6 +195,33 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
+                        <a name="documentIndex"></a>
+                        <b>documentIndex</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/home/sidenav/document/document.component.ts:38</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>The index in the array of selected documents</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
                         <a name="highlightedExactMatches"></a>
                         <b>highlightedExactMatches</b>
                     </td>
@@ -225,7 +255,7 @@
                 </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Type : </i>    <code>Set&lt;string&gt;</code>
+                        <i>Type : </i>    <code>[Set, Set]</code>
 
                     </td>
                 </tr>
@@ -331,7 +361,7 @@ export class DocumentComponent {
   /**
    * The currently highlighted soft matches
    */
-  @Input() highlightedSoftMatches: Set&lt;string&gt;;
+  @Input() highlightedSoftMatches: [Set&lt;string&gt;, Set&lt;string&gt;];
   /**
    * The current WordMap containing the relations of matches
    */
@@ -340,6 +370,10 @@ export class DocumentComponent {
    * The currently hovered on word
    */
   @Input() hoveredWord: string;
+  /**
+   * The index in the array of selected documents
+   */
+  @Input() documentIndex: number;
 
 }
 </code></pre>
@@ -358,6 +392,7 @@ export class DocumentComponent {
       [highlightedSoftMatches]&#x3D;&quot;highlightedSoftMatches&quot;
       [highlightedWordMap]&#x3D;&quot;highlightedWordMap&quot;
       [hoveredWord]&#x3D;&quot;hoveredWord&quot;
+      [documentIndex]&#x3D;&quot;documentIndex&quot;
     &gt;&lt;/app-document-content&gt;
   &lt;/mat-card-content&gt;
 &lt;/mat-card&gt;
@@ -396,7 +431,7 @@ export class DocumentComponent {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><mat-card class="document-card">  <mat-card-header>    <mat-card-title>{{document.title}}</mat-card-title>    <mat-card-subtitle>{{document.subtitle}}</mat-card-subtitle>  </mat-card-header>  <mat-card-content>    <app-document-content      [content]="document.content"      [highlightedExactMatches]="highlightedExactMatches"      [highlightedSoftMatches]="highlightedSoftMatches"      [highlightedWordMap]="highlightedWordMap"      [hoveredWord]="hoveredWord"    ></app-document-content>  </mat-card-content></mat-card></div>'
+        var COMPONENT_TEMPLATE = '<div><mat-card class="document-card">  <mat-card-header>    <mat-card-title>{{document.title}}</mat-card-title>    <mat-card-subtitle>{{document.subtitle}}</mat-card-subtitle>  </mat-card-header>  <mat-card-content>    <app-document-content      [content]="document.content"      [highlightedExactMatches]="highlightedExactMatches"      [highlightedSoftMatches]="highlightedSoftMatches"      [highlightedWordMap]="highlightedWordMap"      [hoveredWord]="hoveredWord"      [documentIndex]="documentIndex"    ></app-document-content>  </mat-card-content></mat-card></div>'
     var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ComparisonComponent', 'selector': 'app-comparison'},{'name': 'ComparisonEntryComponent', 'selector': 'app-comparison-entry'},{'name': 'DocumentComponent', 'selector': 'app-document'},{'name': 'DocumentContentComponent', 'selector': 'app-document-content'},{'name': 'GraphComponent', 'selector': 'app-graph'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'InitComponent', 'selector': 'app-init'},{'name': 'SettingsComponent', 'selector': 'app-settings'},{'name': 'SidenavComponent', 'selector': 'app-sidenav'},{'name': 'UserInterfaceComponent', 'selector': 'app-user-interface'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'DocumentComponent'};

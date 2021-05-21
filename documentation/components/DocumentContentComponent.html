@@ -171,6 +171,9 @@
                                 <a href="#getReversedWordMap">getReversedWordMap</a>
                             </li>
                             <li>
+                                <a href="#getWordType">getWordType</a>
+                            </li>
+                            <li>
                                 <a href="#isWordLowlighted">isWordLowlighted</a>
                             </li>
                             <li>
@@ -193,6 +196,9 @@
                         <ul class="index-list">
                             <li>
                                 <a href="#content">content</a>
+                            </li>
+                            <li>
+                                <a href="#documentIndex">documentIndex</a>
                             </li>
                             <li>
                                 <a href="#highlightedExactMatches">highlightedExactMatches</a>
@@ -228,7 +234,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/app/home/sidenav/document/document-content/document-content.component.ts:43</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">src/app/home/sidenav/document/document-content/document-content.component.ts:47</a></div>
                             </td>
                         </tr>
 
@@ -320,6 +326,33 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
+                        <a name="documentIndex"></a>
+                        <b>documentIndex</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/app/home/sidenav/document/document-content/document-content.component.ts:42</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>The index in the array of selected documents</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
                         <a name="highlightedExactMatches"></a>
                         <b>highlightedExactMatches</b>
                     </td>
@@ -353,7 +386,7 @@
                 </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Type : </i>    <code>Set&lt;string&gt;</code>
+                        <i>Type : </i>    <code>[Set, Set]</code>
 
                     </td>
                 </tr>
@@ -455,8 +488,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="113"
-                            class="link-to-prism">src/app/home/sidenav/document/document-content/document-content.component.ts:113</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="117"
+                            class="link-to-prism">src/app/home/sidenav/document/document-content/document-content.component.ts:117</a></div>
                 </td>
             </tr>
 
@@ -496,8 +529,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="68"
-                            class="link-to-prism">src/app/home/sidenav/document/document-content/document-content.component.ts:68</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="72"
+                            class="link-to-prism">src/app/home/sidenav/document/document-content/document-content.component.ts:72</a></div>
                 </td>
             </tr>
 
@@ -510,6 +543,99 @@
                     <div class="io-description">
                         <b>Returns : </b>        <code><a href="../miscellaneous/typealiases.html#WordMap" target="_self" >WordMap</a></code>
 
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getWordType"></a>
+                    <span class="name">
+                        <b>
+                            getWordType
+                        </b>
+                        <a href="#getWordType"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getWordType(word: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, reversedWordMap: <a href="../undefineds/WordMap.html">WordMap</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="146"
+                            class="link-to-prism">src/app/home/sidenav/document/document-content/document-content.component.ts:146</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Determines, whether the given word is an exact match, soft match or both</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>word</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>The word we wish to find out the type of</p>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>reversedWordMap</td>
+                                    <td>
+                                                <code><a href="../miscellaneous/typealiases.html#WordMap" target="_self" >WordMap</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>The reversed word map</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
                     </div>
                 </td>
             </tr>
@@ -537,8 +663,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="94"
-                            class="link-to-prism">src/app/home/sidenav/document/document-content/document-content.component.ts:94</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="98"
+                            class="link-to-prism">src/app/home/sidenav/document/document-content/document-content.component.ts:98</a></div>
                 </td>
             </tr>
 
@@ -662,8 +788,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="58"
-                            class="link-to-prism">src/app/home/sidenav/document/document-content/document-content.component.ts:58</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="62"
+                            class="link-to-prism">src/app/home/sidenav/document/document-content/document-content.component.ts:62</a></div>
                 </td>
             </tr>
 
@@ -732,8 +858,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="54"
-                            class="link-to-prism">src/app/home/sidenav/document/document-content/document-content.component.ts:54</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="58"
+                            class="link-to-prism">src/app/home/sidenav/document/document-content/document-content.component.ts:58</a></div>
                 </td>
             </tr>
 
@@ -775,7 +901,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/app/home/sidenav/document/document-content/document-content.component.ts:43</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">src/app/home/sidenav/document/document-content/document-content.component.ts:47</a></div>
                             </td>
                         </tr>
 
@@ -809,7 +935,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">src/app/home/sidenav/document/document-content/document-content.component.ts:50</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="54" class="link-to-prism">src/app/home/sidenav/document/document-content/document-content.component.ts:54</a></div>
                             </td>
                         </tr>
 
@@ -842,7 +968,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="51" class="link-to-prism">src/app/home/sidenav/document/document-content/document-content.component.ts:51</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="55" class="link-to-prism">src/app/home/sidenav/document/document-content/document-content.component.ts:55</a></div>
                             </td>
                         </tr>
 
@@ -889,7 +1015,7 @@ export class DocumentContentComponent implements OnInit, OnChanges {
   /**
    * The currently highlighted soft matches
    */
-  @Input() highlightedSoftMatches: Set&lt;string&gt;;
+  @Input() highlightedSoftMatches: [Set&lt;string&gt;, Set&lt;string&gt;];
   /**
    * The current WordMap containing the relations of matched words
    */
@@ -898,6 +1024,10 @@ export class DocumentContentComponent implements OnInit, OnChanges {
    * The currently hovered on word
    */
   @Input() hoveredWord: string;
+  /**
+   * The index in the array of selected documents
+   */
+  @Input() documentIndex: number;
 
   /**
    * The HTML safe content
@@ -961,9 +1091,9 @@ export class DocumentContentComponent implements OnInit, OnChanges {
     // If the hovered word is a soft match (contains a pair separator)
     if (hoveredWord.includes(pairSeparator)){
       // Split the pair up
-      const [w1, w2] &#x3D; this.splitUpPipe.transform(hoveredWord);
+      const split &#x3D; this.splitUpPipe.transform(hoveredWord);
       // See if one of the words in the pair is selected and neither of the words is the one being evaluated
-      return (words.has(w1) || words.has(w2)) &amp;&amp; !(word &#x3D;&#x3D;&#x3D; w1 || word &#x3D;&#x3D;&#x3D; w2);
+      return (words.has(split[this.documentIndex])) &amp;&amp; !(word &#x3D;&#x3D;&#x3D; split[this.documentIndex]);
     }
     // If the hovered word is an exact match, see if the hovered word is selected and is not the one being evaluated
     return words.has(hoveredWord) &amp;&amp; !(hoveredWord &#x3D;&#x3D;&#x3D; word || reversedWordMap.get(word)?.has(hoveredWord));
@@ -973,8 +1103,10 @@ export class DocumentContentComponent implements OnInit, OnChanges {
    * Sets the content of this document, highlighting and lowlighting the appropriate words in the process
    */
   getFormattedContent(): string{
+    // Get the soft matches for this document
+    const currentDocumentSofts &#x3D; this.highlightedSoftMatches[this.documentIndex];
     // Merge the exact and soft matches sets
-    const allWords &#x3D; new Set([...this.highlightedSoftMatches, ...this.highlightedExactMatches]);
+    const allWords &#x3D; new Set([...currentDocumentSofts, ...this.highlightedExactMatches]);
     // Escape the potential intrusive HTML characters
     let content &#x3D; this.escapeHtml.transform(this.content);
     const reversedWordMap &#x3D; this.getReversedWordMap();
@@ -985,13 +1117,29 @@ export class DocumentContentComponent implements OnInit, OnChanges {
       // Create a new RegEx, that matches all the looked for words, that have no characters before and after
       const re &#x3D; new RegExp(&#x60;(?&lt;&#x3D;^|\\s)${escapeStringRegexp(escapedWord)}(?&#x3D;$|\\s)&#x60;, &#x27;g&#x27;);
       // See what type of a match the word is
-      const wordType &#x3D; this.highlightedExactMatches.has(word) ? (this.highlightedSoftMatches.has(word) ? &#x27;both&#x27; : &#x27;exact&#x27;) : &#x27;soft&#x27;;
-
+      const wordType &#x3D; this.getWordType(word, reversedWordMap);
+      // See if the word should be highlighted or lowlighted
       const lowlighted &#x3D; this.isWordLowlighted(word, this.hoveredWord, allWords, reversedWordMap);
       // Replace all the matched words with the span tag
       content &#x3D; content.replace(re, &#x60;&lt;span class&#x3D;&quot;${lowlighted ? &#x27;lowlight&#x27; : &#x27;highlight&#x27;} ${wordType}&quot;&gt;${escapedWord}&lt;/span&gt;&#x60;);
     }
     return content;
+  }
+
+  /**
+   * Determines, whether the given word is an exact match, soft match or both
+   * @param word              The word we wish to find out the type of
+   * @param reversedWordMap   The reversed word map
+   */
+  getWordType(word: string, reversedWordMap: WordMap): string{
+    // See if the word is in the word map and if it contains itself as a child
+    if (this.highlightedWordMap.has(word) &amp;&amp; this.highlightedWordMap.get(word).has(word)){
+      // If the word map has only itself as a child and no other word has it as its child, then its an exact match, otherwise its both
+      const both &#x3D; this.highlightedWordMap.get(word).size &gt; 1 || reversedWordMap.get(word).size &gt; 1;
+      return both ? &#x27;both&#x27; : &#x27;exact&#x27;;
+    }
+    // Otherwise it&#x27;s a soft match
+    return &#x27;soft&#x27;;
   }
 
 }
@@ -1035,8 +1183,8 @@ p{
   }
 
   ::ng-deep .highlight.both{
-    background-color: linear-gradient(45deg, $soft-highlight 0%, $soft-highlight 50%, $highlight 50%, $highlight 50%);
-    box-shadow: -2px 0px 2px 0px $soft-highlight, 2px 0px 2px 0px $soft-highlight;
+    background: linear-gradient(165deg, $soft-highlight 0%, $soft-highlight 45%, $highlight 55%, $highlight 50%);
+    box-shadow: -2px 0px 2px 0px $soft-highlight, 2px 0px 2px 0px $highlight;
   }
 }
 </code></pre>

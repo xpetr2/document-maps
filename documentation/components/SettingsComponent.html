@@ -389,6 +389,7 @@ export class SettingsComponent {
         <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;settings-menu-wrapper&quot;&gt;
   &lt;mat-checkbox [checked]&#x3D;&quot;settings.showLabels&quot; (change)&#x3D;&quot;changeSetting(&#x27;showLabels&#x27;, $event.checked)&quot;&gt;Show labels&lt;/mat-checkbox&gt;
   &lt;mat-checkbox [checked]&#x3D;&quot;settings.showDeviations&quot; (change)&#x3D;&quot;changeSetting(&#x27;showDeviations&#x27;, $event.checked)&quot;&gt;Draw deviations&lt;/mat-checkbox&gt;
+
   &lt;div&gt;
     &lt;mat-label&gt;&lt;span&gt;Distance modifier:&lt;/span&gt;&lt;span&gt;{{settings.distanceModifier}}&lt;/span&gt;&lt;/mat-label&gt;
     &lt;mat-slider thumbLabel min&#x3D;&quot;1&quot; max&#x3D;&quot;100&quot; step&#x3D;&quot;1&quot;

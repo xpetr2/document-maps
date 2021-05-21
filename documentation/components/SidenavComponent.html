@@ -363,8 +363,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="99"
-                            class="link-to-prism">src/app/home/sidenav/sidenav.component.ts:99</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="110"
+                            class="link-to-prism">src/app/home/sidenav/sidenav.component.ts:110</a></div>
                 </td>
             </tr>
 
@@ -558,8 +558,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="109"
-                            class="link-to-prism">src/app/home/sidenav/sidenav.component.ts:109</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="120"
+                            class="link-to-prism">src/app/home/sidenav/sidenav.component.ts:120</a></div>
                 </td>
             </tr>
 
@@ -742,7 +742,13 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Default value : </i><code>new Set&lt;string&gt;()</code>
+                            <i>Type : </i>    <code>[Set, Set]</code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>[new Set&lt;string&gt;(), new Set&lt;string&gt;()]</code>
                         </td>
                     </tr>
                         <tr>
@@ -884,7 +890,7 @@ export class SidenavComponent {
   /**
    * A set containing the currently highlighted soft matches
    */
-  highlightedSoftMatches &#x3D; new Set&lt;string&gt;();
+  highlightedSoftMatches: [Set&lt;string&gt;, Set&lt;string&gt;] &#x3D; [new Set&lt;string&gt;(), new Set&lt;string&gt;()];
   /**
    * A map, that contains the relationships of matches
    */
@@ -919,16 +925,27 @@ export class SidenavComponent {
    * @param wordMap The WordMap containing the relationships of matches
    */
   handleWordsChanged(wordMap: WordMap): void{
+    // Create arrays from the keys and concatenated values
+    const keyArray &#x3D; Array.from(wordMap.keys());
+    const concatenatedSoft &#x3D; Array.from(wordMap.values())
+      .reduce((a, c) &#x3D;&gt; a.concat([...c]), []);
+
     // Store the keys of the word map, containing the exact matches
-    this.highlightedExactMatches &#x3D; new Set&lt;string&gt;(wordMap.keys());
+    this.highlightedExactMatches &#x3D; new Set&lt;string&gt;(keyArray
+      .filter(word &#x3D;&gt; concatenatedSoft.includes(word))
+    );
 
-    // Merge all the sets, contained in the values of the word map, which contain the soft matches
-    const softMatches &#x3D; Array.from(wordMap.values())
-      .reduce((a, c) &#x3D;&gt; a.concat([...c]), [])
-      .filter(a &#x3D;&gt; !this.highlightedExactMatches.has(a));
+    // Filter out the soft matches, that will be displayed in the left document
+    const leftSoftMatches &#x3D; new Set&lt;string&gt;(keyArray
+      .filter(word &#x3D;&gt; !concatenatedSoft.includes(word))
+    );
 
-    // Store the soft matches as a set
-    this.highlightedSoftMatches &#x3D; new Set(softMatches);
+    // filter out the soft matches, that will be displayed in the right document
+    const rightSoftMatches &#x3D; new Set&lt;string&gt;(concatenatedSoft
+      .filter(word &#x3D;&gt; !keyArray.includes(word))
+    );
+
+    this.highlightedSoftMatches &#x3D; [leftSoftMatches, rightSoftMatches];
     this.highlightedWordMap &#x3D; wordMap;
   }
 
@@ -937,7 +954,7 @@ export class SidenavComponent {
    */
   clearHighlightedWords(): void{
     this.highlightedExactMatches &#x3D; new Set&lt;string&gt;();
-    this.highlightedSoftMatches &#x3D; new Set&lt;string&gt;();
+    this.highlightedSoftMatches &#x3D; [new Set&lt;string&gt;(), new Set&lt;string&gt;()];
     this.highlightedWordMap &#x3D; new Map&lt;string, Set&lt;string&gt;&gt;();
   }
 
@@ -962,12 +979,13 @@ export class SidenavComponent {
       Compare&lt;span class&#x3D;&quot;material-icons&quot;&gt;keyboard_arrow_right&lt;/span&gt;
     &lt;/button&gt;
   &lt;/div&gt;
-  &lt;app-document *ngFor&#x3D;&quot;let doc of selectedDocuments&quot;
+  &lt;app-document *ngFor&#x3D;&quot;let doc of selectedDocuments; let i &#x3D; index&quot;
                 [document]&#x3D;&quot;doc&quot;
                 [highlightedExactMatches]&#x3D;&quot;highlightedExactMatches&quot;
                 [highlightedSoftMatches]&#x3D;&quot;highlightedSoftMatches&quot;
                 [highlightedWordMap]&#x3D;&quot;highlightedWordMap&quot;
                 [hoveredWord]&#x3D;&quot;hoveredWord&quot;
+                [documentIndex]&#x3D;&quot;i&quot;
                 [style.comparing]&#x3D;&quot;comparingWindowOpen&quot;
   &gt;&lt;/app-document&gt;
 &lt;/div&gt;
@@ -1068,7 +1086,7 @@ app-document {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><div class="sidenav-wrapper" [ngClass]="{\'comparing\': comparingWindowOpen}">  <div class="sidenav-nav">    <button mat-icon-button aria-label="Close sidenav" (click)="closeSidenav($event)">      <mat-icon>close</mat-icon>    </button>    <button *ngIf="!comparingWindowOpen" mat-raised-button color="accent" class="compare-button" [disabled]="selectedDocuments.length !== 2" (click)="clickedCompare($event)">      Compare<span class="material-icons">keyboard_arrow_right</span>    </button>  </div>  <app-document *ngFor="let doc of selectedDocuments"                [document]="doc"                [highlightedExactMatches]="highlightedExactMatches"                [highlightedSoftMatches]="highlightedSoftMatches"                [highlightedWordMap]="highlightedWordMap"                [hoveredWord]="hoveredWord"                [style.comparing]="comparingWindowOpen"  ></app-document></div><div class="sidenav-comparison" *ngIf="comparingWindowOpen">  <app-comparison [selectedDocuments]="selectedDocuments"                  (wordsChanged)="handleWordsChanged($event)"                  (wordHovered)="handleWordHovered($event)"  ></app-comparison></div></div>'
+        var COMPONENT_TEMPLATE = '<div><div class="sidenav-wrapper" [ngClass]="{\'comparing\': comparingWindowOpen}">  <div class="sidenav-nav">    <button mat-icon-button aria-label="Close sidenav" (click)="closeSidenav($event)">      <mat-icon>close</mat-icon>    </button>    <button *ngIf="!comparingWindowOpen" mat-raised-button color="accent" class="compare-button" [disabled]="selectedDocuments.length !== 2" (click)="clickedCompare($event)">      Compare<span class="material-icons">keyboard_arrow_right</span>    </button>  </div>  <app-document *ngFor="let doc of selectedDocuments; let i = index"                [document]="doc"                [highlightedExactMatches]="highlightedExactMatches"                [highlightedSoftMatches]="highlightedSoftMatches"                [highlightedWordMap]="highlightedWordMap"                [hoveredWord]="hoveredWord"                [documentIndex]="i"                [style.comparing]="comparingWindowOpen"  ></app-document></div><div class="sidenav-comparison" *ngIf="comparingWindowOpen">  <app-comparison [selectedDocuments]="selectedDocuments"                  (wordsChanged)="handleWordsChanged($event)"                  (wordHovered)="handleWordHovered($event)"  ></app-comparison></div></div>'
     var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ComparisonComponent', 'selector': 'app-comparison'},{'name': 'ComparisonEntryComponent', 'selector': 'app-comparison-entry'},{'name': 'DocumentComponent', 'selector': 'app-document'},{'name': 'DocumentContentComponent', 'selector': 'app-document-content'},{'name': 'GraphComponent', 'selector': 'app-graph'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'InitComponent', 'selector': 'app-init'},{'name': 'SettingsComponent', 'selector': 'app-settings'},{'name': 'SidenavComponent', 'selector': 'app-sidenav'},{'name': 'UserInterfaceComponent', 'selector': 'app-user-interface'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'SidenavComponent'};
