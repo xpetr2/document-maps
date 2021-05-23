@@ -103,7 +103,7 @@ command:
 This will build and compile the project into the final *HTML*, *CSS* and
 *JavaScript* files and place them into the `dist` folder in the
 project’s root folder. You can then copy the contents of the dist folder
-onto an \*HTTP\* server.
+onto an *HTTP* server.
 
 ### Non-root path deployment
 
