@@ -59,6 +59,82 @@ You can change the settings of the tool by pressing the settings button in the t
 
 ![Settings menu](https://raw.githubusercontent.com/xpetr2/document-maps/master/src/assets/settings_menu.jpg "Settings menu")
 
+# Building the project
+
+Upon cloning or forking the project, you can execute several commands to
+aid you with the manipulation of the project.
+
+## Installing the project
+
+To install all the needed dependencies for the application you will
+require Node.js to be installed.
+
+If you have Node.js installed, then you can proceed to execute the
+following Node.js command in the root folder of the project:
+
+    npm install
+
+This will install all the needed dependencies, required for the project
+to run and will create an environment for you to work with.
+
+## Starting the development server
+
+In order to test and develop the application, without the need to build
+the project every time a change is made, you can use the development
+server, which automatically quickly builds the project for you. This
+will improve your workflow substantially.
+
+You can run the development server, by running the following command in
+the root folder of the project:
+
+    npm run start
+
+You can then navigate to the `http://localhost:4200/` URL in your
+browser of choice, where the development server is running the
+application.
+
+## Building for deployment
+
+To build and deploy the final project you can execute the following
+command:
+
+    npm run build-prod
+
+This will build and compile the project into the final *HTML*, *CSS* and
+*JavaScript* files and place them into the `dist` folder in the
+project’s root folder. You can then copy the contents of the dist folder
+onto an \*HTTP\* server.
+
+### Non-root path deployment
+
+Beware, if you are planning to run the deployed program in a non-root
+path of the server URL, you are required to change the final
+`index.html` file.
+
+Open the compiled `index.html` file, located in the dist folder, with a
+text editor and find the following line:
+
+    <base href="/">
+
+You then have to replace the contents of the `href` parameter to match
+the deployed application’s path.
+
+For example, if the application was deployed on a web page with the URL
+`http://example.com/foo/bar/document-maps/`, then the *base* tag would
+look like the following:
+
+    <base href="/foo/bar/document-maps/">
+
+## Generating documentation
+
+The project comes with the *compodoc* tool, which can quickly create an
+interactive web page, compiled from the TSDoc documentation contained in
+the code.
+
+To generate this documentation, you can run the `npm run compodoc` which
+will create the documentation web page and place it into the
+`documentation` folder, contained in the project’s root folder.
+
 # Licence
 MIT License
 
